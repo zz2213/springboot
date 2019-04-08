@@ -37,7 +37,7 @@
                                 android:background="#ffffff"
                                 android:orientation="horizontal"
                                 android:clickable="true"
-                                android:id="@+id/layout_my">
+                                android:id="@+id/layout_user_my">
 
                             <TextView
                                     android:layout_width="wrap_content"
