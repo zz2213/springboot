@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Secondhand</string>
+    <string name="name">zz</string>
+    <string name="phonenumber">18855576718</string>
+    <string name="nickname">zz</string>
+    <string name="btn1_text">我的订单</string>
+    <string name="btn2_text">我的求购</string>
+    <string name="my_order">我的订单</string>
+    <string name="my_want">我的求购</string>
+    <string name="my_goods">我的商品</string>
 </resources>

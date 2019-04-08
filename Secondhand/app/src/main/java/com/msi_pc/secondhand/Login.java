@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import org.json.JSONObject;
@@ -45,7 +46,7 @@ public class Login extends Activity {
         register_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Login.this,Register.class);
+                Intent intent = new Intent(Login.this,MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -75,7 +76,7 @@ public class Login extends Activity {
                         if(backmess.equalsIgnoreCase("True"))
                         {
                             makeText(Login.this, "登录成功",Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(Login.this,Register.class);
+                            Intent intent = new Intent(Login.this,MainActivity.class);
                             startActivity(intent);
 
                         }
