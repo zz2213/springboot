@@ -17,10 +17,11 @@ import android.widget.LinearLayout;
  * @Description:
  */
 public class FragmentFind extends Fragment {
+    private  View view;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_find,null);
+         view = inflater.inflate(R.layout.fragment_find,null);
         return view;
     }
     @Override
@@ -28,7 +29,15 @@ public class FragmentFind extends Fragment {
 
         super.onActivityCreated(savedInstanceState);
         Button button = getActivity().findViewById(R.id.buy_want);
+        Button button1 = getActivity().findViewById(R.id.goods);
         button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),GoodsActivity.class);
+                startActivity(intent);
+            }
+        });
+        button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),GoodsActivity.class);
