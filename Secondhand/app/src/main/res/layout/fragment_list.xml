@@ -3,8 +3,37 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-    <TextView android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="list"/>
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="45dp"
+                  android:orientation="horizontal">
+        <Button android:id="@+id/frag01"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#FF735C"
+                 android:text="生活"/>
+        <Button android:id="@+id/frag02"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#FFFFFF"
+                android:text="学习"/>
+        <Button android:id="@+id/frag03"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#FFFFFF"
+                android:text="电子"/>
+    </LinearLayout>
+        <android.support.v4.view.ViewPager
+                android:id="@+id/viewpaper01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+
+        </android.support.v4.view.ViewPager>
+
+
 
 </LinearLayout>
