@@ -26,13 +26,13 @@
                 android:background="#FFFFFF"
                 android:text="电子"/>
     </LinearLayout>
-        <android.support.v4.view.ViewPager
+        <com.msi_pc.secondhand.fragment.IndexViewPager
                 android:id="@+id/viewpaper01"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal">
 
-        </android.support.v4.view.ViewPager>
+        </com.msi_pc.secondhand.fragment.IndexViewPager>
 
 
 

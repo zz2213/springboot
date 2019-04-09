@@ -13,6 +13,7 @@ import android.widget.Button;
 import com.msi_pc.secondhand.fragment.FragmentElectronic;
 import com.msi_pc.secondhand.fragment.FragmentLife;
 import com.msi_pc.secondhand.fragment.FragmentStudy;
+import com.msi_pc.secondhand.fragment.IndexViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +23,10 @@ import java.util.List;
  * @Date: 2019/4/8 18:43
  * @Description:
  */
-public class FragmentList extends Fragment implements ViewPager.OnPageChangeListener, View.OnClickListener{
+public class FragmentList extends Fragment implements IndexViewPager.OnPageChangeListener, View.OnClickListener{
     private List<Fragment> list;
     private  View view;
-    private  ViewPager viewPager;
+    private  IndexViewPager viewPager;
     private Button button1,button2,button3;
     @Nullable
     @Override
@@ -35,7 +36,7 @@ public class FragmentList extends Fragment implements ViewPager.OnPageChangeList
         return view;
     }
     private void initView(){
-        viewPager = (ViewPager)view.findViewById(R.id.viewpaper01);
+        viewPager = (IndexViewPager) view.findViewById(R.id.viewpaper01);
         list=new ArrayList<>();
         button1=(Button)view.findViewById(R.id.frag01);
         button2=(Button)view.findViewById(R.id.frag02);
@@ -48,8 +49,9 @@ public class FragmentList extends Fragment implements ViewPager.OnPageChangeList
         list.add(new FragmentLife());
         list.add(new FragmentStudy());
         list.add(new FragmentElectronic());
+        viewPager.setScanScroll(false);
         viewPager.setAdapter(new MyFragmentAdapter(getFragmentManager(),list));
-        viewPager.setOnPageChangeListener(this);
+        viewPager.addOnPageChangeListener(this);
         viewPager.setCurrentItem(0);
     }
 
@@ -65,19 +67,19 @@ public class FragmentList extends Fragment implements ViewPager.OnPageChangeList
 
     @Override
     public void onPageScrollStateChanged(int i) {
-//        initBtnListener();
-//        switch (i){
-//            case 0:
-//                   button1.setBackgroundColor(Color.parseColor("#ff735c"));
-//                     break;
-//            case 1:
-//                button2.setBackgroundColor(Color.parseColor("#ff735c"));
-//                break;
-//            case 2:
-//                button3.setBackgroundColor(Color.parseColor("#ff735c"));
-//                break;
-//
-//        }
+    /*    initBtnListener();
+        switch (i){
+            case 0:
+                   button1.setBackgroundColor(Color.parseColor("#ff735c"));
+                     break;
+            case 1:
+                button2.setBackgroundColor(Color.parseColor("#ff735c"));
+                break;
+            case 2:
+                button3.setBackgroundColor(Color.parseColor("#ff735c"));
+                break;
+
+        }*/
 
     }
 
@@ -106,4 +108,5 @@ public class FragmentList extends Fragment implements ViewPager.OnPageChangeList
         button2.setBackgroundResource(R.color.white);
         button3.setBackgroundResource(R.color.white);
     }
+
 }
