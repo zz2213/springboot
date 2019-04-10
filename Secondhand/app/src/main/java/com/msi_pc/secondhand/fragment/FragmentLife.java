@@ -43,7 +43,7 @@ public class FragmentLife  extends Fragment
                ListView listView = (ListView)getActivity().findViewById(R.id.life_list);
                ArrayList<Goods> list = new ArrayList<Goods>();
                for (int i = 0; i < 21; i++) {
-                   list.add(new Goods("测试:"+i));
+                   list.add(new Goods("生活:"+i));
                }
                MyAdapter adapter = new MyAdapter(getContext(), R.layout.item_goods,list);
                listView.setAdapter(adapter);
