@@ -35,6 +35,12 @@
         <activity android:name=".ProductActivity">
 
         </activity>
+        <activity android:name=".activity.OrderActivity">
+
+        </activity>
+        <activity android:name=".activity.OrderDetailed">
+
+        </activity>
 
     </application>
     <uses-permission android:name="android.permission.INTERNET" />

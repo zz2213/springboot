@@ -8,7 +8,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import com.msi_pc.secondhand.activity.OrderActivity;
 
 /**
  * @Auther: msi-pc
@@ -28,10 +30,18 @@ public class FragmentMy extends Fragment {
 
         super.onActivityCreated(savedInstanceState);
         LinearLayout home = (LinearLayout) getActivity().findViewById(R.id.layout_my);
+        LinearLayout myOrder = (LinearLayout) getActivity().findViewById(R.id.my_order);
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),UserActivity.class);
+                startActivity(intent);
+            }
+        });
+        myOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), OrderActivity.class);
                 startActivity(intent);
             }
         });

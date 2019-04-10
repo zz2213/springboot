@@ -55,9 +55,9 @@ public class MyAdapter extends BaseAdapter {
         ViewHolder vh = null;
         if(convertView == null){
             convertView = inflater.inflate(resource,null);
-            if(convertView == null){
-                System.out.println(convertView);
-            }
+//            if(convertView == null){
+//                System.out.println(convertView);
+//            }
             vh = new ViewHolder();
             vh.image = (ImageView) convertView.findViewById(R.id.goods_image);
             vh.textView= (TextView) convertView.findViewById(R.id.goods_title);
