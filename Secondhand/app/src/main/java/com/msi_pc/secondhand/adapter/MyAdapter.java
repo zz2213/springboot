@@ -61,13 +61,13 @@ public class MyAdapter extends BaseAdapter {
             vh = new ViewHolder();
             vh.image = (ImageView) convertView.findViewById(R.id.goods_image);
             vh.textView= (TextView) convertView.findViewById(R.id.goods_title);
-            System.out.println(vh.textView);
             convertView.setTag(vh);
         }else{
             vh=(ViewHolder)convertView.getTag();
         }
-        System.out.println(list.get(position).getTitle());
+
         vh.textView.setText(list.get(position).getTitle());
+
 
         return convertView;
     }

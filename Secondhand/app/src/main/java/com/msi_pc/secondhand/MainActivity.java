@@ -81,6 +81,7 @@ public class MainActivity extends FragmentActivity implements
 
         //绑定Fragment适配器
         vp.setAdapter(new MyFragmentAdapter(getSupportFragmentManager(), list));
+        vp.setOffscreenPageLimit(3);
         mTabHost.getTabWidget().setDividerDrawable(null);
     }
 

@@ -1,5 +1,6 @@
 package com.msi_pc.secondhand.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -47,6 +48,15 @@ public class FragmentLife  extends Fragment
                }
                MyAdapter adapter = new MyAdapter(getContext(), R.layout.item_goods,list);
                listView.setAdapter(adapter);
+               listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                   @Override
+                   public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                       String data = list.get(position).getTitle();
+                       Intent intent = new Intent(getActivity(), ProductActivity.class);
+                       intent.putExtra("extra_data",data);
+                       startActivity(intent);
+                   }
+               });
 
            }
 
