@@ -51,6 +51,7 @@
                             <ImageView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:id="@+id/image_my"
                                     android:layout_gravity="right"
                                     android:layout_marginBottom="10dp"
                                     android:layout_marginLeft="20dp"
