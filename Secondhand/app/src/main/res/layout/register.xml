@@ -19,6 +19,17 @@
         android:layout_alignParentTop="true"
         android:hint="请输入您的用户名"/>
 
+    <EditText
+            android:drawableLeft="@android:drawable/ic_menu_myplaces"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/user_realname"
+            android:layout_alignParentTop="true"
+            android:hint="请输入您的姓名"/>
+
+
 
     <EditText
         android:drawableLeft="@android:drawable/ic_lock_idle_lock"
@@ -37,7 +48,6 @@
             android:drawableLeft="@android:drawable/ic_lock_idle_lock"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:inputType="textPassword"
             android:ems="10"
             android:id="@+id/user_school"
 
@@ -47,7 +57,6 @@
             android:drawableLeft="@android:drawable/ic_lock_idle_lock"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:inputType="textPassword"
             android:ems="10"
             android:id="@+id/user_number"
 
@@ -57,7 +66,6 @@
             android:drawableLeft="@android:drawable/ic_lock_idle_lock"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:inputType="textPassword"
             android:ems="10"
             android:id="@+id/user_qq"
 

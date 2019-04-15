@@ -12,10 +12,10 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 @EnableCaching
 public class MybatistestApplication {
-  @Bean
+ /* @Bean
   public ServletRegistrationBean MyServlet1(){
       return new ServletRegistrationBean(new MyServlet(),"/myserv/registor");
-  }
+  }*/
     public static void main(String[] args) {
         SpringApplication.run(MybatistestApplication.class, args);
 

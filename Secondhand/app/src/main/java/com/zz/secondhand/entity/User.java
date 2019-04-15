@@ -10,6 +10,8 @@ public class User implements Serializable {
 
     private String name;
 
+    private String realname;
+
     private String password;
 
     private Integer number;
@@ -23,6 +25,14 @@ public class User implements Serializable {
 
     public Integer getId() {
         return id;
+    }
+
+    public String getRealname() {
+        return realname;
+    }
+
+    public void setRealname(String realname) {
+        this.realname = realname;
     }
 
     public void setId(Integer id) {

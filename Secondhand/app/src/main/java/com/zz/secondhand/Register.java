@@ -13,9 +13,11 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import android.widget.ImageView;
 import com.zz.secondhand.entity.User;
 
 import static android.widget.Toast.makeText;
+import static com.zz.secondhand.utils.GlobalVariables.*;
 
 public class Register extends Activity {
     @Override
@@ -24,19 +26,27 @@ public class Register extends Activity {
         setContentView(R.layout.register);
         Button register_btn_sure=( Button)findViewById(R.id.register_btn_sure);
         EditText user_name = findViewById(R.id.user_name);
+        EditText user_realname = findViewById(R.id.user_realname);
         EditText user_pwd = findViewById(R.id.user_password);
+        ImageView imageView =findViewById(R.id.head_image);
+        EditText user_number = findViewById(R.id.user_number);
         EditText user_school =findViewById(R.id.user_school);
+        EditText user_qq =findViewById(R.id.qq);
         register_btn_sure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 User user = new User();
                 user.setName(user_name.getText().toString());
+                user.setRealname(user_realname.getText().toString());
                 user.setPassword(user_pwd.getText().toString());
+                user.setSchool(user_school.getText().toString());
+                user.setNumber( Integer.valueOf(user_number.getText().toString()));
+                user.setQq(user_qq.getText().toString());
                 try {
                     StrictMode.ThreadPolicy policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
                     StrictMode.setThreadPolicy(policy);
-                    URL url = new URL("http://192.168.31.114:8080//myserv/registor");
+                    URL url = new URL(REGISTER_URL);
                     HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
                     httpURLConnection.setConnectTimeout(2000);
                     httpURLConnection.setReadTimeout(2000);
