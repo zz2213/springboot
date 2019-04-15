@@ -11,4 +11,5 @@ import java.net.URL;
  */
 public class GlobalVariables {
     final static public String REGISTER_URL = "http://192.168.40.116:8080//Secondhand/register";
+    final static public String LOGIN_URL="http://192.168.40.116:8080/Secondhand/getUser";
 }

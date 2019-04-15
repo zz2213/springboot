@@ -1,6 +1,7 @@
 package com.zz.secondhand;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -14,12 +15,14 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import android.widget.ImageView;
+import android.widget.Toast;
 import com.zz.secondhand.entity.User;
 
 import static android.widget.Toast.makeText;
 import static com.zz.secondhand.utils.GlobalVariables.*;
 
 public class Register extends Activity {
+    String isSuccess;
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +34,7 @@ public class Register extends Activity {
         ImageView imageView =findViewById(R.id.head_image);
         EditText user_number = findViewById(R.id.user_number);
         EditText user_school =findViewById(R.id.user_school);
-        EditText user_qq =findViewById(R.id.qq);
+        EditText user_qq =findViewById(R.id.user_qq);
         register_btn_sure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,12 +71,20 @@ public class Register extends Activity {
 
                                        //构建对象输入流，使用readObject()方法取出输入流中的java对象
                                        ObjectInputStream inObj=new ObjectInputStream(in);
-                                      user= (User) inObj.readObject();
+                                    isSuccess= (String) inObj.readObject();
+                                    if("True".equals(isSuccess))
+                                    {
+                                        makeText(Register.this, "注册成功", Toast.LENGTH_LONG).show();
+                                        Intent intent = new Intent(Register.this,MainActivity.class);
+                                        startActivity(intent);
+                                    }else{
+                                        makeText(Register.this, "用户名重复", Toast.LENGTH_LONG).show();
+                                    }
 
                                       //取出对象里面的数据
 
                                         //输出日志，在控制台可以看到接收到的数据
-                                      Log.w("HTTP", user.getPassword()+"  :by post");
+                                      Log.w("HTTP", "  :by post");
 
                                      //关闭创建的流
                                       in.close();
@@ -117,6 +128,7 @@ public class Register extends Activity {
                 });*/
 
             }
+
         });
 
     }

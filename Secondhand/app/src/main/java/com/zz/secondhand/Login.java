@@ -3,6 +3,7 @@ package com.zz.secondhand;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +21,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 import static android.widget.Toast.makeText;
+import static com.zz.secondhand.utils.GlobalVariables.LOGIN_URL;
 
 public class Login extends Activity {
 
@@ -47,10 +49,10 @@ public class Login extends Activity {
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url="http://192.168.31.114:8080/testBoot/getUser";
+                String url=LOGIN_URL;
                 OkHttpClient okHttpClient = new OkHttpClient();
                 RequestBody requestBody = new FormBody.Builder()
-                        .add("id",login_edit_account.getText().toString())
+                        .add("name",login_edit_account.getText().toString())
                         .add("pass",login_edit_pwd.getText().toString())
                         .build();
                 final Request request = new Request.Builder()
@@ -69,7 +71,9 @@ public class Login extends Activity {
                         String backmess =response.body().string();
                         if(backmess.equalsIgnoreCase("True"))
                         {
+                           /* Looper.prepare();
                             makeText(Login.this, "登录成功",Toast.LENGTH_LONG).show();
+                            Looper.loop();*/
                             Intent intent = new Intent(Login.this,MainActivity.class);
                             startActivity(intent);
 

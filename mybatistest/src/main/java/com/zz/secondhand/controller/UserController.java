@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 @Controller
 @ResponseBody
@@ -28,38 +30,46 @@ public class UserController {
     }
 
     @RequestMapping(value = "/register")
-    public void  register(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void  register(HttpServletRequest request, HttpServletResponse response) throws IOException, ClassNotFoundException {
         int insertCount=0;
+        ObjectInputStream obj;
         ServletInputStream in=request.getInputStream();
+        obj=new ObjectInputStream(in);
         User user = null;
-        ObjectInputStream obj=new ObjectInputStream(in);
         try {
-            user = (User)obj.readObject();
-            insertCount =userService.Register(user);
-        } catch (ClassNotFoundException e) {
+
+        user = (User)obj.readObject();
+        insertCount =userService.Register(user);
+        } catch (IOException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             obj.close();
         }
         response.setContentType("application/x-java-serialized-object");
-        System.out.println(user.getName());
+//        System.out.println(user.getName());
         OutputStream out=response.getOutputStream();
         ObjectOutputStream outObj=new ObjectOutputStream(out);
-        user.setPassword("9964646");
-        outObj.writeObject(user);
+        if(insertCount==1)
+        {
+            outObj.writeObject("True");
+        }else{
+            outObj.writeObject("False");
+        }
         outObj.flush();
         outObj.close();
-        System.out.println(user.toString());
+//        System.out.println(user.toString());
     }
 
     @RequestMapping("getUser")
-    public String GetUser(@RequestParam("id")String id , @RequestParam("pass") String pass){
-        String responsepass =userService.Sel(id).toString();
+    public String GetUser(@RequestParam("name")String name , @RequestParam("pass") String pass){
+        String responsepass = userService.Sel(name);
         String back=null;
         System.out.printf(pass);
         if(responsepass.equals(pass))
+        {
             back="True";
+        }
+
         else {
             back="Flase";
         }
