@@ -1,12 +1,11 @@
 package com.zz.secondhand.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.zz.secondhand.entity.User;
 import com.zz.secondhand.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -15,8 +14,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 
 @Controller
 @ResponseBody
@@ -64,17 +61,18 @@ public class UserController {
     public String GetUser(@RequestParam("name")String name , @RequestParam("pass") String pass){
         String responsepass = userService.Sel(name);
         String back=null;
+        User user = null;
         System.out.printf(pass);
         if(responsepass.equals(pass))
         {
-            back="True";
+             user = userService.FindUserByName(name);
         }
 
         else {
             back="Flase";
         }
 
-        return back ;
+        return JSON.toJSONString(user);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.zz.secondhand;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import com.zz.secondhand.entity.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +26,27 @@ public class MainActivity extends FragmentActivity implements
     private List<Fragment> list = new ArrayList<Fragment>();
     private ViewPager vp;
 
+    public User getSelf() {
+        return self;
+    }
+
+    public void setSelf(User self) {
+        this.self = self;
+    }
+
+    private  User self;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent intent = getIntent();
+        self =(User) intent.getSerializableExtra("user");
+        System.out.println(self.getNumber());
         initView();//初始化控件
-        initPage();//初始化页面
+        initPage(self);//初始化页面
 
     }
 
@@ -67,7 +84,7 @@ public class MainActivity extends FragmentActivity implements
     }
 
     /*初始化Fragment*/
-    private void initPage() {
+    private void initPage(User user) {
         FragmentHome fragmentHome = new FragmentHome();
         FragmentList fragmentList = new FragmentList();
         FragmentFind fragmentFind = new FragmentFind();

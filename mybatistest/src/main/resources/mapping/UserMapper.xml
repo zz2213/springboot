@@ -14,7 +14,7 @@
         select password from user where name = #{name}
     </select>
     <select id="findUserByName" resultType="com.zz.secondhand.entity.User">
-        select name,realname,password,number,school,image,qq from user where name = #{name}
+        select id,name,realname,password,number,school,image,qq from user where name = #{name}
     </select>
     <insert id="Register" parameterType="com.zz.secondhand.entity.User">
          insert into user(name,realname,password,number,school,image,qq) values(#{name}, #{realname},#{password}, #{number}, #{school}, #{image}, #{qq})

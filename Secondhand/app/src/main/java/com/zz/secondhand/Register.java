@@ -75,7 +75,7 @@ public class Register extends Activity {
                                     if("True".equals(isSuccess))
                                     {
                                         makeText(Register.this, "注册成功", Toast.LENGTH_LONG).show();
-                                        Intent intent = new Intent(Register.this,MainActivity.class);
+                                        Intent intent = new Intent(Register.this,Login.class);
                                         startActivity(intent);
                                     }else{
                                         makeText(Register.this, "用户名重复", Toast.LENGTH_LONG).show();

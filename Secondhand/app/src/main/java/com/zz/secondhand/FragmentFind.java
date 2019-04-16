@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import com.zz.secondhand.entity.User;
 
 /**
  * @Auther: msi-pc
@@ -17,6 +18,7 @@ import android.widget.Button;
  */
 public class FragmentFind extends Fragment {
     private  View view;
+    private User self;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -29,10 +31,14 @@ public class FragmentFind extends Fragment {
         super.onActivityCreated(savedInstanceState);
         Button button = getActivity().findViewById(R.id.buy_want);
         Button button1 = getActivity().findViewById(R.id.goods);
+        self =((MainActivity)getActivity()).getSelf();
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(getActivity(),GoodsActivity.class);
+                intent.putExtra("product_type","求购");
+                intent.putExtra("user",self);
                 startActivity(intent);
             }
         });
@@ -40,6 +46,8 @@ public class FragmentFind extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),GoodsActivity.class);
+                intent.putExtra("product_type","商品");
+                intent.putExtra("user",self);
                 startActivity(intent);
             }
         });

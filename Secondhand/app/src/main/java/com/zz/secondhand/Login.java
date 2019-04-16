@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
+import com.alibaba.fastjson.JSON;
+import com.zz.secondhand.entity.User;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -68,15 +70,25 @@ public class Login extends Activity {
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
-                        String backmess =response.body().string();
-                        if(backmess.equalsIgnoreCase("True"))
+                        String backmess = response.body().string();
+                        User user = JSON.parseObject(backmess,User.class);
+                        System.out.println(user.getName());
+
+
+                        if(user!=null)
                         {
-                           /* Looper.prepare();
+                            /*Looper.prepare();
                             makeText(Login.this, "登录成功",Toast.LENGTH_LONG).show();
                             Looper.loop();*/
                             Intent intent = new Intent(Login.this,MainActivity.class);
+                            intent.putExtra("user",user);
                             startActivity(intent);
+                            finish();
 
+                        }else{
+                             Looper.prepare();
+                            makeText(Login.this, "用户名已存在",Toast.LENGTH_LONG).show();
+                            Looper.loop();
                         }
                         Log.d("你好", "onResponse: " + backmess);
                     }

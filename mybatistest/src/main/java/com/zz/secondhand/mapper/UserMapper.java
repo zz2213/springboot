@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Param;
  * @Description:
  */
 public interface UserMapper  {
-    public String Sel(@Param("name") String name);
-    public User findUserByName(@Param("name") String name);
-    public int Register(User user);
+    String Sel(@Param("name") String name);
+    User findUserByName(@Param("name") String name);
+    int Register(User user);
 }

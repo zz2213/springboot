@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zz.secondhand.mapper.ProductMapper">
+     <resultMap id="BaseResultMap" type="com.zz.secondhand.entity.Product">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="user_id" jdbcType="VARCHAR" property="user.id" />
+        <result column="createtime" jdbcType="VARCHAR" property="createtime" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+         <result column="image" jdbcType="VARCHAR" property="image" />
+         <result column="description" jdbcType="VARCHAR" property="description" />
+         <result column="price" jdbcType="VARCHAR" property="price" />
+         <result column="style" jdbcType="VARCHAR" property="style" />
+         <result column="type" jdbcType="VARCHAR" property="type" />
+         <result column="status" jdbcType="VARCHAR" property="status" />
+    </resultMap>
+    <insert id="createProduct" parameterType="com.zz.secondhand.entity.Product">
+        insert into product( user_id,createtime,title,image, description, price,style,type, status) values(#{user.id}, #{createtime},#{title}, #{image}, #{description}, #{price}, #{style}, #{type}, #{ status})
+    </insert>
+ <!--   <select id="findProductByType1" resultMap="BaseResultMap">
+        select id,user_id,createtime,title,image, description, price,style,type, status from product where type = #{type}and user_id = (select id from user where name = #{name})
+    </select>-->
+    <select id="findProductByType" resultMap="BaseResultMap">
+        select product.id,user_id,createtime,title,product.image, description, price,style,type, status from product  join user  on product.user_id=user.id where type=#{type} and user_id =#{user_id}
+    </select>
+</mapper>

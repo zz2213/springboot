@@ -4,8 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.alibaba.fastjson.JSON;
+import com.zz.secondhand.entity.Product;
 
 /**
  * @author Administrator
@@ -21,9 +25,17 @@ public class ProductActivity  extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
         Intent intent = getIntent();
-        String data = intent.getStringExtra("extra_data");
+        Product product =(Product) intent.getSerializableExtra("product");
+        Button button = findViewById(R.id.pro_buy_btn);
         textView = (TextView)findViewById(R.id.pro_title);
-        textView.setText(data);
-        Toast.makeText(this,data,Toast.LENGTH_SHORT).show();
+        textView.setText(product.getTitle());
+        button.setText("取消");
+        Toast.makeText(this,product.getTitle(),Toast.LENGTH_SHORT).show();
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 }

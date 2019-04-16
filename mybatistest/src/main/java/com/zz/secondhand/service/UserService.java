@@ -20,6 +20,9 @@ public class UserService {
     public String Sel(@Param("id") String id){
         return userMapper.Sel(id);
     }
+    public User FindUserByName(@Param("name") String name){
+        return userMapper.findUserByName(name);
+    }
     public int Register(User user) {
         User user1 = userMapper.findUserByName(user.getName());
         if(user1!=null)

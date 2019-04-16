@@ -34,4 +34,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.squareup.okhttp3:okhttp:3.14.0'
     implementation 'com.github.wildma:PictureSelector:1.1.2'
+    implementation 'com.alibaba:fastjson:1.1.54.android'
 }

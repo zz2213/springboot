@@ -9,33 +9,38 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.alibaba.fastjson.JSON;
 import com.zz.secondhand.ProductActivity;
 import com.zz.secondhand.R;
-import com.zz.secondhand.entity.Order;
+import com.zz.secondhand.entity.Product;
 import com.zz.secondhand.entity.ProductOrd;
 
 import java.util.ArrayList;
 
 /**
- * @Auther: msi-pc
- * @Date: 2019/4/10 20:08
- * @Description:
+ * @author Administrator
+ * @title: MyWantAdapter
+ * @projectName Secondhand
+ * @description: TODO
+ * @date 2019/4/1614:40
  */
-public class OrderAdapter  extends BaseAdapter {
+public class MyWantAdapter extends BaseAdapter {
     protected Context context;
     protected LayoutInflater inflater;
     protected int resource;
-    protected ArrayList<ProductOrd> list;
-    public OrderAdapter(Context context,int resource ,ArrayList<ProductOrd > list){
+    protected ArrayList<Product> list;
+    public MyWantAdapter(Context context,int resource ,ArrayList<Product > list){
         inflater=LayoutInflater.from(context);
         this.context = context;
         this.resource = resource;
         if(list == null){
+            System.out.println("对不起  为空" );
             this.list=new ArrayList<>();
         }else{
             this.list=list;
         }
     }
+
     @Override
     public int getCount() {
         return list.size();
@@ -53,25 +58,26 @@ public class OrderAdapter  extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolderOrder viewHolderOrder=null;
+      OrderAdapter.ViewHolderOrder viewHolderOrder=null;
         if(convertView == null) {
             convertView = inflater.inflate(resource, null);
-            viewHolderOrder=new ViewHolderOrder();
+            viewHolderOrder=new OrderAdapter.ViewHolderOrder();
             viewHolderOrder.image=(ImageView)convertView.findViewById(R.id.order_goods_image);
             viewHolderOrder.textView=(TextView)convertView.findViewById(R.id.order_goods_title);
             viewHolderOrder.button=(Button) convertView.findViewById(R.id.order_btn_status);
             viewHolderOrder.button_detailed=(Button) convertView.findViewById(R.id.order_btn_detailed);
             convertView.setTag(viewHolderOrder);
         }else{
-            viewHolderOrder=(ViewHolderOrder) convertView.getTag();
+            viewHolderOrder=(OrderAdapter.ViewHolderOrder) convertView.getTag();
         }
         viewHolderOrder.textView.setText(list.get(position).getTitle());
+        viewHolderOrder.button.setText(list.get(position).getStatus());
         viewHolderOrder.button_detailed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String data = list.get(position).getTitle();
                 Intent intent = new Intent(context, ProductActivity.class);
-                intent.putExtra("extra_data",data);
+                intent.putExtra("product", list.get(position));
                 context.startActivity(intent);
             }
         });

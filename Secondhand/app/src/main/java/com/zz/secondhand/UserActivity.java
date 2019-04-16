@@ -5,9 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import com.wildma.pictureselector.ImageUtils;
 import com.wildma.pictureselector.PictureSelector;
+import com.zz.secondhand.entity.User;
 
 
 /**
@@ -21,7 +24,23 @@ public class UserActivity extends Activity {
     protected void onCreate( @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acyivity_user);
+        Intent intent = getIntent();
+        User self =(User) intent.getSerializableExtra("user");
          imageView = (ImageView) findViewById(R.id.image_my);
+        EditText user_departments = findViewById(R.id.user_departments);
+        TextView textUsersName = findViewById(R.id.textUsersName);
+        EditText textUsersNickName = findViewById(R.id.textUsersNickName);
+        EditText textUsersPhone = findViewById(R.id.textUsersPhone);
+        EditText textUsersQQ = findViewById(R.id.textUsersQQ);
+        user_departments.setText(self.getSchool());
+        textUsersName.setText(self.getRealname());
+        textUsersNickName.setText(self.getName());
+        textUsersPhone.setText(self.getNumber().toString());
+        textUsersQQ.setText(self.getQq());
+
+
+
+
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -41,6 +41,12 @@
         <activity android:name="com.zz.secondhand.activity.OrderDetailed">
 
         </activity>
+        <activity android:name="com.zz.secondhand.activity.MyWantActivity">
+
+        </activity>
+        <activity android:name="com.zz.secondhand.activity.MyGoodsActivity">
+
+        </activity>
 
     </application>
     <uses-permission android:name="android.permission.INTERNET" />

@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Product implements Serializable {
-
     private static final long serialVersionUID = 1L;
     private Integer id;
 
@@ -19,12 +18,19 @@ public class Product implements Serializable {
     private String description;
 
     private Long price;
-
+//生活
     private String style;
-
+//商品
     private String type;
 
     private String status;
+
+    public Product() {
+    }
+
+    public Product(String status) {
+        this.status = status;
+    }
 
     public Integer getId() {
         return id;
@@ -103,23 +109,6 @@ public class Product implements Serializable {
     }
 
     public void setStatus(String status) {
-
         this.status = status == null ? null : status.trim();
-    }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", user=" + user +
-                ", createtime=" + createtime +
-                ", title='" + title + '\'' +
-                ", image='" + image + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                ", style='" + style + '\'' +
-                ", type='" + type + '\'' +
-                ", status='" + status + '\'' +
-                '}';
     }
 }
