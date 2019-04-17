@@ -25,6 +25,7 @@ public class MainActivity extends FragmentActivity implements
     private String textViewArray[] = { "首页","分类" ,"发布","我的"};
     private List<Fragment> list = new ArrayList<Fragment>();
     private ViewPager vp;
+    private  User self;
 
     public User getSelf() {
         return self;
@@ -34,7 +35,7 @@ public class MainActivity extends FragmentActivity implements
         this.self = self;
     }
 
-    private  User self;
+
 
 
 

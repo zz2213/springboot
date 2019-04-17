@@ -71,6 +71,7 @@ public class GoodsActivity extends Activity {
                 product.setStyle(spinner.getSelectedItem().toString());
                 product.setUser(self);
                 product.setTitle(title.getText().toString());
+                product.getUser().setQq(qq.getText().toString());
 
 
                 String url=CREATE_PRODUCT_URL;
@@ -92,6 +93,7 @@ public class GoodsActivity extends Activity {
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         Intent intent = new Intent(GoodsActivity.this,MainActivity.class);
+                        intent.putExtra("user",self);
                         startActivity(intent);
 
                         /*MyWantActivity.this.runOnUiThread(new Runnable() {

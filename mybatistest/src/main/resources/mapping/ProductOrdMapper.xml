@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zz.secondhand.mapper.ProductOrdMapper">
+
+    <insert id="createProductOrd" parameterType="com.zz.secondhand.entity.ProductOrd">
+        insert into product_ord( user_id,product_id,createtime,title,ordernember) values(#{user.id},#{product.id}, #{createtime},#{title}, #{ordernember})
+    </insert>
+    <select id="findProductOrdById" resultMap="BaseResultMap">
+    select id,user_id,product_id,createtime,title,ordernember from product_ord  where product_id=#{product_id}
+    </select>
+    <select id="findProductOrdByUserId" resultMap="BaseResultMap">
+        select id,user_id,product_id,createtime,title,ordernember from product_ord  where user_id=#{user_id}
+    </select>
+    <resultMap id="BaseResultMap" type="com.zz.secondhand.entity.ProductOrd">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="user_id" jdbcType="VARCHAR" property="user.id" />
+        <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="ordernember" jdbcType="VARCHAR" property="ordernember" />
+    </resultMap>
+
+    <!--&lt;!&ndash;   <select id="findProductByType1" resultMap="BaseResultMap">-->
+           <!--select id,user_id,createtime,title,image, description, price,style,type, status from product where type = #{type}and user_id = (select id from user where name = #{name})-->
+       <!--</select>&ndash;&gt;-->
+    <!--<select id="findProductByType" resultMap="BaseResultMap">-->
+        <!--select product.id,user_id,createtime,title,product.image, description, price,style,type, status,qq from product  join user  on product.user_id=user.id where type=#{type} and user_id =#{user_id}-->
+    <!--</select>-->
+
+    <!--<select id="findProductByStyle" resultMap="BaseResultMap">-->
+        <!--select product.id,user_id,createtime,title,product.image, description, price,style,type, status,qq from product  join user  on product.user_id=user.id where style=#{style}-->
+    <!--</select>-->
+</mapper>

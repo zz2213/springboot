@@ -47,6 +47,9 @@
         <activity android:name="com.zz.secondhand.activity.MyGoodsActivity">
 
         </activity>
+        <activity android:name="com.zz.secondhand.activity.ProductViewActivity">
+
+        </activity>
 
     </application>
     <uses-permission android:name="android.permission.INTERNET" />

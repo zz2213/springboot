@@ -27,5 +27,11 @@ public class ProductServive {
    public ArrayList<Product> findProductByType(String type,Integer user_id){
         return productMapper.findProductByType(type,user_id);
    }
+   public  ArrayList<Product> findProductByStyle(String style){
+        return productMapper.findProductByStyle(style);
+   }
+    public int updateProductstatus(String status,Integer id){
+        return productMapper.updateProductstatus(status,id);
+    }
 
 }

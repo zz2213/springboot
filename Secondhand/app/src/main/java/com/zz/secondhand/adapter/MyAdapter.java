@@ -9,20 +9,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.zz.secondhand.R;
 import com.zz.secondhand.entity.Goods;
+import com.zz.secondhand.entity.Product;
 
 import java.util.ArrayList;
 
 /**
  * @Auther: msi-pc
  * @Date: 2019/4/9 20:12
- * @Description:
+ * @Description: 配置商品列表
  */
 public class MyAdapter extends BaseAdapter {
     protected Context context;
     protected LayoutInflater inflater;
     protected int resource;
-    protected ArrayList<Goods> list;
-    public MyAdapter(Context context,int resource ,ArrayList<Goods> list){
+    protected ArrayList<Product> list;
+    public MyAdapter(Context context,int resource ,ArrayList<Product> list){
         inflater=LayoutInflater.from(context);
         this.context = context;
         this.resource = resource;
@@ -58,18 +59,23 @@ public class MyAdapter extends BaseAdapter {
             vh = new ViewHolder();
             vh.image = (ImageView) convertView.findViewById(R.id.goods_image);
             vh.textView= (TextView) convertView.findViewById(R.id.goods_title);
+            vh.textPrice=(TextView)convertView.findViewById(R.id.goods_price);
+            vh.textStatus=(TextView)convertView.findViewById(R.id.goods_status);
             convertView.setTag(vh);
         }else{
             vh=(ViewHolder)convertView.getTag();
         }
 
         vh.textView.setText(list.get(position).getTitle());
-
+        vh.textPrice.setText(list.get(position).getPrice().toString());
+        vh.textStatus.setText(list.get(position).getStatus());
 
         return convertView;
     }
     public  static class ViewHolder{
         ImageView image;
         TextView textView;
+        TextView textPrice;
+        TextView textStatus;
     }
 }

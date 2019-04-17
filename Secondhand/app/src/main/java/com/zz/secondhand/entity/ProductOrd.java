@@ -15,6 +15,9 @@ public class ProductOrd {
 
     private String ordernember;
 
+    public ProductOrd() {
+    }
+
     public ProductOrd(String title) {
         this.title = title;
     }

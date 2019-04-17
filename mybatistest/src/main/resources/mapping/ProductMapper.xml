@@ -5,7 +5,7 @@
      <resultMap id="BaseResultMap" type="com.zz.secondhand.entity.Product">
         <result column="id" jdbcType="INTEGER" property="id" />
         <result column="user_id" jdbcType="VARCHAR" property="user.id" />
-        <result column="createtime" jdbcType="VARCHAR" property="createtime" />
+        <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
         <result column="title" jdbcType="VARCHAR" property="title" />
          <result column="image" jdbcType="VARCHAR" property="image" />
          <result column="description" jdbcType="VARCHAR" property="description" />
@@ -13,6 +13,7 @@
          <result column="style" jdbcType="VARCHAR" property="style" />
          <result column="type" jdbcType="VARCHAR" property="type" />
          <result column="status" jdbcType="VARCHAR" property="status" />
+         <result column="qq" jdbcType="VARCHAR" property="user.qq" />
     </resultMap>
     <insert id="createProduct" parameterType="com.zz.secondhand.entity.Product">
         insert into product( user_id,createtime,title,image, description, price,style,type, status) values(#{user.id}, #{createtime},#{title}, #{image}, #{description}, #{price}, #{style}, #{type}, #{ status})
@@ -21,6 +22,13 @@
         select id,user_id,createtime,title,image, description, price,style,type, status from product where type = #{type}and user_id = (select id from user where name = #{name})
     </select>-->
     <select id="findProductByType" resultMap="BaseResultMap">
-        select product.id,user_id,createtime,title,product.image, description, price,style,type, status from product  join user  on product.user_id=user.id where type=#{type} and user_id =#{user_id}
+        select product.id,user_id,createtime,title,product.image, description, price,style,type, status,qq from product  join user  on product.user_id=user.id where type=#{type} and user_id =#{user_id}
     </select>
+
+    <select id="findProductByStyle" resultMap="BaseResultMap">
+        select product.id,user_id,createtime,title,product.image, description, price,style,type, status,qq from product  join user  on product.user_id=user.id where style=#{style}
+    </select>
+    <update id="updateProductstatus" >
+        update product set status=#{status} where id=#{id}
+    </update>
 </mapper>

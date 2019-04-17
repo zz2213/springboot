@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.ListView;
 import com.alibaba.fastjson.JSON;
 import com.zz.secondhand.R;
+import com.zz.secondhand.adapter.MyWantAdapter;
 import com.zz.secondhand.adapter.OrderAdapter;
 import com.zz.secondhand.entity.Order;
 import com.zz.secondhand.entity.Product;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 
 import static com.zz.secondhand.utils.GlobalVariables.CREATE_PRODUCT_URL;
 import static com.zz.secondhand.utils.GlobalVariables.FIND_PRODUCT_TYPE;
+import static com.zz.secondhand.utils.GlobalVariables.SELECT_PRODUCTORD;
 
 /**
  * @Auther: msi-pc
@@ -27,22 +29,22 @@ import static com.zz.secondhand.utils.GlobalVariables.FIND_PRODUCT_TYPE;
  * @Description:
  */
 public class OrderActivity extends Activity {
-    ArrayList<Product> productArrayList;
+    ArrayList<ProductOrd> productArrayList;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
         Intent intent = getIntent();
+        ListView orderlistView = (ListView)findViewById(R.id.order_list);
         User self =(User) intent.getSerializableExtra("user");
-        String url=FIND_PRODUCT_TYPE;
+        String url=SELECT_PRODUCTORD;
         OkHttpClient okHttpClient = new OkHttpClient();
         RequestBody requestBody = new FormBody.Builder()
-                .add("type", "求购")
                 .add("user_id", self.getId().toString())
                 .build();
         final Request request = new Request.Builder()
                 .url(url)
-                .post(requestBody)//默认就是GET请求，可以不写
+                .post(requestBody)
                 .build();
         Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {
@@ -54,17 +56,20 @@ public class OrderActivity extends Activity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String backmess = response.body().string();
+                OrderActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        productArrayList = (ArrayList<ProductOrd>) JSON.parseArray(backmess,ProductOrd.class);
+                        System.out.println(productArrayList.toString());
+                        OrderAdapter orderAdapter = new OrderAdapter(OrderActivity.this, R.layout.item_order,productArrayList);
+                        orderlistView.setAdapter(orderAdapter);
+                    }
+                });
+
                productArrayList =JSON.parseObject(backmess,ArrayList.class);
                 System.out.println(productArrayList.toString());
             }
         });
-        ListView orderlistView = (ListView)findViewById(R.id.order_list);
-        ArrayList<ProductOrd> orderList = new ArrayList<ProductOrd>();
-        for (int i = 0; i < 21; i++) {
-            orderList.add(new ProductOrd("status"+i));
-        }
-        OrderAdapter orderAdapter = new OrderAdapter(this, R.layout.item_order,orderList);
-        orderlistView.setAdapter(orderAdapter);
 
     }
 }

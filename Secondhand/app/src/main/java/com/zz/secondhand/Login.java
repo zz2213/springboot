@@ -1,6 +1,7 @@
 package com.zz.secondhand;
 
 import android.app.Activity;
+import android.arch.lifecycle.ViewModelProvider;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Looper;
@@ -14,6 +15,7 @@ import java.io.IOException;
 
 import com.alibaba.fastjson.JSON;
 import com.zz.secondhand.entity.User;
+import com.zz.secondhand.utils.Myapplication;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;

@@ -30,7 +30,11 @@ public class ProductController {
         return  "xx";
     }
     @RequestMapping("/findproductype")
-    public String find(@RequestParam("type") String type,@RequestParam("user_id") Integer user_id){
+    public String findByType(@RequestParam("type") String type,@RequestParam("user_id") Integer user_id){
        return JSON.toJSONString(productServive.findProductByType(type,user_id));
+    }
+    @RequestMapping("/findproductstyle")
+    public String findByStyle(@RequestParam("style") String style){
+        return JSON.toJSONString(productServive.findProductByStyle(style));
     }
 }
