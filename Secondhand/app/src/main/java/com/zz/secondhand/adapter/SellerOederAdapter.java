@@ -9,32 +9,41 @@ import android.view.ViewGroup;
 import android.widget.*;
 import com.zz.secondhand.R;
 import com.zz.secondhand.activity.OrderDetailed;
+import com.zz.secondhand.activity.SellerOrdDEtailed;
 import com.zz.secondhand.entity.ProductOrd;
+import com.zz.secondhand.entity.SellerOrd;
 import okhttp3.*;
+
 import java.io.IOException;
 import java.util.ArrayList;
+
 import static com.zz.secondhand.utils.GlobalVariables.UPDATE_ORDER;
 
 /**
- * @Auther: msi-pc
- * @Date: 2019/4/10 20:08
- * @Description:
+ * @author Administrator
+ * @title: SellerOederAdapter
+ * @projectName Secondhand
+ * @description: TODO
+ * @date 2019/4/189:49
  */
-public class OrderAdapter  extends BaseAdapter {
+public class SellerOederAdapter extends BaseAdapter {
     protected Context context;
     protected LayoutInflater inflater;
     protected int resource;
-    protected ArrayList<ProductOrd> list;
-    public OrderAdapter(Context context,int resource ,ArrayList<ProductOrd > list){
+    protected ArrayList<SellerOrd> list;
+
+    public SellerOederAdapter(Context context, int resource, ArrayList<SellerOrd> list) {
         inflater=LayoutInflater.from(context);
         this.context = context;
         this.resource = resource;
         if(list == null){
-            this.list=new ArrayList<ProductOrd>();
+            this.list=new ArrayList<SellerOrd>();
         }else{
             this.list=list;
         }
     }
+
+
     @Override
     public int getCount() {
         return list.size();
@@ -52,32 +61,33 @@ public class OrderAdapter  extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolderOrder viewHolderOrder=null;
+      OrderAdapter.ViewHolderOrder viewHolderOrder=null;
         if(convertView == null) {
             convertView = inflater.inflate(resource, null);
-            viewHolderOrder=new ViewHolderOrder();
+            viewHolderOrder=new OrderAdapter.ViewHolderOrder();
             viewHolderOrder.image=(ImageView)convertView.findViewById(R.id.order_goods_image);
             viewHolderOrder.textView=(TextView)convertView.findViewById(R.id.order_goods_title);
             viewHolderOrder.button=(Button) convertView.findViewById(R.id.order_btn_status);
             viewHolderOrder.button_detailed=(Button) convertView.findViewById(R.id.order_btn_detailed);
             convertView.setTag(viewHolderOrder);
         }else{
-            viewHolderOrder=(ViewHolderOrder) convertView.getTag();
+            viewHolderOrder=(OrderAdapter.ViewHolderOrder) convertView.getTag();
         }
-        final  Button button1=(Button) convertView.findViewById(R.id.order_btn_status);
         viewHolderOrder.textView.setText(list.get(position).getProduct().getTitle());
+        final  Button button1=(Button) convertView.findViewById(R.id.order_btn_status);
+        viewHolderOrder.button.setText(list.get(position).getStatus());
         viewHolderOrder.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (list.get(position).getStatus()){
-                    case "未付款":
+                    case "已付款":
                         Toast toast = (Toast) Toast.makeText(context, "已付款等待商家发货", Toast.LENGTH_SHORT);
                         toast.show();
                         String url=UPDATE_ORDER;
                         OkHttpClient okHttpClient = new OkHttpClient();
                         RequestBody requestBody = new FormBody.Builder()
-                                .add("status", "已付款")
-                                .add("number", list.get(position).getProduct().getId().toString())
+                                .add("status", "已发货")
+                                .add("number",list.get(position).getProduct().getId().toString())
                                 .build();
                         final Request request = new Request.Builder()
                                 .url(url)
@@ -93,16 +103,17 @@ public class OrderAdapter  extends BaseAdapter {
                             @Override
                             public void onResponse(Call call, Response response) throws IOException
                             {
-                                button1.setText("已付款");
+
+                                button1.setText("已发货");
                             }
                         });
                         break;
-                    case "已发货":
-                        Toast toast1 = (Toast) Toast.makeText(context, "已收货", Toast.LENGTH_SHORT);
+                    case "已收货":
+                        Toast toast1 = (Toast) Toast.makeText(context, "已收钱", Toast.LENGTH_SHORT);
                         toast1.show();
                         OkHttpClient okHttpClient1 = new OkHttpClient();
                         RequestBody requestBody1 = new FormBody.Builder()
-                                .add("status", "已收货")
+                                .add("status", "完成")
                                 .add("number", list.get(position).getProduct().getId().toString())
                                 .build();
                         final Request request1 = new Request.Builder()
@@ -119,24 +130,20 @@ public class OrderAdapter  extends BaseAdapter {
                             @Override
                             public void onResponse(Call call, Response response) throws IOException
                             {
-                                button1.setText("已收货");
-
+                                button1.setText("完成");
                             }
                         });
                         break;
                 }
-                }
+
+            }
 
         });
-        viewHolderOrder.button.setText(list.get(position).getStatus());
-        System.out.println("************************");
-        System.out.println(list.get(position).getProduct().getTitle());
-        System.out.println("************************");
         viewHolderOrder.button_detailed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, OrderDetailed.class);
-                intent.putExtra("productord",list.get(position));
+                Intent intent = new Intent(context, SellerOrdDEtailed.class);
+                intent.putExtra("seller0rd",list.get(position));
                 context.startActivity(intent);
             }
         });
@@ -149,6 +156,5 @@ public class OrderAdapter  extends BaseAdapter {
         Button button;
         Button button_detailed;
 
-                      }
-            }
-
+    }
+}

@@ -58,20 +58,30 @@ public class MyWantAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-      OrderAdapter.ViewHolderOrder viewHolderOrder=null;
+      ViewHolderOrder viewHolderOrder=null;
         if(convertView == null) {
             convertView = inflater.inflate(resource, null);
-            viewHolderOrder=new OrderAdapter.ViewHolderOrder();
+            viewHolderOrder=new ViewHolderOrder();
             viewHolderOrder.image=(ImageView)convertView.findViewById(R.id.order_goods_image);
             viewHolderOrder.textView=(TextView)convertView.findViewById(R.id.order_goods_title);
+            viewHolderOrder.textView1=(TextView)convertView.findViewById(R.id.order_goods_status);
             viewHolderOrder.button=(Button) convertView.findViewById(R.id.order_btn_status);
             viewHolderOrder.button_detailed=(Button) convertView.findViewById(R.id.order_btn_detailed);
             convertView.setTag(viewHolderOrder);
         }else{
-            viewHolderOrder=(OrderAdapter.ViewHolderOrder) convertView.getTag();
+            viewHolderOrder=(ViewHolderOrder) convertView.getTag();
         }
         viewHolderOrder.textView.setText(list.get(position).getTitle());
-        viewHolderOrder.button.setText(list.get(position).getStatus());
+        viewHolderOrder.textView1.setText(list.get(position).getStatus());
+        if (list.get(position).getStatus().equals("在售"))
+        {
+            viewHolderOrder.button.setText("下架");
+        }
+        else
+        {
+            viewHolderOrder.button.setText(list.get(position).getStatus());
+            viewHolderOrder.button.setClickable(false);
+        }
         viewHolderOrder.button_detailed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,6 +97,7 @@ public class MyWantAdapter extends BaseAdapter {
     public static class ViewHolderOrder{
         ImageView image;
         TextView textView;
+        TextView textView1;
         Button button;
         Button button_detailed;
 

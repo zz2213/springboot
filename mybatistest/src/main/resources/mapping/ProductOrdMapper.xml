@@ -4,20 +4,26 @@
 <mapper namespace="com.zz.secondhand.mapper.ProductOrdMapper">
 
     <insert id="createProductOrd" parameterType="com.zz.secondhand.entity.ProductOrd">
-        insert into product_ord( user_id,product_id,createtime,title,ordernember) values(#{user.id},#{product.id}, #{createtime},#{title}, #{ordernember})
+        insert into product_ord(user_id,product_id,createtime,status,ordernember,address) values(#{user.id},#{product.id}, #{createtime},#{status}, #{ordernember},#{address})
     </insert>
     <select id="findProductOrdById" resultMap="BaseResultMap">
-    select id,user_id,product_id,createtime,title,ordernember from product_ord  where product_id=#{product_id}
+    select id,user_id,product_id,createtime,status,ordernember,address from product_ord  where product_id=#{product_id}
     </select>
     <select id="findProductOrdByUserId" resultMap="BaseResultMap">
-        select id,user_id,product_id,createtime,title,ordernember from product_ord  where user_id=#{user_id}
+        select product_ord.id,product_ord.user_id,product_id,product.title,product_ord.createtime,product_ord.status,ordernember,address from product_ord join product on product_id= product.id where product_ord.user_id=#{user_id}
     </select>
+    <update id="updateProductOrdBynumber" >
+        update product_ord set status=#{status} where product_id=#{ordnumber}
+    </update>
     <resultMap id="BaseResultMap" type="com.zz.secondhand.entity.ProductOrd">
-        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="product_ord.id" jdbcType="INTEGER" property="id" />
         <result column="user_id" jdbcType="VARCHAR" property="user.id" />
+        <result column="product_id" jdbcType="VARCHAR" property="product.id" />
+        <result column="title" jdbcType="VARCHAR" property="product.title" />
         <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
-        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="product_ord.status" jdbcType="VARCHAR" property="status" />
         <result column="ordernember" jdbcType="VARCHAR" property="ordernember" />
+        <result column="address" jdbcType="VARCHAR" property="address" />
     </resultMap>
 
     <!--&lt;!&ndash;   <select id="findProductByType1" resultMap="BaseResultMap">-->

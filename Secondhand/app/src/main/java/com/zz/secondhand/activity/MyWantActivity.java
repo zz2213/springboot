@@ -9,9 +9,7 @@ import android.widget.ListView;
 import com.alibaba.fastjson.JSON;
 import com.zz.secondhand.R;
 import com.zz.secondhand.adapter.MyWantAdapter;
-import com.zz.secondhand.adapter.OrderAdapter;
 import com.zz.secondhand.entity.Product;
-import com.zz.secondhand.entity.ProductOrd;
 import com.zz.secondhand.entity.User;
 import okhttp3.*;
 

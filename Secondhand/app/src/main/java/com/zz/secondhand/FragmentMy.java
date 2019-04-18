@@ -14,6 +14,8 @@ import android.widget.TextView;
 import com.zz.secondhand.activity.MyGoodsActivity;
 import com.zz.secondhand.activity.MyWantActivity;
 import com.zz.secondhand.activity.OrderActivity;
+import com.zz.secondhand.activity.SellerOrdActivity;
+import com.zz.secondhand.entity.SellerOrd;
 import com.zz.secondhand.entity.User;
 
 /**
@@ -43,9 +45,18 @@ public class FragmentMy extends Fragment {
         TextView myorder1=(TextView)getActivity().findViewById(R.id.btn1);
         TextView mywant=(TextView)getActivity().findViewById(R.id.btn2);
         TextView mygoods=(TextView)getActivity().findViewById(R.id.btn3);
+        TextView btn_seller_ord=(TextView)getActivity().findViewById(R.id.btn_seller_ord);
         TextView name=(TextView)getActivity().findViewById(R.id.name);
         self =((MainActivity)getActivity()).getSelf();
         name.setText(self.getName());
+        btn_seller_ord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SellerOrdActivity.class);
+                intent.putExtra("user",self);
+                startActivity(intent);
+            }
+        });
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

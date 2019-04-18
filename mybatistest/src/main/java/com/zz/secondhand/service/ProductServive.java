@@ -30,8 +30,15 @@ public class ProductServive {
    public  ArrayList<Product> findProductByStyle(String style){
         return productMapper.findProductByStyle(style);
    }
-    public int updateProductstatus(String status,Integer id){
-        return productMapper.updateProductstatus(status,id);
+    public String updateProductstatus(String status,Integer id){
+        int i =productMapper.updateProductstatus(status,id);
+        if(i==1){
+            return "ok";
+        }else {
+            return "failure";
+        }
+
+
     }
 
 }

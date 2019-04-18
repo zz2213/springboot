@@ -45,7 +45,6 @@ public class MainActivity extends FragmentActivity implements
         setContentView(R.layout.activity_main);
         Intent intent = getIntent();
         self =(User) intent.getSerializableExtra("user");
-        System.out.println(self.getNumber());
         initView();//初始化控件
         initPage(self);//初始化页面
 

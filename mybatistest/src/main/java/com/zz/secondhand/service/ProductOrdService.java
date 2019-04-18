@@ -1,6 +1,7 @@
 package com.zz.secondhand.service;
 
 import com.zz.secondhand.entity.ProductOrd;
+import com.zz.secondhand.entity.SellerOrd;
 import com.zz.secondhand.mapper.ProductMapper;
 import com.zz.secondhand.mapper.ProductOrdMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +25,26 @@ public class ProductOrdService {
     ProductOrdMapper productOrdMapper;
     @Autowired
     ProductMapper productMapper;
+    @Autowired
+    SellerOrdService sellerOrdService;
     @Transactional(rollbackOn = Exception.class)
-    public int createProductOrd(ProductOrd productOrd){
+    public int createProductOrd(ProductOrd productOrd, SellerOrd sellerOrd){
+        productOrd.setStatus("未付款");
         int i=productOrdMapper.createProductOrd(productOrd);
+        int j = sellerOrdService.createSellerOrd(sellerOrd);
         productMapper.updateProductstatus("已出售",productOrd.getProduct().getId());
         return i;
     }
     public ArrayList<ProductOrd> findProductOrdByUserId(int user_id)
     {
-        return productOrdMapper.findProductOrdByUserId(user_id);
+        ArrayList<ProductOrd> arrayList=productOrdMapper.findProductOrdByUserId(user_id);
+        System.out.println(arrayList.get(1).getStatus());
+        return arrayList;
+    }
+    public int updateProductOrdByuserID(String ordernumber,String status){
+        sellerOrdService.updateSellerOrdBynumber(ordernumber,status);
+        productOrdMapper.updateProductOrdBynumber(ordernumber,status);
+        System.out.println("status"+status);
+        return 1;
     }
 }

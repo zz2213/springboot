@@ -1,8 +1,8 @@
 package com.zz.secondhand.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.zz.secondhand.entity.Product;
 import com.zz.secondhand.entity.ProductOrd;
+import com.zz.secondhand.entity.SellerOrd;
 import com.zz.secondhand.service.ProductOrdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,16 +28,26 @@ public class ProductOrdController {
     @RequestMapping("/index")
     public String index(@RequestParam("productOrd") String productOrd){
         ProductOrd productOrd1= JSON.parseObject(productOrd, ProductOrd.class);
-        productOrd1.setOrdernember(productOrd1.getProduct().getId()+String.valueOf(productOrd1.getCreatetime().getTime()));
+        productOrd1.setOrdernember("B"+productOrd1.getProduct().getId()+String.valueOf(productOrd1.getCreatetime().getTime()));
         System.out.println(productOrd1.getOrdernember());
         System.out.println("*********************");
         System.out.println(String.valueOf(productOrd1.getCreatetime().getTime()));
         System.out.println("*********************");
-        productOrdService.createProductOrd(productOrd1);
+        SellerOrd sellerOrd =new SellerOrd();
+        sellerOrd.setUser(productOrd1.getProduct().getUser());
+        sellerOrd.setCreatetime(productOrd1.getCreatetime());
+        sellerOrd.setProduct(productOrd1.getProduct());
+        sellerOrd.setOrdernember("S"+productOrd1.getProduct().getId()+String.valueOf(productOrd1.getCreatetime().getTime()));
+        productOrdService.createProductOrd(productOrd1,sellerOrd);
         return  "xx";
     }
     @RequestMapping("/myorder")
     public String selectOrder(@RequestParam("user_id") int user_id){
         return JSON.toJSONString(productOrdService.findProductOrdByUserId(user_id));
+    }
+    @RequestMapping("/updateorder")
+    public  String updateOrder(@RequestParam("number") String number,@RequestParam("status") String status){
+        productOrdService.updateProductOrdByuserID(number,status);
+        return "xxx";
     }
 }

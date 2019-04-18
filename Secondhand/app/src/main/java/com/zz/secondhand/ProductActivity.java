@@ -3,13 +3,23 @@ package com.zz.secondhand;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.zz.secondhand.entity.Product;
+import com.zz.secondhand.entity.User;
+import okhttp3.*;
+
+import java.io.IOException;
+
+import static android.widget.Toast.makeText;
+import static com.zz.secondhand.utils.GlobalVariables.LOGIN_URL;
+import static com.zz.secondhand.utils.GlobalVariables.UPDATE_PRODUCT;
 
 /**
  * @author Administrator
@@ -29,12 +39,35 @@ public class ProductActivity  extends Activity{
         Button button = findViewById(R.id.pro_buy_btn);
         textView = (TextView)findViewById(R.id.pro_title);
         textView.setText(product.getTitle());
-        button.setText("取消");
+        button.setText("下架");
         Toast.makeText(this,product.getTitle(),Toast.LENGTH_SHORT).show();
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                System.out.println("*******************");
+                String url=UPDATE_PRODUCT;
+                OkHttpClient okHttpClient = new OkHttpClient();
+                RequestBody requestBody = new FormBody.Builder()
+                        .add("status","下架")
+                        .add("id",product.getId().toString())
+                        .build();
+                final Request request = new Request.Builder()
+                        .url(url)
+                        .post(requestBody)//默认就是GET请求，可以不写
+                        .build();
+                Call call = okHttpClient.newCall(request);
+                call.enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        Log.d("你好", "onFailure: ");
+                    }
 
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        finish();
+
+                    }
+                });
             }
         });
     }

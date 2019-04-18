@@ -15,5 +15,6 @@ import java.util.ArrayList;
 public interface ProductOrdMapper {
     int createProductOrd(ProductOrd productOrd);
     ProductOrd findProductOrdById(Integer id);
-    ArrayList<ProductOrd> findProductOrdByUserId(int user_d);
+    ArrayList<ProductOrd> findProductOrdByUserId(int user_id);
+    int updateProductOrdBynumber(String ordnumber,String status );
 }

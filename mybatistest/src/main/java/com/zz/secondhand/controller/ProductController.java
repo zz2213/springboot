@@ -26,6 +26,7 @@ public class ProductController {
     public String index(@RequestParam("product") String product){
         Product product1=JSON.parseObject(product, Product.class);
         System.out.println(product1.toString());
+        
         productServive.createProduct(product1);
         return  "xx";
     }
@@ -36,5 +37,9 @@ public class ProductController {
     @RequestMapping("/findproductstyle")
     public String findByStyle(@RequestParam("style") String style){
         return JSON.toJSONString(productServive.findProductByStyle(style));
+    }
+    @RequestMapping("/updateProductstatus")
+    public String updateProductstatus(@RequestParam("status") String status,@RequestParam("id") Integer id){
+        return productServive.updateProductstatus(status,id);
     }
 }

@@ -1,6 +1,5 @@
 package com.zz.secondhand;
 
-import android.Manifest;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -57,7 +56,6 @@ public class FragmentList extends Fragment implements IndexViewPager.OnPageChang
    FragmentLife fragmentLife = new FragmentLife();
    FragmentElectronic fragmentElectronic = new FragmentElectronic();
    FragmentStudy fragmentStudy = new FragmentStudy();
-        System.out.println(user.toString());
         fragmentLife.setUser(user);
         fragmentElectronic.setUser(user);
         fragmentStudy.setUser(user);
@@ -84,20 +82,6 @@ public class FragmentList extends Fragment implements IndexViewPager.OnPageChang
 
     @Override
     public void onPageScrollStateChanged(int i) {
-    /*    initBtnListener();
-        switch (i){
-            case 0:
-                   button1.setBackgroundColor(Color.parseColor("#ff735c"));
-                     break;
-            case 1:
-                button2.setBackgroundColor(Color.parseColor("#ff735c"));
-                break;
-            case 2:
-                button3.setBackgroundColor(Color.parseColor("#ff735c"));
-                break;
-
-        }*/
-
     }
 
     @Override
@@ -134,4 +118,8 @@ public class FragmentList extends Fragment implements IndexViewPager.OnPageChang
         button3.setBackgroundResource(R.color.white);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 }

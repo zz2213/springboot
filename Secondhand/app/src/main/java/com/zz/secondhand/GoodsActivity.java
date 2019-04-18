@@ -95,13 +95,6 @@ public class GoodsActivity extends Activity {
                         Intent intent = new Intent(GoodsActivity.this,MainActivity.class);
                         intent.putExtra("user",self);
                         startActivity(intent);
-
-                        /*MyWantActivity.this.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-
-                            }
-                        });*/
                     }
                 });
 

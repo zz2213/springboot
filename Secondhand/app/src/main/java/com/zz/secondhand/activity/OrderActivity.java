@@ -60,14 +60,10 @@ public class OrderActivity extends Activity {
                     @Override
                     public void run() {
                         productArrayList = (ArrayList<ProductOrd>) JSON.parseArray(backmess,ProductOrd.class);
-                        System.out.println(productArrayList.toString());
                         OrderAdapter orderAdapter = new OrderAdapter(OrderActivity.this, R.layout.item_order,productArrayList);
                         orderlistView.setAdapter(orderAdapter);
                     }
                 });
-
-               productArrayList =JSON.parseObject(backmess,ArrayList.class);
-                System.out.println(productArrayList.toString());
             }
         });
 

@@ -3,43 +3,38 @@ package com.zz.secondhand.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.ListView;
 import com.alibaba.fastjson.JSON;
 import com.zz.secondhand.R;
-import com.zz.secondhand.adapter.MyWantAdapter;
-import com.zz.secondhand.entity.Product;
+import com.zz.secondhand.adapter.SellerOederAdapter;
+import com.zz.secondhand.entity.SellerOrd;
 import com.zz.secondhand.entity.User;
 import okhttp3.*;
-
 import java.io.IOException;
 import java.util.ArrayList;
-
-import static com.zz.secondhand.utils.GlobalVariables.FIND_PRODUCT_TYPE;
+import static com.zz.secondhand.utils.GlobalVariables.FIND_SELLER_ORDER;
 
 /**
  * @author Administrator
- * @title: MyGoodsActivity
+ * @title: SellerOrdActivity
  * @projectName Secondhand
  * @description: TODO
- * @date 2019/4/1616:49
+ * @date 2019/4/189:45
  */
-public class MyGoodsActivity extends Activity {
-    String listProduct;
-    ArrayList<Product> productArrayList;
+public class SellerOrdActivity extends Activity {
+    ArrayList<SellerOrd> sellerOrdArrayList;
     @Override
-    public void onCreate( @Nullable Bundle savedInstanceState) {
+    protected void onCreate( @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mygoods);
-        ListView orderlistView = (ListView)findViewById(R.id.mygood_list);
+        setContentView(R.layout.activity_seller_ord);
         Intent intent = getIntent();
+        ListView orderlistView = (ListView)findViewById(R.id.order_seller_list);
         User self =(User) intent.getSerializableExtra("user");
-        String url=FIND_PRODUCT_TYPE;
+        String url=FIND_SELLER_ORDER;
         OkHttpClient okHttpClient = new OkHttpClient();
         RequestBody requestBody = new FormBody.Builder()
-                .add("type", "商品")
                 .add("user_id", self.getId().toString())
                 .build();
         final Request request = new Request.Builder()
@@ -47,7 +42,6 @@ public class MyGoodsActivity extends Activity {
                 .post(requestBody)
                 .build();
         Call call = okHttpClient.newCall(request);
-
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -56,20 +50,17 @@ public class MyGoodsActivity extends Activity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                listProduct = response.body().string();
-                MyGoodsActivity.this.runOnUiThread(new Runnable() {
+                String backmess = response.body().string();
+                SellerOrdActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        productArrayList = (ArrayList<Product>) JSON.parseArray(listProduct,Product.class);
-                        System.out.println(productArrayList.toString());
-                        MyWantAdapter myWantAdapter = new MyWantAdapter(MyGoodsActivity.this, R.layout.item_order, productArrayList);
-                        orderlistView.setAdapter(myWantAdapter);
+                        sellerOrdArrayList = (ArrayList<SellerOrd>) JSON.parseArray(backmess,SellerOrd.class);
+                        SellerOederAdapter sellerOederAdapter = new SellerOederAdapter(SellerOrdActivity.this, R.layout.item_order,sellerOrdArrayList);
+                        orderlistView.setAdapter(sellerOederAdapter);
                     }
                 });
+
             }
         });
-
-
     }
-
 }

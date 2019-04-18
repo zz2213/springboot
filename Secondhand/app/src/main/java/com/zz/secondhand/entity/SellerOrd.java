@@ -3,8 +3,16 @@ package com.zz.secondhand.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-public class ProductOrd implements Serializable {
+/**
+ * @author Administrator
+ * @title: SellerOrd
+ * @projectName mybatistest
+ * @description: TODO
+ * @date 2019/4/188:47
+ */
+public class SellerOrd implements Serializable {
     private static final long serialVersionUID = 1L;
+
     private Integer id;
 
     private User user;
@@ -19,20 +27,16 @@ public class ProductOrd implements Serializable {
 
     private  String address;
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
     public Integer getId() {
@@ -43,11 +47,11 @@ public class ProductOrd implements Serializable {
         this.id = id;
     }
 
-    public User getUser() {
+    public User getBuyer() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setBuyer(User user) {
         this.user = user;
     }
 
@@ -67,12 +71,19 @@ public class ProductOrd implements Serializable {
         this.createtime = createtime;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public String getOrdernember() {
         return ordernember;
     }
 
     public void setOrdernember(String ordernember) {
-        this.ordernember = ordernember == null ? null : ordernember.trim();
+        this.ordernember = ordernember;
     }
 }

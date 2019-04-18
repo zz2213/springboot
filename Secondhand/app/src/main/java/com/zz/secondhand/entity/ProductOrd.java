@@ -1,8 +1,10 @@
 package com.zz.secondhand.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class ProductOrd {
+public class ProductOrd implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Integer id;
 
     private User user;
@@ -11,15 +13,26 @@ public class ProductOrd {
 
     private Date createtime;
 
-    private String title;
+    private String status;
 
     private String ordernember;
 
-    public ProductOrd() {
+    private  String address;
+
+    public String getStatus() {
+        return status;
     }
 
-    public ProductOrd(String title) {
-        this.title = title;
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public Integer getId() {
@@ -54,13 +67,6 @@ public class ProductOrd {
         this.createtime = createtime;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
-    }
 
     public String getOrdernember() {
         return ordernember;

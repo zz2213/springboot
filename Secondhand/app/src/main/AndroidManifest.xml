@@ -50,6 +50,12 @@
         <activity android:name="com.zz.secondhand.activity.ProductViewActivity">
 
         </activity>
+        <activity android:name="com.zz.secondhand.activity.SellerOrdActivity">
+
+        </activity>
+        <activity android:name="com.zz.secondhand.activity.SellerOrdDEtailed">
+
+        </activity>
 
     </application>
     <uses-permission android:name="android.permission.INTERNET" />

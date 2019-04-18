@@ -107,5 +107,39 @@ public class FragmentStudy extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        listView = (ListView)getActivity().findViewById(R.id.study_list);
+        String url=FIND_PRODUCT_STYLE;
+        OkHttpClient okHttpClient = new OkHttpClient();
+        RequestBody requestBody = new FormBody.Builder()
+                .add("style","电子")
+                .build();
+        final Request request = new Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.d("你好", "onFailure: ");
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String backmess = response.body().string();
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        productArrayList = (ArrayList<Product>) JSON.parseArray(backmess,Product.class);
+                        MyAdapter adapter = new MyAdapter(getContext(), R.layout.item_goods,productArrayList);
+                        listView.setAdapter(adapter);
+                    }
+                });
+
+
+                Log.d("你好", "onResponse: " + backmess);
+            }
+        });
+
     }
 }

@@ -37,6 +37,7 @@ import static com.zz.secondhand.utils.GlobalVariables.LOGIN_URL;
 public class FragmentLife  extends Fragment
        {
            ArrayList<Product> productArrayList;
+           ListView listView;
            private  View view;
 
            public User getUser() {
@@ -60,7 +61,7 @@ public class FragmentLife  extends Fragment
            @Override
            public void onActivityCreated(@Nullable Bundle savedInstanceState) {
                super.onActivityCreated(savedInstanceState);
-               ListView listView = (ListView)getActivity().findViewById(R.id.life_list);
+              listView = (ListView)getActivity().findViewById(R.id.life_list);
 
                String url=FIND_PRODUCT_STYLE;
                OkHttpClient okHttpClient = new OkHttpClient();
@@ -99,13 +100,9 @@ public class FragmentLife  extends Fragment
                                });
                            }
                        });
-
-
                        Log.d("你好", "onResponse: " + backmess);
                    }
                });
-
-
            }
 
            @Override
@@ -117,9 +114,37 @@ public class FragmentLife  extends Fragment
 
            @Override
            public void onResume() {
-
                super.onResume();
+               listView = (ListView)getActivity().findViewById(R.id.life_list);
+               String url=FIND_PRODUCT_STYLE;
+               OkHttpClient okHttpClient = new OkHttpClient();
+               RequestBody requestBody = new FormBody.Builder()
+                       .add("style","生活")
+                       .build();
+               final Request request = new Request.Builder()
+                       .url(url)
+                       .post(requestBody)
+                       .build();
+               Call call = okHttpClient.newCall(request);
+               call.enqueue(new Callback() {
+                   @Override
+                   public void onFailure(Call call, IOException e) {
+                       Log.d("你好", "onFailure: ");
+                   }
 
+                   @Override
+                   public void onResponse(Call call, Response response) throws IOException {
+                       String backmess = response.body().string();
+                       getActivity().runOnUiThread(new Runnable() {
+                           @Override
+                           public void run() {
+                               productArrayList = (ArrayList<Product>) JSON.parseArray(backmess,Product.class);
+                               MyAdapter adapter = new MyAdapter(getContext(), R.layout.item_goods,productArrayList);
+                               listView.setAdapter(adapter);
+                           }
+                       });
+                       Log.d("你好", "onResponse: " + backmess);
+                   }
+               });
            }
-
        }

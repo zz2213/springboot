@@ -3,7 +3,6 @@ package com.zz.secondhand.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
@@ -17,15 +16,10 @@ import com.zz.secondhand.R;
 import com.zz.secondhand.entity.Product;
 import com.zz.secondhand.entity.ProductOrd;
 import com.zz.secondhand.entity.User;
-import com.zz.secondhand.utils.Myapplication;
 import okhttp3.*;
-
 import java.io.IOException;
 import java.util.Date;
-
-import static android.widget.Toast.makeText;
 import static com.zz.secondhand.utils.GlobalVariables.CREATE_PRODUCTORD;
-import static com.zz.secondhand.utils.GlobalVariables.LOGIN_URL;
 
 /**
  * @author Administrator
@@ -72,7 +66,7 @@ public class ProductViewActivity extends Activity {
                     productOrd.setUser(user);
                     productOrd.setProduct(product);
                     productOrd.setCreatetime(new Date());
-                    productOrd.setTitle(product.getTitle());
+//                    productOrd.setStatus(product.getTitle());
 
                     String url=CREATE_PRODUCTORD;
                     OkHttpClient okHttpClient = new OkHttpClient();
@@ -81,7 +75,7 @@ public class ProductViewActivity extends Activity {
                             .build();
                     final Request request = new Request.Builder()
                             .url(url)
-                            .post(requestBody)//默认就是GET请求，可以不写
+                            .post(requestBody)
                             .build();
                     Call call = okHttpClient.newCall(request);
                     call.enqueue(new Callback() {
@@ -92,9 +86,7 @@ public class ProductViewActivity extends Activity {
 
                                      @Override
                                      public void onResponse(Call call, Response response) throws IOException {
-                                         String backmess = response.body().string();
-                                         System.out.println("测试"+backmess);
-
+                                             finish();
                                      }
                                  });
                 }

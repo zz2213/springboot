@@ -74,9 +74,6 @@ public class Login extends Activity {
                     public void onResponse(Call call, Response response) throws IOException {
                         String backmess = response.body().string();
                         User user = JSON.parseObject(backmess,User.class);
-                        System.out.println(user.getName());
-
-
                         if(user!=null)
                         {
                             /*Looper.prepare();

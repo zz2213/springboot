@@ -52,4 +52,9 @@ public class FragmentFind extends Fragment {
             }
         });
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 }

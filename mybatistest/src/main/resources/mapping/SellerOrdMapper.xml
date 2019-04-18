@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zz.secondhand.mapper.SellerOrdMapper">
+
+    <insert id="createSellerOrd" parameterType="com.zz.secondhand.entity.SellerOrd">
+        insert into seller_ord(user_id,product_id,createtime,status,ordernember,address) values(#{user.id},#{product.id}, #{createtime},#{status}, #{ordernember},#{address})
+    </insert>
+    <select id="findSellerOrdByProductId" resultMap="BaseResultMap">
+        select id,user_id,product_id,createtime,status,ordernember,address from seller_ord  where product_id=#{product_id}
+    </select>
+    <select id="findSellerOrdByUserId" resultMap="BaseResultMap">
+        select id,user_id,product_id,createtime,status,ordernember,address from seller_ord  where user_id=#{user_id}
+    </select>
+    <update id="updateSellerOrdBynumber" >
+        update seller_ord set status=#{status} where product_id=#{ordnumber}
+    </update>
+    <resultMap id="BaseResultMap" type="com.zz.secondhand.entity.ProductOrd">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="user_id" jdbcType="VARCHAR" property="user.id" />
+        <result column="product_id" jdbcType="VARCHAR" property="product.id" />
+        <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+        <result column="status" jdbcType="VARCHAR" property="status" />
+        <result column="ordernember" jdbcType="VARCHAR" property="ordernember" />
+        <result column="address" jdbcType="VARCHAR" property="address" />
+    </resultMap>
+
+    <!--&lt;!&ndash;   <select id="findProductByType1" resultMap="BaseResultMap">-->
+    <!--select id,user_id,createtime,title,image, description, price,style,type, status from product where type = #{type}and user_id = (select id from user where name = #{name})-->
+    <!--</select>&ndash;&gt;-->
+    <!--<select id="findProductByType" resultMap="BaseResultMap">-->
+    <!--select product.id,user_id,createtime,title,product.image, description, price,style,type, status,qq from product  join user  on product.user_id=user.id where type=#{type} and user_id =#{user_id}-->
+    <!--</select>-->
+
+    <!--<select id="findProductByStyle" resultMap="BaseResultMap">-->
+    <!--select product.id,user_id,createtime,title,product.image, description, price,style,type, status,qq from product  join user  on product.user_id=user.id where style=#{style}-->
+    <!--</select>-->
+</mapper>
