@@ -11,5 +11,7 @@ import org.apache.ibatis.annotations.Param;
 public interface UserMapper  {
     String Sel(@Param("name") String name);
     User findUserByName(@Param("name") String name);
+    User findUserById(@Param("id") Integer id);
     int Register(User user);
+    int Update(User user);
 }

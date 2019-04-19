@@ -74,5 +74,10 @@ public class UserController {
 
         return JSON.toJSONString(user);
     }
+    @RequestMapping("/update")
+    public String update(@RequestParam("user") String user){
+        User user1= JSON.parseObject(user,User.class);
+       return userService.Update(user1);
+    }
 
 }

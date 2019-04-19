@@ -15,6 +15,7 @@ import java.io.IOException;
 
 import com.alibaba.fastjson.JSON;
 import com.zz.secondhand.entity.User;
+import com.zz.secondhand.utils.CustomAppliction;
 import com.zz.secondhand.utils.Myapplication;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -33,6 +34,7 @@ public class Login extends Activity {
     private Button login_button;
     private EditText login_edit_pwd;
     private EditText login_edit_account;
+    private CustomAppliction app;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,9 +78,6 @@ public class Login extends Activity {
                         User user = JSON.parseObject(backmess,User.class);
                         if(user!=null)
                         {
-                            /*Looper.prepare();
-                            makeText(Login.this, "登录成功",Toast.LENGTH_LONG).show();
-                            Looper.loop();*/
                             Intent intent = new Intent(Login.this,MainActivity.class);
                             intent.putExtra("user",user);
                             startActivity(intent);

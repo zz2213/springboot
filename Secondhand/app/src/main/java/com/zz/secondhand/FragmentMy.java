@@ -2,6 +2,10 @@ package com.zz.secondhand;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,14 +13,18 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.zz.secondhand.activity.MyGoodsActivity;
 import com.zz.secondhand.activity.MyWantActivity;
 import com.zz.secondhand.activity.OrderActivity;
 import com.zz.secondhand.activity.SellerOrdActivity;
-import com.zz.secondhand.entity.SellerOrd;
 import com.zz.secondhand.entity.User;
+import com.zz.secondhand.utils.ImageUtil;
+
+import static android.app.Activity.RESULT_OK;
+
 
 /**
  * @author Administrator
@@ -27,7 +35,19 @@ import com.zz.secondhand.entity.User;
 
 @SuppressLint("ValidFragment")
 public class FragmentMy extends Fragment {
-    User self;
+    private ImageView head_photo;
+    private Bitmap head;
+
+    public User getSelf() {
+        return self;
+    }
+
+    public void setSelf(User self) {
+        this.self = self;
+    }
+
+    public User self;
+
 
     @Nullable
     @Override
@@ -47,8 +67,17 @@ public class FragmentMy extends Fragment {
         TextView mygoods=(TextView)getActivity().findViewById(R.id.btn3);
         TextView btn_seller_ord=(TextView)getActivity().findViewById(R.id.btn_seller_ord);
         TextView name=(TextView)getActivity().findViewById(R.id.name);
+        head_photo=(ImageView)getActivity().findViewById(R.id.myhead);
         self =((MainActivity)getActivity()).getSelf();
         name.setText(self.getName());
+
+        head =ImageUtil.Bytes2Bitmap(self.getImage()) ;
+        if (head!=null){
+            Drawable drawable = new BitmapDrawable(getResources(),head);
+            head_photo.setImageDrawable(drawable);
+        }else {
+            System.out.println(getActivity()+"头像为空");
+        }
         btn_seller_ord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,16 +92,9 @@ public class FragmentMy extends Fragment {
 
                 Intent intent = new Intent(getActivity(),UserActivity.class);
                 intent.putExtra("user",self);
-                startActivity(intent);
+                startActivityForResult(intent,1);
             }
         });
-//        myOrder.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), OrderActivity.class);
-//                startActivity(intent);
-//            }
-//        });
         myorder1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,5 +119,24 @@ public class FragmentMy extends Fragment {
                 startActivity(intent);
             }
         });
+    }
+   public void setself(User user){
+        this.self=user;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==RESULT_OK){
+            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@");
+            if(self==null){
+                System.out.println("1111111111111111111111");
+            }
+            self= (User) data.getSerializableExtra("userresult");
+
+            System.out.println(self.toString());
+        }
+
+
     }
 }

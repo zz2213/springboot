@@ -16,8 +16,39 @@
     <select id="findUserByName" resultType="com.zz.secondhand.entity.User">
         select id,name,realname,password,number,school,image,qq from user where name = #{name}
     </select>
+    <select id="findUserById" resultType="com.zz.secondhand.entity.User">
+        select id,name,realname,password,number,school,image,qq from user where id = #{id}
+    </select>
     <insert id="Register" parameterType="com.zz.secondhand.entity.User">
          insert into user(name,realname,password,number,school,image,qq) values(#{name}, #{realname},#{password}, #{number}, #{school}, #{image}, #{qq})
     </insert>
+    <update id="Update" parameterType="com.zz.secondhand.entity.User">
+        update user
+        <trim prefix="set" suffixOverrides=",">
+        <if test="name!=null and name!='' ">
+                name=#{name},
+            </if>
+            <if test="realname!=null and realname!=''">
+                realname=#{realname},
+            </if>
+            <if test="password!=null and password!=''">
+                password=#{password},
+            </if>
+            <if test="number!=null and number!=''">
+                number=#{number},
+            </if>
+            <if test="school!=null and school!=''">
+                school=#{school},
+            </if>
+            <if test="image!=null and image!=''">
+                image=#{image},
+            </if>
+            <if test="qq!=null and qq!=''">
+                qq=#{qq},
+            </if>
+        </trim>
+            where id=#{id};
+
+    </update>
 
 </mapper>

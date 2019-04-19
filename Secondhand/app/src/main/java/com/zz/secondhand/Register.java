@@ -2,6 +2,8 @@ package com.zz.secondhand;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -16,13 +18,17 @@ import java.net.URL;
 
 import android.widget.ImageView;
 import android.widget.Toast;
+import com.wildma.pictureselector.ImageUtils;
+import com.wildma.pictureselector.PictureSelector;
 import com.zz.secondhand.entity.User;
+import com.zz.secondhand.utils.ImageUtil;
 
 import static android.widget.Toast.makeText;
 import static com.zz.secondhand.utils.GlobalVariables.*;
 
 public class Register extends Activity {
     String isSuccess;
+    ImageView imageView;
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,10 +37,18 @@ public class Register extends Activity {
         EditText user_name = findViewById(R.id.user_name);
         EditText user_realname = findViewById(R.id.user_realname);
         EditText user_pwd = findViewById(R.id.user_password);
-        ImageView imageView =findViewById(R.id.head_image);
+        imageView =findViewById(R.id.head_image);
         EditText user_number = findViewById(R.id.user_number);
         EditText user_school =findViewById(R.id.user_school);
         EditText user_qq =findViewById(R.id.user_qq);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PictureSelector
+                        .create(Register.this, PictureSelector.SELECT_REQUEST_CODE)
+                        .selectPicture(true, 200, 200, 1, 1);
+            }
+        });
         register_btn_sure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,6 +60,9 @@ public class Register extends Activity {
                 user.setSchool(user_school.getText().toString());
                 user.setNumber( Integer.valueOf(user_number.getText().toString()));
                 user.setQq(user_qq.getText().toString());
+                Bitmap bitmap=((BitmapDrawable)imageView.getDrawable()).getBitmap();
+                user.setImage(ImageUtil.Bitmap2Bytes(bitmap));
+
                 try {
                     StrictMode.ThreadPolicy policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
                     StrictMode.setThreadPolicy(policy);
@@ -131,5 +148,15 @@ public class Register extends Activity {
 
         });
 
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PictureSelector.SELECT_REQUEST_CODE) {
+            if (data != null) {
+                String picturePath = data.getStringExtra(PictureSelector.PICTURE_PATH);
+                imageView.setImageBitmap(ImageUtils.getBitmap(picturePath));
+            }
+        }
     }
 }

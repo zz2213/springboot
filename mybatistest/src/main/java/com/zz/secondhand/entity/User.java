@@ -16,7 +16,7 @@ public class User implements Serializable {
 
     private String school;
 
-    private String image;
+    private byte[] image;
 
     private String qq;
 
@@ -69,11 +69,11 @@ public class User implements Serializable {
         this.school = school;
     }
 
-    public String getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 

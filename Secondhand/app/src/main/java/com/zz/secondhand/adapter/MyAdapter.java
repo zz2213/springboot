@@ -1,6 +1,9 @@
 package com.zz.secondhand.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +13,7 @@ import android.widget.TextView;
 import com.zz.secondhand.R;
 import com.zz.secondhand.entity.Goods;
 import com.zz.secondhand.entity.Product;
+import com.zz.secondhand.utils.ImageUtil;
 
 import java.util.ArrayList;
 
@@ -69,6 +73,13 @@ public class MyAdapter extends BaseAdapter {
         vh.textView.setText(list.get(position).getTitle());
         vh.textPrice.setText(list.get(position).getPrice().toString());
         vh.textStatus.setText(list.get(position).getStatus());
+            Bitmap head = ImageUtil.Bytes2Bitmap(list.get(position).getImage()) ;
+        if (head!=null){
+            Drawable drawable = new BitmapDrawable(context.getResources(),head);
+            vh.image.setImageDrawable(drawable);
+        }else {
+            System.out.println("图片为空");
+        }
 
         return convertView;
     }

@@ -20,4 +20,6 @@ public class GlobalVariables {
     final static public String UPDATE_PRODUCT="http://192.168.40.116:8080/ProductController/updateProductstatus";
     final static public String FIND_SELLER_ORDER="http://192.168.40.116:8080/SellerOrdController/findsellordbyid";
     final static public String UPDATE_ORDER="http://192.168.40.116:8080/ProductOrdController/updateorder";
+    final static  public String UPDATE_USER="http://192.168.40.116:8080//Secondhand/update";
+
 }

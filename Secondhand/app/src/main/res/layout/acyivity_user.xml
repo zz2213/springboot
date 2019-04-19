@@ -86,11 +86,11 @@
                                     android:maxLength="10"
                                     android:singleLine="true"
                                     android:layout_gravity="center_vertical"
-                                    android:text="院系:"
+                                    android:text="昵称:"
                                     android:textSize="14sp" />
 
-                            <EditText
-                                    android:id="@+id/user_departments"
+                            <TextView
+                                    android:id="@+id/user_username"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="10dp"
@@ -124,11 +124,11 @@
                                     android:layout_margin="10dp"
                                     android:maxLength="10"
                                     android:singleLine="true"
-                                    android:text="用户账号:"
+                                    android:text="真实姓名:"
                                     android:textSize="14sp" />
 
-                            <TextView
-                                    android:id="@+id/textUsersName"
+                            <EditText
+                                    android:id="@+id/textrealName"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="10dp"
@@ -161,11 +161,11 @@
                                     android:maxLength="10"
                                     android:singleLine="true"
                                     android:layout_gravity="center_vertical"
-                                    android:text="用户昵称:"
+                                    android:text="密码:"
                                     android:textSize="14sp" />
 
                             <EditText
-                                    android:id="@+id/textUsersNickName"
+                                    android:id="@+id/textUserspassword"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="10dp"
@@ -207,7 +207,6 @@
                                     android:layout_height="wrap_content"
                                     android:layout_margin="10dp"
                                     android:padding="7dp"
-                                    android:text="zzzz"
                                     android:background="@null"
                                     android:textColor="@color/black"
                                     android:textSize="14sp" />
@@ -272,11 +271,11 @@
                                     android:maxLength="10"
                                     android:layout_gravity="center_vertical"
                                     android:singleLine="true"
-                                    android:text="年级:"
+                                    android:text="学校："
                                     android:textSize="14sp" />
 
                             <EditText
-                                    android:id="@+id/textUsersGrade"
+                                    android:id="@+id/textUsersschool"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="10dp"
@@ -292,6 +291,18 @@
                         </LinearLayout>
 
                     </LinearLayout>
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="7dp"
+                        android:background="@drawable/bkx_background_style"
+                        android:orientation="vertical">
+                    <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="保存"
+                            android:id="@+id/save"/>
+                </LinearLayout>
 
                 </LinearLayout>
 

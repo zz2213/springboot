@@ -14,7 +14,7 @@ public class Product implements Serializable {
 
     private String title;
 
-    private String image;
+    private byte[] image;
 
     private String description;
 
@@ -58,12 +58,12 @@ public class Product implements Serializable {
         this.title = title == null ? null : title.trim();
     }
 
-    public String getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(String image) {
-        this.image = image == null ? null : image.trim();
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
     public String getDescription() {

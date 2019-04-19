@@ -1,10 +1,22 @@
 package com.zz.secondhand.entity;
 
+import com.zz.secondhand.utils.SerialUtil;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectStreamException;
 import java.io.Serializable;
 
-public class User implements Serializable {
+public class User implements Serializable,Cloneable{
 
     private static final long serialVersionUID = 1L;
+
+    public static void setInstance(User instance) {
+        SerialUtil.saveObject("./obj.out",instance);
+        User.instance = instance;
+    }
+
+    private  static User instance;
 
     private Integer id;
 
@@ -18,9 +30,24 @@ public class User implements Serializable {
 
     private String school;
 
-    private String image;
+    private byte[] image;
 
     private String qq;
+
+    public User() { }
+
+    public static User getInstance(){
+        if(instance != null){
+            User user =(User) SerialUtil.restoreObject("/mnt/sdcard/obj.out");
+            if(user==null){
+                SerialUtil.saveObject("/mnt/sdcard/obj.out",instance);
+            }
+        }else{
+            instance =(User) SerialUtil.restoreObject("/mnt/sdcard/obj.out");
+
+        }
+        return instance;
+    }
 
 
     public Integer getId() {
@@ -71,11 +98,11 @@ public class User implements Serializable {
         this.school = school;
     }
 
-    public String getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 
@@ -86,6 +113,37 @@ public class User implements Serializable {
     public void setQq(String qq) {
         this.qq = qq;
     }
+
+    public User readReaolve() throws ObjectStreamException,CloneNotSupportedException{
+        instance = (User) this.clone();
+        return instance;
+    }
+
+    public void readObject(ObjectInputStream ois)
+            throws IOException, ClassNotFoundException{
+        ois.defaultReadObject();
+    }
+
+    public Object Clone() throws CloneNotSupportedException{
+        return super.clone();
+    }
+
+    public void clear(){
+       instance.setId(null);
+        instance.setSchool(null);
+        instance.setQq(null);
+        instance.setNumber(null);
+        instance.setPassword(null);
+        instance.setRealname(null);
+        instance.setImage(null);
+        instance.setName(null);
+        save();
+    }
+
+    public void save(){
+        SerialUtil.saveObject("/mnt/sdcard/obj.out",instance);
+    }
+
 
     @Override
     public String toString() {

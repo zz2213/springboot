@@ -2,6 +2,8 @@ package com.zz.secondhand;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -12,6 +14,7 @@ import com.wildma.pictureselector.ImageUtils;
 import com.wildma.pictureselector.PictureSelector;
 import com.zz.secondhand.entity.Product;
 import com.zz.secondhand.entity.User;
+import com.zz.secondhand.utils.ImageUtil;
 import okhttp3.*;
 import java.io.IOException;
 import java.util.Date;
@@ -72,6 +75,8 @@ public class GoodsActivity extends Activity {
                 product.setUser(self);
                 product.setTitle(title.getText().toString());
                 product.getUser().setQq(qq.getText().toString());
+                Bitmap bitmap=((BitmapDrawable)select_image.getDrawable()).getBitmap();
+                product.setImage(ImageUtil.Bitmap2Bytes(bitmap));
 
 
                 String url=CREATE_PRODUCT_URL;
