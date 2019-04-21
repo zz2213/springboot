@@ -30,7 +30,9 @@ public class UserService {
         {
             return 0 ;
         }else{
-            return userMapper.Register(user);
+            userMapper.Register(user);
+
+            return userMapper.findUserByName(user.getName()).getId();
         }
 
     }

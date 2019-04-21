@@ -15,11 +15,14 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 import android.widget.ImageView;
 import android.widget.Toast;
 import com.wildma.pictureselector.ImageUtils;
 import com.wildma.pictureselector.PictureSelector;
+import com.zz.secondhand.entity.Token;
 import com.zz.secondhand.entity.User;
 import com.zz.secondhand.utils.ImageUtil;
 
@@ -77,6 +80,9 @@ public class Register extends Activity {
                     httpURLConnection.connect();
                     OutputStream os= httpURLConnection.getOutputStream();
                     ObjectOutputStream objOut=new ObjectOutputStream(os);
+                    /*Map<String,Object> map=new HashMap<String,Object>();
+                    map.put("user",user);
+                    map.put("token",)*/
                     objOut.writeObject(user);
                     objOut.flush();
                     objOut.close();

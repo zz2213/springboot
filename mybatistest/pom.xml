@@ -60,6 +60,11 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-redis</artifactId>
+            <version>1.3.8.RELEASE</version>
+        </dependency>
+        <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
             <version>1.2</version>
@@ -102,7 +107,8 @@
 
                 <configuration>
 
-                    <!--配置文件的位置--> <configurationFile>src/main/resources/generatorConfig.xml</configurationFile>
+                    <!--配置文件的位置-->
+                    <configurationFile>src/main/resources/generatorConfig.xml</configurationFile>
 
                     <verbose>true</verbose>
 
@@ -137,6 +143,8 @@
                         <version>1.3.2</version>
 
                     </dependency>
+
+
 
                 </dependencies>
 

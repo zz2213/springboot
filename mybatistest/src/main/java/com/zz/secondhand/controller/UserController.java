@@ -1,6 +1,7 @@
 package com.zz.secondhand.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.zz.secondhand.entity.Token;
 import com.zz.secondhand.entity.User;
 import com.zz.secondhand.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.util.Date;
 
 @Controller
 @ResponseBody
@@ -28,7 +30,7 @@ public class UserController {
 
     @RequestMapping(value = "/register")
     public void  register(HttpServletRequest request, HttpServletResponse response) throws IOException, ClassNotFoundException {
-        int insertCount=0;
+        int user_id=0;
         ObjectInputStream obj;
         ServletInputStream in=request.getInputStream();
         obj=new ObjectInputStream(in);
@@ -36,7 +38,7 @@ public class UserController {
         try {
 
         user = (User)obj.readObject();
-        insertCount =userService.Register(user);
+        user_id =userService.Register(user);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -46,8 +48,12 @@ public class UserController {
 //        System.out.println(user.getName());
         OutputStream out=response.getOutputStream();
         ObjectOutputStream outObj=new ObjectOutputStream(out);
-        if(insertCount==1)
+        if(user_id!=0)
         {
+            Token token=new Token();
+            token.setUserId(user_id);
+            String nowDate=new Date().toString();
+            token.setTokenData(user_id+nowDate);
             outObj.writeObject("True");
         }else{
             outObj.writeObject("False");

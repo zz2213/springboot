@@ -10,16 +10,17 @@ import java.net.URL;
  * @date 2019/4/1515:43
  */
 public class GlobalVariables {
-    final static public String REGISTER_URL = "http://192.168.40.116:8080//Secondhand/register";
-    final static public String LOGIN_URL="http://192.168.40.116:8080/Secondhand/getUser";
-    final static public String CREATE_PRODUCT_URL="http://192.168.40.116:8080/ProductController/index";
-    final static public String FIND_PRODUCT_TYPE ="http://192.168.40.116:8080/ProductController/findproductype";
-    final static public String FIND_PRODUCT_STYLE="http://192.168.40.116:8080/ProductController/findproductstyle";
-    final static public String CREATE_PRODUCTORD="http://192.168.40.116:8080/ProductOrdController/index";
-    final static public String SELECT_PRODUCTORD="http://192.168.40.116:8080/ProductOrdController/myorder";
-    final static public String UPDATE_PRODUCT="http://192.168.40.116:8080/ProductController/updateProductstatus";
-    final static public String FIND_SELLER_ORDER="http://192.168.40.116:8080/SellerOrdController/findsellordbyid";
-    final static public String UPDATE_ORDER="http://192.168.40.116:8080/ProductOrdController/updateorder";
-    final static  public String UPDATE_USER="http://192.168.40.116:8080//Secondhand/update";
+    final static public String MO_URL="http://192.168.31.114:8080";
+    final static public String REGISTER_URL = MO_URL+"//Secondhand/register";
+    final static public String LOGIN_URL=MO_URL+"/Secondhand/getUser";
+    final static public String CREATE_PRODUCT_URL=MO_URL+"/ProductController/index";
+    final static public String FIND_PRODUCT_TYPE =MO_URL+"/ProductController/findproductype";
+    final static public String FIND_PRODUCT_STYLE=MO_URL+"/ProductController/findproductstyle";
+    final static public String CREATE_PRODUCTORD=MO_URL+"/ProductOrdController/index";
+    final static public String SELECT_PRODUCTORD=MO_URL+"/ProductOrdController/myorder";
+    final static public String UPDATE_PRODUCT=MO_URL+"/ProductController/updateProductstatus";
+    final static public String FIND_SELLER_ORDER=MO_URL+"/SellerOrdController/findsellordbyid";
+    final static public String UPDATE_ORDER=MO_URL+"/ProductOrdController/updateorder";
+    final static  public String UPDATE_USER=MO_URL+"//Secondhand/update";
 
 }
