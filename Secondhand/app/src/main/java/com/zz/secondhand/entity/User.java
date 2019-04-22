@@ -26,7 +26,7 @@ public class User implements Serializable,Cloneable{
 
     private String password;
 
-    private Integer number;
+    private Long number;
 
     private String school;
 
@@ -82,11 +82,12 @@ public class User implements Serializable,Cloneable{
         this.password = password;
     }
 
-    public Integer getNumber() {
+
+    public Long getNumber() {
         return number;
     }
 
-    public void setNumber(Integer number) {
+    public void setNumber(Long number) {
         this.number = number;
     }
 

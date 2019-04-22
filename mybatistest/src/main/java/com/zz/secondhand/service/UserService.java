@@ -53,5 +53,10 @@ public class UserService {
 
         return status;
     }
+    public User findUserById(Integer id){
+        User user =userMapper.findUserById(id);
+        System.out.println(user.toString());
+        return user;
+    }
 
 }

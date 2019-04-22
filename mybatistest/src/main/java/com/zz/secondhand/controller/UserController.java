@@ -3,8 +3,11 @@ package com.zz.secondhand.controller;
 import com.alibaba.fastjson.JSON;
 import com.zz.secondhand.entity.Token;
 import com.zz.secondhand.entity.User;
+import com.zz.secondhand.service.TokenService;
 import com.zz.secondhand.service.UserService;
+import com.zz.secondhand.utils.ReturnMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +26,10 @@ import java.util.Date;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    TokenService tokenService;
+    @Autowired
+    StringRedisTemplate stringRedisTemplate;
     @RequestMapping("/index")
     public String index(){
         return "index";
@@ -45,7 +52,6 @@ public class UserController {
             obj.close();
         }
         response.setContentType("application/x-java-serialized-object");
-//        System.out.println(user.getName());
         OutputStream out=response.getOutputStream();
         ObjectOutputStream outObj=new ObjectOutputStream(out);
         if(user_id!=0)
@@ -54,9 +60,10 @@ public class UserController {
             token.setUserId(user_id);
             String nowDate=new Date().toString();
             token.setTokenData(user_id+nowDate);
-            outObj.writeObject("True");
+            stringRedisTemplate.opsForValue().set(token.getUserId().toString(),token.getTokenData());
+            outObj.writeObject(token);
         }else{
-            outObj.writeObject("False");
+            outObj.writeObject(new Token());
         }
         outObj.flush();
         outObj.close();
@@ -66,19 +73,23 @@ public class UserController {
     @RequestMapping("getUser")
     public String GetUser(@RequestParam("name")String name , @RequestParam("pass") String pass){
         String responsepass = userService.Sel(name);
+        ReturnMessage returnMessage= new ReturnMessage();
         String back=null;
         User user = null;
         System.out.printf(pass);
         if(responsepass.equals(pass))
-        {
+        {    returnMessage.setMess("success");
              user = userService.FindUserByName(name);
+             Token token=tokenService.updata(user);
+             returnMessage.setToken(token);
+             returnMessage.setUser(user);
         }
 
         else {
-            back="Flase";
+           returnMessage.setMess("用户名重复");
         }
 
-        return JSON.toJSONString(user);
+        return JSON.toJSONString(returnMessage);
     }
     @RequestMapping("/update")
     public String update(@RequestParam("user") String user){

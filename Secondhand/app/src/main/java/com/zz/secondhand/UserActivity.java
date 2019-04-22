@@ -99,7 +99,7 @@ public class UserActivity extends Activity {
                     newUser.setPassword(textUserspassword.getText().toString());
                 }
                 if (!"".equals(textUsersPhone.getText().toString())){
-                    newUser.setNumber(Integer.valueOf(textUsersPhone.getText().toString()));
+                    newUser.setNumber(Long.valueOf(textUsersPhone.getText().toString()));
                 }
                 if (!"".equals(textUsersQQ.getText().toString())){
                     newUser.setQq(textUsersQQ.getText().toString());

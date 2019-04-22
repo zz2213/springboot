@@ -38,7 +38,6 @@ public class ProductOrdService {
     public ArrayList<ProductOrd> findProductOrdByUserId(int user_id)
     {
         ArrayList<ProductOrd> arrayList=productOrdMapper.findProductOrdByUserId(user_id);
-        System.out.println(arrayList.get(1).getStatus());
         return arrayList;
     }
     public int updateProductOrdByuserID(String ordernumber,String status){

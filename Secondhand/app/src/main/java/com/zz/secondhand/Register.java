@@ -2,6 +2,7 @@ package com.zz.secondhand;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import java.util.Map;
 
 import android.widget.ImageView;
 import android.widget.Toast;
+import com.alibaba.fastjson.JSON;
 import com.wildma.pictureselector.ImageUtils;
 import com.wildma.pictureselector.PictureSelector;
 import com.zz.secondhand.entity.Token;
@@ -31,6 +33,7 @@ import static com.zz.secondhand.utils.GlobalVariables.*;
 
 public class Register extends Activity {
     String isSuccess;
+    Token token;
     ImageView imageView;
     @Override
     protected void onCreate( Bundle savedInstanceState) {
@@ -61,7 +64,7 @@ public class Register extends Activity {
                 user.setRealname(user_realname.getText().toString());
                 user.setPassword(user_pwd.getText().toString());
                 user.setSchool(user_school.getText().toString());
-                user.setNumber( Integer.valueOf(user_number.getText().toString()));
+                user.setNumber( Long.parseLong(user_number.getText().toString()));
                 user.setQq(user_qq.getText().toString());
                 Bitmap bitmap=((BitmapDrawable)imageView.getDrawable()).getBitmap();
                 user.setImage(ImageUtil.Bitmap2Bytes(bitmap));
@@ -80,9 +83,6 @@ public class Register extends Activity {
                     httpURLConnection.connect();
                     OutputStream os= httpURLConnection.getOutputStream();
                     ObjectOutputStream objOut=new ObjectOutputStream(os);
-                    /*Map<String,Object> map=new HashMap<String,Object>();
-                    map.put("user",user);
-                    map.put("token",)*/
                     objOut.writeObject(user);
                     objOut.flush();
                     objOut.close();
@@ -94,9 +94,14 @@ public class Register extends Activity {
 
                                        //构建对象输入流，使用readObject()方法取出输入流中的java对象
                                        ObjectInputStream inObj=new ObjectInputStream(in);
-                                    isSuccess= (String) inObj.readObject();
-                                    if("True".equals(isSuccess))
+                                    token= (Token) inObj.readObject();
+                                    if(token.getUserId()!=null)
                                     {
+                                        SharedPreferences userToken = getSharedPreferences("userToken",0);
+                                        SharedPreferences.Editor editor = userToken.edit();
+                                        System.out.println(token.toString());
+                                        editor.putString("token", JSON.toJSONString(token));
+                                        editor.commit();
                                         makeText(Register.this, "注册成功", Toast.LENGTH_LONG).show();
                                         Intent intent = new Intent(Register.this,Login.class);
                                         startActivity(intent);

@@ -27,4 +27,12 @@ public class Token implements Serializable {
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
+
+    @Override
+    public String toString() {
+        return "Token{" +
+                "tokenData='" + tokenData + '\'' +
+                ", userId=" + userId +
+                '}';
+    }
 }

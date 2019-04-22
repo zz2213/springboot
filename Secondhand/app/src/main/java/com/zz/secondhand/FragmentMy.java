@@ -2,6 +2,7 @@ package com.zz.secondhand;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -13,6 +14,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -67,6 +69,7 @@ public class FragmentMy extends Fragment {
         TextView mygoods=(TextView)getActivity().findViewById(R.id.btn3);
         TextView btn_seller_ord=(TextView)getActivity().findViewById(R.id.btn_seller_ord);
         TextView name=(TextView)getActivity().findViewById(R.id.name);
+        Button button_can=(Button)getActivity().findViewById(R.id.my_cancel_btn);
         head_photo=(ImageView)getActivity().findViewById(R.id.myhead);
         self =((MainActivity)getActivity()).getSelf();
         name.setText(self.getName());
@@ -78,6 +81,20 @@ public class FragmentMy extends Fragment {
         }else {
             System.out.println(getActivity()+"头像为空");
         }
+        button_can.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences userToken =getActivity().getSharedPreferences("userToken",0);
+                SharedPreferences.Editor editor = userToken.edit();
+                editor.remove("token");
+                editor.commit();
+                Intent intent = new Intent(getActivity(), Login.class);
+                getActivity().finish();
+                startActivity(intent);
+
+
+            }
+        });
         btn_seller_ord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
