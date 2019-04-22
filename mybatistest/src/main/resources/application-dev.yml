@@ -13,14 +13,14 @@ spring:
         max-wait: -1ms
     timeout: 5000
 
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+    encoding: UTF-8
+    content-type: text/html
+    mode: HTML5
 
-
-  mvc:
-    view:
-      # 页面默认前缀目录
-      prefix: /WEB-INF/jsp/
-      # 响应页面默认后缀
-      suffix: .jsp
   datasource:
     username: root
     password: root
