@@ -1,0 +1,140 @@
+html
+{
+	background: none;
+}
+
+body
+{
+	margin: 0;
+	padding: 48px 22px 0;
+	background-image: url(../images/login-box/background.png);
+	background-position: 89px 15px 87px 16px;
+	background-repeat: expand stretch-left stretch-middle stretch-right;
+	height: 150px;
+	overflow: hidden;
+	assigned!: self:expanded = true;
+}
+
+body:expanded
+{
+	height: 242px;
+	transition: height(linear, 200ms, 200ms);
+}
+
+body > *
+{
+	opacity: 1;
+	transition: opacity(linear, 200ms, 400ms);
+}
+
+body > caption
+{
+	margin: 0 0 5px;
+	font: 25px "Times New Roman";
+	text-align: center;
+	text-transform: uppercase;
+	color: #0077b5;
+	outline: 1px glow #fff;
+	outline-shift: 1px;
+}
+
+body > h2
+{
+	margin: 0 0 12px;
+	font: 15px Georgia;
+	font-height: 1em;
+	text-align: center;
+	color: #fff;
+	font-weight: normal;
+	font-style: italic;
+	overflow: hidden;
+}
+
+#login-form
+{
+	style-set: "login-form";
+	
+}
+
+@set login-form
+{
+	:root
+	{
+		padding-top: 12px;
+		width: 206px;
+		height: 94px;
+		border-width: 1px 0;
+		border-style: dotted none;
+		border-color: #2877a1;
+	}
+
+	:root input
+	{
+		margin-bottom: 10px;
+		padding: 0 16px 0 33px;
+		font: Italic 11px Georgia;
+		color: #333;
+		width: 90%%;
+		height: 36px;
+		line-height: 36px;
+		background-image: url(../images/login-box/controls/edit/background.png);
+		background-position: 9px 11px 9px 13px;
+		background-repeat: expand stretch-top stretch-left stretch-middle stretch-right stretch-bottom;
+	}
+
+	:root input:focus
+	{
+		width: *;
+		transition: width(linear, 200ms);
+	}
+	
+	:root input:empty
+	{
+		color: #909090;
+	}
+
+	:root #username, :root #password
+	{
+		foreground-repeat: no-repeat;
+		foreground-position: 12px 50%;
+	}
+
+	:root #username
+	{
+		foreground-image: url(../images/login-box/icons/username.png);
+	]
+
+	:root #password
+	{
+		foreground-image: url(../images/login-box/icons/password.png);
+	]
+}
+
+#login-btn
+{
+	style-set: "login-btn";
+}
+
+@set login-btn
+{
+	:root
+	{
+		padding: 0;
+		position: absolute;
+		left: 73px;
+		top: 237px;
+		width: 108px;
+		height: 44px;
+		line-height: 27px;
+		font: bold 11px Arial;
+		color: #fff;
+		text-transform: uppercase;
+		background: url(../images/login-box/controls/button/background-normal.png) no-repeat;
+	}
+
+	:root:active
+	{
+		line-height: 28px;
+		background-image: url(../images/login-box/controls/button/background-active.png);
+	}
+}

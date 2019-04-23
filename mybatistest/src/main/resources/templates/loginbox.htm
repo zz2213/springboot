@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" th:href="@{/css/login-box.css}" />
+</head>
+
+<body>
+
+<caption>Welcome</caption>
+
+<h2>Enter your detail below</h2>
+
+<div #login-form>
+	<input type="text"  #username novalue="Username:" value ="" id="user"/>
+	<input type="password" #password novalue="Password:" value ="" id="pass"/>
+</div>
+
+<button #login-btn>login</button>
+
+</body>
+</html>

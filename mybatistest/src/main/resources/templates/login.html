@@ -1,63 +1,37 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title></title>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <script type="text/javascript">
-        $(function(){
-            $("#submit").click(function () {
-                $.post("/user_login",$("#loginForm").serialize(), function (data) {
-                        if(data.code=="0"){
-                            window.location.href = "/index";
-                        }else if(data.code=="1"){
-                            $("#tick").text(data.message).css("color", "red");
-                        }
-                })
-            });
-        });
-    </script>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <title>登录</title>
+    <link rel="stylesheet" type="text/css" href="/css/common.css" />
 </head>
 <body>
-<div class="container">
-    <div class="row">
-        <form class="form-horizontal" id="loginForm">
-            <div class="col-md-4">
-                <div class="panel panel-primary">
-                    <div class="panel-heading text-center">
-                        <span class="panel-title">登录信息</span>
-                    </div>
-                    <div class="form-group">
-                        <label for="username" class="col-sm-3 control-label" style="color: red">账&nbsp;号:</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="username" name="username" placeholder="请输入账号">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="password" class="col-sm-3 control-label" style="color: red">密&nbsp;码:</label>
-                        <div class="col-sm-8">
-                            <input type="password" class="form-control" id="password" name="password"
-                                   placeholder="请输入密码">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-10 control-label" style="color:red;text-align: center"
-                               id="tick">&nbsp;</label>
-                    </div>
-                    <div class="form-group" >
-                        <div class="col-sm-8">
-                            <button type="button" id="submit" class="btn btn-default">登录</button>
-                        </div>
-                    </div>
-                    <div class="panel-footer text-right">
-                        <span class="panel-title">zz@2109</span>
-                    </div>
-                </div>
+<form th:action="@{/login}" method="post">
+    <div style="background:url(../images/login-box/background.png)no-repeat center center; text-align:center;height:350px">
+        <div style="position:fixed;left:0;right:0;top:0;bottom:0;margin:auto; ">
+            <div style="margin-top:100px">
+                <!--/*@thymesVar id="error" type=""*/-->
+                <span id="basic-addon0">&nbsp;</span>
+                <span style="font-size: 12px;color: red" th:text="${error}" aria-describedby="basic-addon0"></span>
+                <br />
             </div>
-        </form>
+            <div>
+                <span id="basic-addon1">账号</span>
+                <input id="name" name="name" type="text" placeholder="用户名" aria-describedby="basic-addon1" />
+
+            </div>
+            <br />
+            <div>
+                <span id="basic-addon2">密码</span>
+                <input id="password" name="password" type="password" placeholder="密码" aria-describedby="basic-addon2" />
+            </div>
+            <br />
+            <button type="submit" style="text-align:center;width:190px;height:60px;border:none;background:url(../images/login-box/controls/button/background-active.png)no-repeat center center" >登 录</button>
+        </div>
+
     </div>
-</div>
 
 
+</form>
 </body>
 </html>

@@ -3,6 +3,8 @@ package com.zz.secondhand.service;
 import com.zz.secondhand.entity.Product;
 import com.zz.secondhand.mapper.ProductMapper;
 import com.zz.secondhand.mapper.UserMapper;
+import com.zz.secondhand.vo.ProductVo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +41,13 @@ public class ProductServive {
         }
 
 
+    }
+    public  ArrayList<ProductVo> queryProductByStyle( int page, int limit,  String style){
+        page=(page-1)*limit;
+        return productMapper.queryProductByStyle(page,limit,style);
+    }
+    public int queryAllCount(String style){
+        return productMapper.queryAllCount(style);
     }
 
 }

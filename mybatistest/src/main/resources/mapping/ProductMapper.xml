@@ -18,11 +18,14 @@
     <insert id="createProduct" parameterType="com.zz.secondhand.entity.Product">
         insert into product( user_id,createtime,title,image, description, price,style,type, status) values(#{user.id}, #{createtime},#{title}, #{image}, #{description}, #{price}, #{style}, #{type}, #{ status})
     </insert>
- <!--   <select id="findProductByType1" resultMap="BaseResultMap">
-        select id,user_id,createtime,title,image, description, price,style,type, status from product where type = #{type}and user_id = (select id from user where name = #{name})
-    </select>-->
     <select id="findProductByType" resultMap="BaseResultMap">
         select product.id,user_id,createtime,title,product.image, description, price,style,type, status,qq from product  join user  on product.user_id=user.id where type=#{type} and user_id =#{user_id}
+    </select>
+<select id="queryAllCount" resultType="java.lang.Integer" parameterType="java.lang.String">
+    select count(*) from product where style=#{style}
+</select>
+    <select id="queryProductByStyle" resultType="com.zz.secondhand.vo.ProductVo">
+        select * from product where style=#{style} limit #{page},#{limit}
     </select>
 
     <select id="findProductByStyle" resultMap="BaseResultMap">

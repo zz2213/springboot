@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zz.secondhand.mapper.AdminMapper">
+
+    <!-- <resultMap id="BaseResultMap" type="com.zz.secondhand.entity.User">
+         <result column="id" jdbcType="INTEGER" property="id" />
+         <result column="userName" jdbcType="VARCHAR" property="userName" />
+         <result column="passWord" jdbcType="VARCHAR" property="passWord" />
+         <result column="realName" jdbcType="VARCHAR" property="realName" />
+     </resultMap>-->
+
+    <insert id="insert" parameterType="com.zz.secondhand.entity.Admin">
+        insert into admin(name,password) values(#{name},#{password})
+    </insert>
+    <select id="findByName" resultType="com.zz.secondhand.entity.Admin">
+        select id,name,password from admin where name = #{name}
+    </select>
+
+</mapper>
