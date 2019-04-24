@@ -51,4 +51,14 @@
 
     </update>
 
+    <select id="queryUser" resultType="com.zz.secondhand.entity.User">
+        select * from user  limit #{page},#{limit}
+    </select>
+    <select id="queryAllCount" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select count(*) from user
+    </select>
+    <delete id="deleteUser" parameterType="java.lang.Integer">
+        DELETE FROM user where id=#{id}
+    </delete>
+
 </mapper>

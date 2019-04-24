@@ -21,4 +21,6 @@ public interface ProductMapper {
     ArrayList<ProductVo> queryProductByStyle(@Param("page") int page, @Param("limit") int limit, @Param("style") String style);
     int queryAllCount(String style);
     int updateProductstatus(String status,Integer id);
+    int updateProduct(Product product);
+    int deleteProduct(Integer id);
 }

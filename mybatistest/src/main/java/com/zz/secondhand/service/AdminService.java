@@ -1,9 +1,13 @@
 package com.zz.secondhand.service;
 
 import com.zz.secondhand.entity.Admin;
+import com.zz.secondhand.entity.User;
 import com.zz.secondhand.mapper.AdminMapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author Administrator
@@ -20,4 +24,18 @@ public class AdminService {
 
       return adminMapper.findByName(name);
   }
+  public List<Admin> queeryalladmin(int page,int limit){
+      page=(page-1)*limit;
+   return adminMapper.queeryalladmin(page,limit);
+  }
+  public int queryAllCount(){
+      return adminMapper.queryAllCount();
+  }
+  public  int Update(Admin admin){
+      return adminMapper.Update(admin);
+  }
+  public  int insert(Admin admin){
+      return adminMapper.insert(admin);
+  }
 }
+

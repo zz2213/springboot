@@ -16,5 +16,15 @@
     <select id="findByName" resultType="com.zz.secondhand.entity.Admin">
         select id,name,password from admin where name = #{name}
     </select>
+    <select id="queeryalladmin" resultType="com.zz.secondhand.entity.Admin">
+        select * from admin limit #{page},#{limit}
+    </select>
+
+    <select id="queryAllCount" resultType="java.lang.Integer">
+        select count(*) from admin
+    </select>
+    <update id="Update" parameterType="com.zz.secondhand.entity.Admin" >
+        update admin set password=#{password} where id=#{id}
+    </update>
 
 </mapper>

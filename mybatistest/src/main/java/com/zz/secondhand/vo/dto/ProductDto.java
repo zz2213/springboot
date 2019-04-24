@@ -16,7 +16,7 @@ public class ProductDto implements Serializable {
 
     private Integer user_id;
 
-    private Date createtime;
+    private String createtime;
 
     private String title;
 
@@ -51,11 +51,11 @@ public class ProductDto implements Serializable {
         this.user_id = user_id;
     }
 
-    public Date getCreatetime() {
+    public String getCreatetime() {
         return createtime;
     }
 
-    public void setCreatetime(Date createtime) {
+    public void setCreatetime(String createtime) {
         this.createtime = createtime;
     }
 
@@ -113,5 +113,21 @@ public class ProductDto implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductDto{" +
+                "id=" + id +
+                ", user_id=" + user_id +
+                ", createtime='" + createtime + '\'' +
+                ", title='" + title + '\'' +
+                ", image='" + image + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", style='" + style + '\'' +
+                ", type='" + type + '\'' +
+                ", status='" + status + '\'' +
+                '}';
     }
 }

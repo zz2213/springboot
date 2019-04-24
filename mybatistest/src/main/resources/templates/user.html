@@ -13,14 +13,6 @@
 
 <table class="layui-hide" id="test" lay-filter="test"></table>
 
-<script type="text/html" id="toolbarDemo">
-    <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
-        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
-    </div>
-</script>
-
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
@@ -35,20 +27,18 @@ layui.use('table', function(){
 
   table.render({
     elem: '#test'
-    ,url:'/showData'
+    ,url:'/getuser'
     ,title: '商品'
     ,cols: [
     [
       {field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
-      ,{field:'user_id', title:'卖家ID', width:120, edit: 'text'}
-      ,{field:'createtime', title:'创建时间', width:150, edit: 'text',}
-      ,{field:'title',title:'商品标题', width:80, edit: 'text', sort: true}
-      ,{field:'image',title:'图片', templet:'<div><img src="data:image/png;base64,{{d.image}}"></div>'}
-      ,{field:'description',title:'描述'}
-      ,{field:'price',title:'价格', width:120}
-      ,{field:'style',title:'类型', width:100, sort: true}
-      ,{field:'type', title:'分类', width:120}
-      ,{field:'status',title:'状态', width:120}
+      ,{field:'name', title:'用户号码', width:120, edit: 'text'}
+      ,{field:'realname', title:'真实姓名', width:150, edit: 'text',}
+      ,{field:'password',title:'密码', width:80, edit: 'text', sort: true}
+      ,{field:'image',title:'头像', templet:'<div><img src="data:image/png;base64,{{d.image}}"></div>'}
+      ,{field:'number',title:'描述'}
+      ,{field:'school',title:'学校'}
+      ,{field:'qq',title:'QQ', width:120}
        ,{fixed: 'right',title:'操作', toolbar: '#barDemo', width:150}
     ]]
     ,page: true
@@ -79,7 +69,7 @@ layui.use('table', function(){
     console.log(data);
       layer.confirm('真的删除行么', function(index){
        $.ajax({
-      url:"/test2",
+      url:"/userdelete",
       type:"post",
       contentType:"application/json;charset=UTF-8",
       data:JSON.stringify(obj.data),
@@ -94,20 +84,20 @@ layui.use('table', function(){
         type: 2
         ,value: data.user_id
         ,area:['600px','600px']
-        ,content:'productupdate',
+        ,content:'userupdate',
         success: function(layero,index){
         var div = layero.find('iframe').contents().find('#product');
         var iframeWin = window[layero.find('iframe')[0]['name']];
         if(obj){
-        div.find("#user_id").val(obj.data.user_id);
-        div.find("#createtime").val(obj.data.createtime);
-        div.find("#title").val(obj.data.title);
-         div.find("#style").val(obj.data.style);
-          div.find("#type").val(obj.data.type);
-           div.find("#description").val(obj.data.description);
-          div.find("#status").val(obj.data.status);
-           div.find("#price").val(obj.data.price);
-           div.find("#id").val(obj.data.id);
+        div.find("#id").val(obj.data.id);
+        div.find("#id").attr("readonly","true");
+        div.find("#name").val(obj.data.name);
+        div.find("#name").attr("readonly","true");
+        div.find("#realname").val(obj.data.realname);
+         div.find("#password").val(obj.data.password);
+          div.find("#number").val(obj.data.number);
+           div.find("#school").val(obj.data.school);
+          div.find("#qq").val(obj.data.qq);
         }
            },
            end: function() {

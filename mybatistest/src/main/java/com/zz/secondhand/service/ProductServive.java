@@ -49,5 +49,10 @@ public class ProductServive {
     public int queryAllCount(String style){
         return productMapper.queryAllCount(style);
     }
-
+ public int updateProduct(Product product){
+        return productMapper.updateProduct(product);
+ }
+ public int deleteProduct(Integer id){
+        return productMapper.deleteProduct(id);
+ }
 }

@@ -1,6 +1,10 @@
 package com.zz.secondhand.mapper;
 
 import com.zz.secondhand.entity.Admin;
+import com.zz.secondhand.entity.User;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @author Administrator
@@ -12,4 +16,7 @@ import com.zz.secondhand.entity.Admin;
 public interface AdminMapper {
     int insert(Admin admin);
     Admin findByName(String name);
+   List<Admin> queeryalladmin(@Param("page") int page, @Param("limit") int limit);
+    int queryAllCount();
+    int Update(Admin admin);
 }

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.List;
 
 @Resource
 @Service
@@ -58,5 +59,14 @@ public class UserService {
         System.out.println(user.toString());
         return user;
     }
-
+    public List<User> queryUser( int page, int limit){
+        page=(page-1)*limit;
+        return userMapper.queryUser(page,limit);
+    }
+    public  int queryAllCount(){
+        return userMapper.queryAllCount();
+    }
+    public  int deleteUser(Integer id){
+       return userMapper.deleteUser(id);
+    }
 }

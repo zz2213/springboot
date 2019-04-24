@@ -34,4 +34,10 @@
     <update id="updateProductstatus" >
         update product set status=#{status} where id=#{id}
     </update>
+    <update id="updateProduct" parameterType="com.zz.secondhand.entity.Product">
+        update product set user_id=#{user.id},createtime=#{createtime},title=#{title}, description=#{description}, price=#{price},style=#{style},type=#{type}, status=#{ status} where id=#{id}
+    </update>
+    <delete id="deleteProduct" parameterType="java.lang.Integer">
+        DELETE FROM product where id=#{id}
+    </delete>
 </mapper>
