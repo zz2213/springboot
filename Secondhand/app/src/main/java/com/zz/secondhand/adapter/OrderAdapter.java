@@ -74,7 +74,7 @@ public class OrderAdapter  extends BaseAdapter {
             public void onClick(View v) {
                 switch (list.get(position).getStatus()){
                     case "未付款":
-                        CNiuPay.getInstance(context).pay(1,"测试","cs1155555555", new PayResultListener() {
+                        CNiuPay.getInstance(context).pay(1,"测试",list.get(position).getOrdernember(), new PayResultListener() {
                             /**
                              * 支付完成回调
                              * @param context 上下文
