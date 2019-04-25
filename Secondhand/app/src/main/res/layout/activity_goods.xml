@@ -32,7 +32,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="40dp"
-            android:padding="7dp"
+            android:inputType="" android:padding="7dp"
             android:background="@drawable/edit_bd"
             android:textColor="@color/black"
             android:textSize="14sp" />
@@ -116,7 +116,7 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
                 android:id="@+id/select_image"
-                android:src="@drawable/p2"/>
+                android:contentDescription="TODO" android:src="@drawable/p2"/>
 
 
 
@@ -146,7 +146,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="40dp"
-                android:padding="7dp"
+                android:inputType="" android:padding="7dp"
                 android:background="@drawable/edit_bd"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
@@ -176,7 +176,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="16dp"
-                android:padding="7dp"
+                android:inputType="" android:padding="7dp"
                 android:background="@drawable/edit_bd"
                 android:textColor="@color/black"
                 android:textSize="14sp" />

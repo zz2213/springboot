@@ -9,7 +9,7 @@
             android:layout_height="120dp"
             android:layout_marginBottom="20dp"
             android:background="#ffffff"
-            android:orientation="horizontal"
+            android:focusable="true" android:orientation="horizontal"
             android:clickable="true"
             android:id="@+id/layout_my">
         <ImageView
@@ -20,7 +20,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
-                android:src="@mipmap/ic_launcher"/>
+                android:contentDescription="TODO" android:src="@mipmap/ic_launcher"/>
 
         <TextView
                 android:layout_width="wrap_content"

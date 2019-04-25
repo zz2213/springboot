@@ -7,6 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import com.cniupay.pay.CNiuPay;
+import com.cniupay.pay.enums.PayResultCodeEnum;
+import com.cniupay.pay.listener.PayResultListener;
 import com.zz.secondhand.R;
 import com.zz.secondhand.activity.OrderDetailed;
 import com.zz.secondhand.entity.ProductOrd;
@@ -71,31 +74,50 @@ public class OrderAdapter  extends BaseAdapter {
             public void onClick(View v) {
                 switch (list.get(position).getStatus()){
                     case "未付款":
-                        Toast toast = (Toast) Toast.makeText(context, "已付款等待商家发货", Toast.LENGTH_SHORT);
-                        toast.show();
-                        String url=UPDATE_ORDER;
-                        OkHttpClient okHttpClient = new OkHttpClient();
-                        RequestBody requestBody = new FormBody.Builder()
-                                .add("status", "已付款")
-                                .add("number", list.get(position).getProduct().getId().toString())
-                                .build();
-                        final Request request = new Request.Builder()
-                                .url(url)
-                                .post(requestBody)
-                                .build();
-                        Call call = okHttpClient.newCall(request);
-                        call.enqueue(new Callback() {
+                        CNiuPay.getInstance(context).pay(1,"测试","cs1155555555", new PayResultListener() {
+                            /**
+                             * 支付完成回调
+                             * @param context 上下文
+                             * @param payResult 支付状态
+                             * @param resultMsg 支付提示信息（失败时返回失败提示）
+                             * @param amount 支付金额
+                             */
                             @Override
-                            public void onFailure(Call call, IOException e) {
-                                Log.d("你好", "onFailure: ");
-                            }
+                            public void onPayFinished(Context context, PayResultCodeEnum payResult, String resultMsg, long amount) {
+                                if (PayResultCodeEnum.SUCCESS == payResult) {
+                                    System.out.println("succ");
+                                    Toast toast = (Toast) Toast.makeText(context, "已付款等待商家发货", Toast.LENGTH_SHORT);
+                                    toast.show();
+                                    String url=UPDATE_ORDER;
+                                    OkHttpClient okHttpClient = new OkHttpClient();
+                                    RequestBody requestBody = new FormBody.Builder()
+                                            .add("status", "已付款")
+                                            .add("number", list.get(position).getProduct().getId().toString())
+                                            .build();
+                                    final Request request = new Request.Builder()
+                                            .url(url)
+                                            .post(requestBody)
+                                            .build();
+                                    Call call = okHttpClient.newCall(request);
+                                    call.enqueue(new Callback() {
+                                        @Override
+                                        public void onFailure(Call call, IOException e) {
+                                            Log.d("你好", "onFailure: ");
+                                        }
 
-                            @Override
-                            public void onResponse(Call call, Response response) throws IOException
-                            {
-                                button1.setText("已付款");
+                                        @Override
+                                        public void onResponse(Call call, Response response) throws IOException
+                                        {
+                                            button1.setText("已付款");
+                                        }
+                                    });
+
+                                } else {
+                                    System.out.println("err");
+                                }
                             }
                         });
+
                         break;
                     case "已发货":
                         Toast toast1 = (Toast) Toast.makeText(context, "已收货", Toast.LENGTH_SHORT);

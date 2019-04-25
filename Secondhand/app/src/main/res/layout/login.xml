@@ -43,7 +43,7 @@ android:id="@+id/aaa">
             android:layout_marginTop="52dp" />
 
         <ImageView
-            android:layout_width="300dp"
+            android:layout_width="300dp" android:contentDescription="TODO" 
             android:layout_height="150dp"
             android:id="@+id/logo"
             android:layout_alignParentRight="true"

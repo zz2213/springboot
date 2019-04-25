@@ -43,10 +43,10 @@
             android:layout_width="match_parent" android:layout_height="60dp"
             android:id="@+id/head_image"
 
-            android:src="@mipmap/ic_launcher"/>
+            android:contentDescription="TODO" android:src="@mipmap/ic_launcher"/>
     <EditText
             android:drawableLeft="@android:drawable/ic_lock_idle_lock"
-            android:layout_width="match_parent"
+            android:layout_width="match_parent" android:inputType="" 
             android:layout_height="60dp"
             android:ems="10"
             android:id="@+id/user_school"
@@ -55,7 +55,7 @@
             android:hint="请输入您的学校" />
     <EditText
             android:drawableLeft="@android:drawable/ic_lock_idle_lock"
-            android:layout_width="match_parent"
+            android:layout_width="match_parent" android:inputType="" 
             android:layout_height="60dp"
             android:ems="10"
             android:id="@+id/user_number"
@@ -64,7 +64,7 @@
             android:hint="请输入手机号" />
     <EditText
             android:drawableLeft="@android:drawable/ic_lock_idle_lock"
-            android:layout_width="match_parent"
+            android:layout_width="match_parent" android:inputType="" 
             android:layout_height="60dp"
             android:ems="10"
             android:id="@+id/user_qq"

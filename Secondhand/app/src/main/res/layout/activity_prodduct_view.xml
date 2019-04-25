@@ -121,7 +121,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:id="@+id/product_view_image"
-                android:src="@mipmap/ic_launcher"/>
+                android:contentDescription="TODO" android:src="@mipmap/ic_launcher"/>
 
 
 

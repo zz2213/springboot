@@ -1,12 +1,16 @@
 package com.zz.secondhand.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.ListView;
 import com.alibaba.fastjson.JSON;
+import com.cniupay.pay.CNiuPay;
+import com.cniupay.pay.enums.PayResultCodeEnum;
+import com.cniupay.pay.listener.PayResultListener;
 import com.zz.secondhand.R;
 import com.zz.secondhand.adapter.MyWantAdapter;
 import com.zz.secondhand.adapter.OrderAdapter;
@@ -55,6 +59,7 @@ public class OrderActivity extends Activity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+
                 String backmess = response.body().string();
                 OrderActivity.this.runOnUiThread(new Runnable() {
                     @Override

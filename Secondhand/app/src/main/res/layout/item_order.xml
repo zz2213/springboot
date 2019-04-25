@@ -18,7 +18,7 @@
             android:gravity="center"
             android:text="状态"/>
     <ImageView
-            android:layout_width="0dp"
+            android:layout_width="0dp" android:contentDescription="TODO" 
             android:layout_height="80dp"
             android:id="@+id/order_goods_image"
             android:layout_weight="1"/>
