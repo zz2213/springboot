@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @title: ReturnMessage
  * @projectName mybatistest
  * @description: TODO
- * @date 2019/4/2210:24
+ * @date 2019/4/22 10:24
  */
 public class ReturnMessage implements Serializable {
     private static final long serialVersionUID = 1L;

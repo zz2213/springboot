@@ -6,33 +6,38 @@
     <insert id="createSellerOrd" parameterType="com.zz.secondhand.entity.SellerOrd">
         insert into seller_ord(user_id,product_id,createtime,status,ordernember,address) values(#{user.id},#{product.id}, #{createtime},#{status}, #{ordernember},#{address})
     </insert>
-    <select id="findSellerOrdByProductId" resultMap="BaseResultMap">
+    <select id="findSellerOrdByProductId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select id,user_id,product_id,createtime,status,ordernember,address from seller_ord  where product_id=#{product_id}
     </select>
     <select id="findSellerOrdByUserId" resultMap="BaseResultMap">
         select id,user_id,product_id,createtime,status,ordernember,address from seller_ord  where user_id=#{user_id}
     </select>
-    <update id="updateSellerOrdBynumber" >
+    <select id="querySellerOrd" resultMap="BaseResultMap">
+        select seller_ord.id,user.realname, seller_ord.user_id,product.title,product_id,product.price,seller_ord.createtime,seller_ord.status,ordernember,address from seller_ord  LEFT JOIN product on product_id =product.id left join user on seller_ord.user_id =user.id
+    </select>
+    <select id="queryAllCount" resultType="java.lang.Integer">
+        select count(*) from seller_ord
+    </select>
+    <update id="updateSellerOrd" parameterType="com.zz.secondhand.vo.SellerOrdVo"  >
+        update seller_ord set user_id=#{user_id},product_id=#{product_id},createtime=#{createtime},status=#{status},address=#{address} where id=#{id}
+    </update>
+    <update id="updateSellerOrdBynumber">
         update seller_ord set status=#{status} where product_id=#{ordnumber}
     </update>
-    <resultMap id="BaseResultMap" type="com.zz.secondhand.entity.ProductOrd">
+    <delete id="deletesellerord" parameterType="java.lang.Integer">
+        DELETE FROM seller_ord where id=#{id}
+    </delete>
+    <resultMap id="BaseResultMap" type="com.zz.secondhand.entity.SellerOrd">
         <result column="id" jdbcType="INTEGER" property="id" />
-        <result column="user_id" jdbcType="VARCHAR" property="user.id" />
-        <result column="product_id" jdbcType="VARCHAR" property="product.id" />
+        <result column="realname" jdbcType="VARCHAR" property="user.realname" />
+        <result column="user_id" jdbcType="INTEGER" property="user.id" />
+        <result column="title" jdbcType="VARCHAR" property="product.title" />
+        <result column="price" jdbcType="VARCHAR" property="product.price" />
+        <result column="product_id" jdbcType="INTEGER" property="product.id" />
         <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
         <result column="status" jdbcType="VARCHAR" property="status" />
         <result column="ordernember" jdbcType="VARCHAR" property="ordernember" />
         <result column="address" jdbcType="VARCHAR" property="address" />
     </resultMap>
 
-    <!--&lt;!&ndash;   <select id="findProductByType1" resultMap="BaseResultMap">-->
-    <!--select id,user_id,createtime,title,image, description, price,style,type, status from product where type = #{type}and user_id = (select id from user where name = #{name})-->
-    <!--</select>&ndash;&gt;-->
-    <!--<select id="findProductByType" resultMap="BaseResultMap">-->
-    <!--select product.id,user_id,createtime,title,product.image, description, price,style,type, status,qq from product  join user  on product.user_id=user.id where type=#{type} and user_id =#{user_id}-->
-    <!--</select>-->
-
-    <!--<select id="findProductByStyle" resultMap="BaseResultMap">-->
-    <!--select product.id,user_id,createtime,title,product.image, description, price,style,type, status,qq from product  join user  on product.user_id=user.id where style=#{style}-->
-    <!--</select>-->
 </mapper>

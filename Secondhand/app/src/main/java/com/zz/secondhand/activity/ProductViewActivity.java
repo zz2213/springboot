@@ -60,6 +60,9 @@ public class ProductViewActivity extends Activity {
                     Toast.makeText(getApplicationContext(), "你不能购买自己的商品", Toast.LENGTH_SHORT).show();
                     System.out.println("你不能购买自己的商品");
                 }
+                else if("已出售".equals(product.getStatus())){
+                    Toast.makeText(getApplicationContext(), "你不能购买已出售的商品", Toast.LENGTH_SHORT).show();
+                }
                 else{
 
                     ProductOrd productOrd = new ProductOrd();

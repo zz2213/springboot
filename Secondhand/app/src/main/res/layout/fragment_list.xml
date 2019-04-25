@@ -18,13 +18,13 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="#FFFFFF"
-                android:text="学习"/>
+                android:text="电子"/>
         <Button android:id="@+id/frag03"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="#FFFFFF"
-                android:text="电子"/>
+                android:text="学习"/>
     </LinearLayout>
         <com.zz.secondhand.fragment.IndexViewPager
                 android:id="@+id/viewpaper01"

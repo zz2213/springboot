@@ -75,4 +75,17 @@ public class ProductOrd implements Serializable {
     public void setOrdernember(String ordernember) {
         this.ordernember = ordernember == null ? null : ordernember.trim();
     }
+
+    @Override
+    public String toString() {
+        return "ProductOrd{" +
+                "id=" + id +
+                ", user=" + user +
+                ", product=" + product +
+                ", createtime=" + createtime +
+                ", status='" + status + '\'' +
+                ", ordernember='" + ordernember + '\'' +
+                ", address='" + address + '\'' +
+                '}';
+    }
 }

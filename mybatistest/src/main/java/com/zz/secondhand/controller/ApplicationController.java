@@ -52,20 +52,17 @@ public class ApplicationController {
         jsonObject.put("msg","");
         jsonObject.put("count",countx);
         jsonObject.put("data",list);
-        System.out.println( jsonObject.toString());
         return  jsonObject.toJSONString();
     }
 
     @RequestMapping("/test1")
     public String test(@RequestBody ProductDto productDto){
-        System.out.println(productDto.toString());
         Product product = ProductUtils.dtoToProduct(productDto);
         productServive.updateProduct(product);
         return "product";
     }
     @RequestMapping("/test2")
     public String test2(@RequestBody ProductDto productDto){
-        System.out.println(productDto.getId());
         productServive.deleteProduct(productDto.getId());
         return "product";
     }
@@ -79,14 +76,12 @@ public class ApplicationController {
     }
     @RequestMapping("/userdelete")
     public String userdelete(@RequestBody User user){
-        System.out.println(user.getId());
         userService.deleteUser(user.getId());
         return "product";
     }
     @ResponseBody
     @RequestMapping("/updateadmin")
     public String updateadmin(@RequestBody Admin admin){
-        System.out.println(admin.toString());
         adminService.Update(admin);
         return "ok";
     }
@@ -100,7 +95,6 @@ public class ApplicationController {
 
     @RequestMapping("/updateuser")
     public String updateuser(@RequestBody User user){
-        System.out.println(user.toString());
         userService.Update(user);
         return "product";
     }
@@ -110,18 +104,40 @@ public class ApplicationController {
     public String index(){
         return "product";
     }
+    @RequestMapping("/buyerord")
+    public String buyerord(){
+        return "buyerord";
+    }
+    @RequestMapping("/sellerord")
+    public String sellerord(){
+        return "seller";
+    }
+    @RequestMapping("/sellerupdate")
+    public String sellerupdate(){
+
+        return "sellerupdate";
+    }
+
+    @RequestMapping("/buyerupdate")
+    public String buyerupdate(){
+
+        return "buyerupdate";
+    }
 
     @RequestMapping("/studyproduct")
     public String study(){
+
         return "studyproduct";
     }
 
     @RequestMapping("/productupdate")
     public String productup(){
+
         return "productupdate";
     }
     @RequestMapping("/userupdate")
     public String userup(){
+
         return "userupdate";
     }
     @RequestMapping("/user")
@@ -164,7 +180,6 @@ public class ApplicationController {
         jsonObject.put("msg","");
         jsonObject.put("count",countx);
         jsonObject.put("data",list);
-        System.out.println( jsonObject.toString());
         return  jsonObject.toJSONString();
     }
 
@@ -203,7 +218,6 @@ public class ApplicationController {
         jsonObject.put("msg","");
         jsonObject.put("count",countx);
         jsonObject.put("data",list);
-        System.out.println( jsonObject.toString());
         return  jsonObject.toJSONString();
     }
 
@@ -238,7 +252,6 @@ public class ApplicationController {
         jsonObject.put("msg","");
         jsonObject.put("count",countx);
         jsonObject.put("data",list);
-        System.out.println( jsonObject.toString());
         return  jsonObject.toJSONString();
 
     }
@@ -303,7 +316,6 @@ public class ApplicationController {
         jsonObject.put("msg","");
         jsonObject.put("count",countx);
         jsonObject.put("data",list);
-        System.out.println( jsonObject.toString());
         return  jsonObject.toJSONString();
     }
 

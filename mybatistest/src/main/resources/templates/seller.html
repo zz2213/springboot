@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>卖家订单管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" th:href="@{/js/layui/css/layui.css}"  media="all">
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+<body>
+
+<table class="layui-hide" id="test" lay-filter="test"></table>
+
+<script type="text/html" id="bar">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+
+<script src="/js/layui/layui.js" th:src="@{/js/layui/layui.js}" charset="utf-8"></script>
+<script type="text/javascript" th:inline="javascript">
+layui.use('table', function(){
+ var $=layui.jquery,
+  table = layui.table;
+
+  table.render({
+    elem: '#test'
+    ,url:'/SellerOrdController/getseller'
+    ,title: '卖家订单'
+    ,cols: [
+    [
+       {field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
+      ,{field:'user_id', title:'买家ID', width:120, edit: 'text'}
+       ,{field:'user_name', title:'买家姓名', width:120, edit: 'text'}
+        ,{field:'product_id', title:'商品ID', width:120, edit: 'text'}
+       ,{field:'product_title', title:'商品名', width:120, edit: 'text'}
+        ,{field:'product_price', title:'商品价格', width:120, edit: 'text'}
+      ,{field:'createtime', title:'创建时间', width:150, edit: 'text',}
+      ,{field:'address',title:'地址', width:100, sort: true}
+      ,{field:'ordernember', title:'订单号', width:120}
+      ,{field:'status',title:'状态', width:120}
+       ,{fixed: 'right',title:'操作', toolbar: '#bar', width:150}
+    ]]
+    ,page: true
+  });
+
+
+  //监听行工具事件
+  table.on('tool(test)', function(obj){
+    var data = obj.data;
+    if(obj.event === 'del'){
+    console.log(data);
+      layer.confirm('真的删除行么', function(index){
+       $.ajax({
+      url:"/SellerOrdController/deleteseller",
+      type:"post",
+      contentType:"application/json;charset=UTF-8",
+      data:JSON.stringify(obj.data),
+      success: function (result){
+      location.reload();
+  }
+    });
+        layer.close(index);
+      });
+    } else if(obj.event === 'edit'){
+      var index = layui.layer.open({
+        type: 2
+        ,value: data.user_id
+        ,area:['600px','600px']
+        ,content:'sellerupdate',
+        success: function(layero,index){
+        var div = layero.find('iframe').contents().find('#product');
+        var iframeWin = window[layero.find('iframe')[0]['name']];
+        if(obj){
+         div.find("#id").val(obj.data.id);
+        div.find("#user_id").val(obj.data.user_id);
+        div.find("#createtime").val(obj.data.createtime);
+        div.find("#product_title").val(obj.data.product_title);
+         div.find("#product_id").val(obj.data.product_id);
+          div.find("#ordernember").val(obj.data.ordernember);
+           div.find("#user_name").val(obj.data.user_name);
+          div.find("#status").val(obj.data.status);
+           div.find("#product_price").val(obj.data.product_price);
+           div.find("#address").val(obj.data.address);
+        }
+           },
+           end: function() {
+        //刷新页面,
+		location.reload();
+	}
+
+      });
+    }
+  });
+});
+</script>
+
+</body>
+</html>

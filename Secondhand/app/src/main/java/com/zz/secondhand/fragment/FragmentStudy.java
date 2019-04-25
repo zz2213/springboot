@@ -111,7 +111,7 @@ public class FragmentStudy extends Fragment {
         String url=FIND_PRODUCT_STYLE;
         OkHttpClient okHttpClient = new OkHttpClient();
         RequestBody requestBody = new FormBody.Builder()
-                .add("style","电子")
+                .add("style","学习")
                 .build();
         final Request request = new Request.Builder()
                 .url(url)

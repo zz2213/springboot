@@ -43,11 +43,9 @@ public class FragmentMy extends Fragment {
     public User getSelf() {
         return self;
     }
-
     public void setSelf(User self) {
         this.self = self;
     }
-
     public User self;
 
 
@@ -145,13 +143,9 @@ public class FragmentMy extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode==RESULT_OK){
-            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@");
             if(self==null){
-                System.out.println("1111111111111111111111");
             }
             self= (User) data.getSerializableExtra("userresult");
-
-            System.out.println(self.toString());
         }
 
 

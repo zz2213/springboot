@@ -1,6 +1,7 @@
 package com.zz.secondhand.mapper;
 
 import com.zz.secondhand.entity.SellerOrd;
+import com.zz.secondhand.vo.SellerOrdVo;
 
 import java.util.ArrayList;
 
@@ -13,7 +14,11 @@ import java.util.ArrayList;
  */
 public interface SellerOrdMapper {
     int createSellerOrd(SellerOrd sellerOrd);
-    SellerOrd findSellerOrdByProductId(String product_id);
+    SellerOrd findSellerOrdByProductId(Integer product_id);
     ArrayList<SellerOrd> findSellerOrdByUserId(String user_id);
     int updateSellerOrdBynumber(String ordnumber,String status );
+    int updateSellerOrd(SellerOrdVo sellerOrdVo);
+    ArrayList<SellerOrd> querySellerOrd();
+    int queryAllCount();
+    int deletesellerord(Integer id);
 }

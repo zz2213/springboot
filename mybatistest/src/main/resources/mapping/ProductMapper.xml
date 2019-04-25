@@ -35,7 +35,34 @@
         update product set status=#{status} where id=#{id}
     </update>
     <update id="updateProduct" parameterType="com.zz.secondhand.entity.Product">
-        update product set user_id=#{user.id},createtime=#{createtime},title=#{title}, description=#{description}, price=#{price},style=#{style},type=#{type}, status=#{ status} where id=#{id}
+        update product
+        <trim prefix="set" suffixOverrides=",">
+            <if test="user.id!=null and user.id!='' ">
+                user_id=#{user.id},
+            </if>
+            <if test="createtime!=null and createtime!=''">
+                createtime=#{createtime},
+            </if>
+            <if test="title!=null and title!=''">
+                title=#{title},
+            </if>
+            <if test="description!=null and description!=''">
+                description=#{description},
+            </if>
+            <if test="price!=null and price!=''">
+                price=#{price},
+            </if>
+            <if test="type!=null and type!=''">
+                type=#{type},
+            </if>
+            <if test="status!=null and status!=''">
+                status=#{status},
+            </if>
+            <if test="style!=null and style!=''">
+                style=#{style},
+            </if>
+        </trim>
+        where id=#{id};
     </update>
     <delete id="deleteProduct" parameterType="java.lang.Integer">
         DELETE FROM product where id=#{id}

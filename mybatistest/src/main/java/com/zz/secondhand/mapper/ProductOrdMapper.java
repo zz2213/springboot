@@ -2,6 +2,8 @@ package com.zz.secondhand.mapper;
 
 import com.zz.secondhand.entity.Product;
 import com.zz.secondhand.entity.ProductOrd;
+import com.zz.secondhand.entity.SellerOrd;
+import com.zz.secondhand.vo.SellerOrdVo;
 
 import java.util.ArrayList;
 
@@ -17,4 +19,9 @@ public interface ProductOrdMapper {
     ProductOrd findProductOrdById(Integer id);
     ArrayList<ProductOrd> findProductOrdByUserId(int user_id);
     int updateProductOrdBynumber(String ordnumber,String status );
+    int updateBuyerOrd(SellerOrdVo sellerOrdVo);
+    ArrayList<ProductOrd> querySellerOrd();
+    int queryAllCount();
+    int deletebuyerord(Integer id);
+
 }

@@ -1,6 +1,7 @@
 package com.zz.secondhand.service;
 
 import com.zz.secondhand.entity.Product;
+import com.zz.secondhand.entity.ProductOrd;
 import com.zz.secondhand.mapper.ProductMapper;
 import com.zz.secondhand.mapper.UserMapper;
 import com.zz.secondhand.vo.ProductVo;
@@ -23,6 +24,8 @@ import java.util.ArrayList;
 public class ProductServive {
     @Autowired
     ProductMapper productMapper;
+    @Autowired
+    ProductServive productServive;
     public  int createProduct(Product product){
         return  productMapper.createProduct(product);
     }
@@ -39,8 +42,6 @@ public class ProductServive {
         }else {
             return "failure";
         }
-
-
     }
     public  ArrayList<ProductVo> queryProductByStyle( int page, int limit,  String style){
         page=(page-1)*limit;
@@ -55,4 +56,5 @@ public class ProductServive {
  public int deleteProduct(Integer id){
         return productMapper.deleteProduct(id);
  }
+
 }

@@ -12,7 +12,7 @@ import android.view.MotionEvent;
  * @title: IndexViewPager
  * @projectName Secondhand
  * @description: TODO
- * @date 2019/4/915:00
+ * @date 2019/4/9 15:00
  */
 public class IndexViewPager extends ViewPager {
 
