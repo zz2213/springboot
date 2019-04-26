@@ -33,6 +33,8 @@ import static com.zz.secondhand.utils.GlobalVariables.FIND_PRODUCT_TYPE;
 public class MyGoodsActivity extends Activity {
     String listProduct;
     ArrayList<Product> productArrayList;
+    String tokenErr="token错误";
+    String tokenEmpty="token为空";
     @Override
     public void onCreate( @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,12 +70,12 @@ public class MyGoodsActivity extends Activity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 listProduct = response.body().string();
-                if("token为空".equals(listProduct))
+                if(tokenEmpty.equals(listProduct))
                 {
                     Intent intent = new Intent(MyGoodsActivity.this, Login.class);
                     startActivity(intent);
 
-                }else if("token错误".equals(listProduct)){
+                }else if(tokenErr.equals(listProduct)){
                     Intent intent = new Intent(MyGoodsActivity.this,Login.class);
                     startActivity(intent);
                 }else {

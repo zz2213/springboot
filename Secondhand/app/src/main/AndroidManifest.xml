@@ -54,7 +54,7 @@
         <activity android:name="com.zz.secondhand.activity.SellerOrdActivity">
 
         </activity>
-        <activity android:name="com.zz.secondhand.activity.SellerOrdDEtailed">
+        <activity android:name="com.zz.secondhand.activity.SellerOrdDetailed">
 
         </activity>
 

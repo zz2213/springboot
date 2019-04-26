@@ -10,10 +10,7 @@ import android.view.ViewGroup;
 import android.widget.*;
 import com.zz.secondhand.Login;
 import com.zz.secondhand.R;
-import com.zz.secondhand.activity.MyGoodsActivity;
-import com.zz.secondhand.activity.OrderDetailed;
-import com.zz.secondhand.activity.SellerOrdDEtailed;
-import com.zz.secondhand.entity.ProductOrd;
+import com.zz.secondhand.activity.SellerOrdDetailed;
 import com.zz.secondhand.entity.SellerOrd;
 import com.zz.secondhand.entity.Token;
 import com.zz.secondhand.utils.Myapplication;
@@ -186,7 +183,7 @@ public class SellerOederAdapter extends BaseAdapter {
         viewHolderOrder.button_detailed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, SellerOrdDEtailed.class);
+                Intent intent = new Intent(context, SellerOrdDetailed.class);
                 intent.putExtra("seller0rd",list.get(position));
                 context.startActivity(intent);
             }
