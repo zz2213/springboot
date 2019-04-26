@@ -29,7 +29,7 @@ import java.util.List;
 public class OrderSellerController {
     @Autowired
     SellerOrdService sellerOrdService;
-    @RequestMapping("/findsellordbyid")
+    @RequestMapping(value = "/findsellordbyid",produces = {"application/json;charset=UTF-8"})
     public String findByid(@RequestParam("user_id") String user_id){
         return JSON.toJSONString(sellerOrdService.findSellerOrdByUserId(user_id));
     }

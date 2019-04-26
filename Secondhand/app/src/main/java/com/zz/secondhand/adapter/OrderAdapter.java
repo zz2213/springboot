@@ -2,6 +2,7 @@ package com.zz.secondhand.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +11,13 @@ import android.widget.*;
 import com.cniupay.pay.CNiuPay;
 import com.cniupay.pay.enums.PayResultCodeEnum;
 import com.cniupay.pay.listener.PayResultListener;
+import com.zz.secondhand.Login;
 import com.zz.secondhand.R;
 import com.zz.secondhand.activity.OrderDetailed;
+import com.zz.secondhand.activity.SellerOrdActivity;
 import com.zz.secondhand.entity.ProductOrd;
+import com.zz.secondhand.entity.Token;
+import com.zz.secondhand.utils.Myapplication;
 import okhttp3.*;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,6 +29,7 @@ import static com.zz.secondhand.utils.GlobalVariables.UPDATE_ORDER;
  * @Description:
  */
 public class OrderAdapter  extends BaseAdapter {
+    private Myapplication myapplication;
     protected Context context;
     protected LayoutInflater inflater;
     protected int resource;
@@ -85,6 +91,15 @@ public class OrderAdapter  extends BaseAdapter {
                             @Override
                             public void onPayFinished(Context context, PayResultCodeEnum payResult, String resultMsg, long amount) {
                                 if (PayResultCodeEnum.SUCCESS == payResult) {
+                                    myapplication=(Myapplication)context.getApplicationContext ();
+                                    Token token = new Token();
+                                    token=myapplication.getToken();
+                                    System.out.println(token.toString());
+
+                                    SharedPreferences userToken=context.getSharedPreferences("userToken",0);
+                                    String tokenResult=userToken.getString("token","");
+
+
                                     System.out.println("succ");
                                     Toast toast = (Toast) Toast.makeText(context, "已付款等待商家发货", Toast.LENGTH_SHORT);
                                     toast.show();
@@ -92,6 +107,7 @@ public class OrderAdapter  extends BaseAdapter {
                                     OkHttpClient okHttpClient = new OkHttpClient();
                                     RequestBody requestBody = new FormBody.Builder()
                                             .add("status", "已付款")
+                                            .add("token",tokenResult)
                                             .add("number", list.get(position).getProduct().getId().toString())
                                             .build();
                                     final Request request = new Request.Builder()
@@ -108,7 +124,19 @@ public class OrderAdapter  extends BaseAdapter {
                                         @Override
                                         public void onResponse(Call call, Response response) throws IOException
                                         {
-                                            button1.setText("已付款");
+                                            String backmess = response.body().string();
+                                            if("token为空".equals(backmess))
+                                            {
+                                                Intent intent = new Intent(context, Login.class);
+                                               context.startActivity(intent);
+
+                                            }else if("token错误".equals(backmess)){
+                                                Intent intent = new Intent(context,Login.class);
+                                                context.startActivity(intent);
+                                            }else {
+                                                button1.setText("已付款");
+                                            }
+
                                         }
                                     });
 
@@ -141,7 +169,19 @@ public class OrderAdapter  extends BaseAdapter {
                             @Override
                             public void onResponse(Call call, Response response) throws IOException
                             {
-                                button1.setText("已收货");
+                                String backmess = response.body().string();
+                                if("token为空".equals(backmess))
+                                {
+                                    Intent intent = new Intent(context, Login.class);
+                                    context.startActivity(intent);
+
+                                }else if("token错误".equals(backmess)){
+                                    Intent intent = new Intent(context,Login.class);
+                                    context.startActivity(intent);
+                                }else {
+                                    button1.setText("已收货");
+                                }
+
 
                             }
                         });

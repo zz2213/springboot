@@ -3,6 +3,11 @@ server:
   max-http-header-size: 4048576
 
 spring:
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force-response: true
   redis:
     host: 127.0.0.1
     port: 6379

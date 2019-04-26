@@ -40,6 +40,7 @@ public class Login extends Activity {
     private EditText login_edit_account;
     private CheckBox login_Remember;
     private SharedPreferences sharedPreferences;
+    private Myapplication myapplication;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +73,6 @@ public class Login extends Activity {
             login_edit_account.setText(sharedPreferences.getString("USER_NAME",""));
             login_edit_pwd.setText(sharedPreferences.getString("PASSWORD",""));
         }
-
 
         Token token = new Token();
         SharedPreferences userToken=getSharedPreferences("userToken",0);
@@ -172,6 +172,9 @@ public class Login extends Activity {
                             System.out.println("Login"+token.toString());
                             editor.putString("token", JSON.toJSONString(token));
                             editor.commit();
+
+                            myapplication =(Myapplication) getApplication();
+                            myapplication.setToken(token);
                             Intent intent = new Intent(Login.this,MainActivity.class);
                             intent.putExtra("user",returnMessage.getUser());
                             startActivity(intent);

@@ -33,23 +33,23 @@ import java.util.List;
 public class ProductOrdController {
     @Autowired
     ProductOrdService productOrdService;
-    @RequestMapping("/index")
+    @RequestMapping(value = "/index",produces = {"application/json;charset=UTF-8"})
     public String index(@RequestParam("productOrd") String productOrd){
         ProductOrd productOrd1= JSON.parseObject(productOrd, ProductOrd.class);
         productOrd1.setOrdernember("B"+productOrd1.getProduct().getId()+String.valueOf(productOrd1.getCreatetime().getTime()));
         SellerOrd sellerOrd =new SellerOrd();
-        sellerOrd.setUser(productOrd1.getProduct().getUser());
+        sellerOrd.setUser(productOrd1.getUser());
         sellerOrd.setCreatetime(productOrd1.getCreatetime());
         sellerOrd.setProduct(productOrd1.getProduct());
         sellerOrd.setOrdernember("S"+productOrd1.getProduct().getId()+String.valueOf(productOrd1.getCreatetime().getTime()));
         productOrdService.createProductOrd(productOrd1,sellerOrd);
         return  "xx";
     }
-    @RequestMapping("/myorder")
+    @RequestMapping(value = "/myorder",produces = {"application/json;charset=UTF-8"})
     public String selectOrder(@RequestParam("user_id") int user_id){
         return JSON.toJSONString(productOrdService.findProductOrdByUserId(user_id));
     }
-    @RequestMapping("/updateorder")
+    @RequestMapping(value = "/updateorder",produces = {"application/json;charset=UTF-8"})
     public  String updateOrder(@RequestParam("number") String number,@RequestParam("status") String status){
         productOrdService.updateProductOrdByuserID(number,status);
         return "xxx";

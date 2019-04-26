@@ -2,6 +2,7 @@ package com.zz.secondhand;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -13,8 +14,10 @@ import com.alibaba.fastjson.JSON;
 import com.wildma.pictureselector.ImageUtils;
 import com.wildma.pictureselector.PictureSelector;
 import com.zz.secondhand.entity.Product;
+import com.zz.secondhand.entity.Token;
 import com.zz.secondhand.entity.User;
 import com.zz.secondhand.utils.ImageUtil;
+import com.zz.secondhand.utils.Myapplication;
 import okhttp3.*;
 import java.io.IOException;
 import java.util.Date;
@@ -26,6 +29,7 @@ import static com.zz.secondhand.utils.GlobalVariables.CREATE_PRODUCT_URL;
  * @Description:
  */
 public class GoodsActivity extends Activity {
+    private Myapplication myapplication;
     ImageView select_image;
     Product product=new Product();
     TextView product_type;
@@ -78,11 +82,19 @@ public class GoodsActivity extends Activity {
                 Bitmap bitmap=((BitmapDrawable)select_image.getDrawable()).getBitmap();
                 product.setImage(ImageUtil.Bitmap2Bytes(bitmap));
 
+                myapplication=(Myapplication) getApplication();
+                Token token = new Token();
+                token=myapplication.getToken();
+                System.out.println(token.toString());
+
+                SharedPreferences userToken=getSharedPreferences("userToken",0);
+                String tokenResult=userToken.getString("token","");
 
                 String url=CREATE_PRODUCT_URL;
                 OkHttpClient okHttpClient = new OkHttpClient();
                 RequestBody requestBody = new FormBody.Builder()
                         .add("product",JSON.toJSONString(product))
+                        .add("token",tokenResult)
                         .build();
                 final Request request = new Request.Builder()
                         .url(url)
@@ -97,9 +109,20 @@ public class GoodsActivity extends Activity {
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
-                        Intent intent = new Intent(GoodsActivity.this,MainActivity.class);
-                        intent.putExtra("user",self);
-                        startActivity(intent);
+                        String backmess = response.body().string();
+                        if("token为空".equals(backmess))
+                        {
+                            Intent intent = new Intent(GoodsActivity.this, Login.class);
+                            startActivity(intent);
+
+                        }else if("token错误".equals(backmess)){
+                            Intent intent = new Intent(GoodsActivity.this,Login.class);
+                            startActivity(intent);
+                        }else {
+                            Intent intent = new Intent(GoodsActivity.this, MainActivity.class);
+                            intent.putExtra("user", self);
+                            startActivity(intent);
+                        }
                     }
                 });
 

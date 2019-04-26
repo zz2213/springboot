@@ -31,7 +31,6 @@ public class TokenService {
    public String find (Token token){
        ReturnMessage returnMessage=new ReturnMessage();
        String tokenresult=stringRedisTemplate.opsForValue().get(token.getUserId().toString());
-       System.out.println("tokenresult"+tokenresult);
        if(token.getTokenData().equals(tokenresult)){
            System.out.println(token.toString());
            User user = userService.findUserById(token.getUserId());

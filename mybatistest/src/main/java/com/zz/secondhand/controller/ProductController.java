@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ProductController {
     @Autowired
     ProductServive productServive;
-    @RequestMapping("/index")
+    @RequestMapping(value = "/index",produces = {"application/json;charset=UTF-8"})
     public String index(@RequestParam("product") String product){
         Product product1=JSON.parseObject(product, Product.class);
         System.out.println(product1.toString());
@@ -30,15 +30,16 @@ public class ProductController {
         productServive.createProduct(product1);
         return  "xx";
     }
-    @RequestMapping("/findproductype")
+    @RequestMapping(value = "/findproductype",produces = {"application/json;charset=UTF-8"})
     public String findByType(@RequestParam("type") String type,@RequestParam("user_id") Integer user_id){
        return JSON.toJSONString(productServive.findProductByType(type,user_id));
     }
-    @RequestMapping("/findproductstyle")
+    @RequestMapping(value = "/findproductstyle",produces = {"application/json;charset=UTF-8"})
     public String findByStyle(@RequestParam("style") String style){
+        System.out.println(JSON.toJSONString(productServive.findProductByStyle(style)));
         return JSON.toJSONString(productServive.findProductByStyle(style));
     }
-    @RequestMapping("/updateProductstatus")
+    @RequestMapping(value = "/updateProductstatus",produces = {"application/json;charset=UTF-8"})
     public String updateProductstatus(@RequestParam("status") String status,@RequestParam("id") Integer id){
         return productServive.updateProductstatus(status,id);
     }

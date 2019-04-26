@@ -2,6 +2,7 @@ package com.zz.secondhand.utils;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,7 +10,9 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.AbsListView;
 import android.widget.ListView;
+import com.alibaba.fastjson.JSON;
 import com.cniupay.pay.CNiuPay;
+import com.zz.secondhand.entity.Token;
 import com.zz.secondhand.entity.User;
 
 import java.lang.reflect.Field;
@@ -23,9 +26,23 @@ import java.lang.reflect.Method;
  * @date 2019/4/1710:20
  */
 public class Myapplication extends Application {
+
+    private Token token;
+
+    public Token getToken() {
+        return token;
+    }
+
+    public void setToken(Token token) {
+        this.token = token;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
+        SharedPreferences userToken=getSharedPreferences("userToken",0);
+        String tokenResult=userToken.getString("token","");
+        setToken(JSON.parseObject(tokenResult,Token.class));
         CNiuPay.getInstance(getApplicationContext()).init("051842ac02ade5024be2ea108cf5ff68c66d49b128e6475c904c4f34b87e5c7d");
         registerActivityLifecycleCallbacks(lifecycleCallbacks);
     }

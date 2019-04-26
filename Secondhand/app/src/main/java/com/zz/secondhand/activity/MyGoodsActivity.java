@@ -2,15 +2,19 @@ package com.zz.secondhand.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.ListView;
 import com.alibaba.fastjson.JSON;
+import com.zz.secondhand.Login;
 import com.zz.secondhand.R;
+import com.zz.secondhand.Register;
 import com.zz.secondhand.adapter.MyWantAdapter;
 import com.zz.secondhand.entity.Product;
+import com.zz.secondhand.entity.Token;
 import com.zz.secondhand.entity.User;
 import okhttp3.*;
 
@@ -33,12 +37,19 @@ public class MyGoodsActivity extends Activity {
     public void onCreate( @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mygoods);
+
+        Token token = new Token();
+        SharedPreferences userToken=getSharedPreferences("userToken",0);
+        String tokenResult=userToken.getString("token","");
+        token=JSON.parseObject(tokenResult,Token.class);
+
         ListView orderlistView = (ListView)findViewById(R.id.mygood_list);
         Intent intent = getIntent();
         User self =(User) intent.getSerializableExtra("user");
         String url=FIND_PRODUCT_TYPE;
         OkHttpClient okHttpClient = new OkHttpClient();
         RequestBody requestBody = new FormBody.Builder()
+                .add("token",JSON.toJSONString(token))
                 .add("type", "商品")
                 .add("user_id", self.getId().toString())
                 .build();
@@ -57,15 +68,26 @@ public class MyGoodsActivity extends Activity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 listProduct = response.body().string();
-                MyGoodsActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        productArrayList = (ArrayList<Product>) JSON.parseArray(listProduct,Product.class);
-                        System.out.println(productArrayList.toString());
-                        MyWantAdapter myWantAdapter = new MyWantAdapter(MyGoodsActivity.this, R.layout.item_order, productArrayList);
-                        orderlistView.setAdapter(myWantAdapter);
-                    }
-                });
+                if("token为空".equals(listProduct))
+                {
+                    Intent intent = new Intent(MyGoodsActivity.this, Login.class);
+                    startActivity(intent);
+
+                }else if("token错误".equals(listProduct)){
+                    Intent intent = new Intent(MyGoodsActivity.this,Login.class);
+                    startActivity(intent);
+                }else {
+                    MyGoodsActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            productArrayList = (ArrayList<Product>) JSON.parseArray(listProduct,Product.class);
+                            System.out.println(productArrayList.toString());
+                            MyWantAdapter myWantAdapter = new MyWantAdapter(MyGoodsActivity.this, R.layout.item_order, productArrayList);
+                            orderlistView.setAdapter(myWantAdapter);
+                        }
+                    });
+                }
+
             }
         });
 

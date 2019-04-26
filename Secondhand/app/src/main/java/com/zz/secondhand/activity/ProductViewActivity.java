@@ -2,6 +2,7 @@ package com.zz.secondhand.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -15,7 +16,9 @@ import com.zz.secondhand.MainActivity;
 import com.zz.secondhand.R;
 import com.zz.secondhand.entity.Product;
 import com.zz.secondhand.entity.ProductOrd;
+import com.zz.secondhand.entity.Token;
 import com.zz.secondhand.entity.User;
+import com.zz.secondhand.utils.Myapplication;
 import okhttp3.*;
 import java.io.IOException;
 import java.util.Date;
@@ -29,7 +32,7 @@ import static com.zz.secondhand.utils.GlobalVariables.CREATE_PRODUCTORD;
  * @date 2019/4/178:55
  */
 public class ProductViewActivity extends Activity {
-
+    private Myapplication myapplication;
     @Override
     protected void onCreate( @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +68,14 @@ public class ProductViewActivity extends Activity {
                 }
                 else{
 
+                    myapplication=(Myapplication) getApplication();
+                    Token token = new Token();
+                    token=myapplication.getToken();
+                    System.out.println(token.toString());
+
+                    SharedPreferences userToken=getSharedPreferences("userToken",0);
+                    String tokenResult=userToken.getString("token","");
+
                     ProductOrd productOrd = new ProductOrd();
                     productOrd.setUser(user);
                     productOrd.setProduct(product);
@@ -75,6 +86,7 @@ public class ProductViewActivity extends Activity {
                     OkHttpClient okHttpClient = new OkHttpClient();
                     RequestBody requestBody = new FormBody.Builder()
                             .add("productOrd", JSON.toJSONString(productOrd))
+                            .add("token",tokenResult)
                             .build();
                     final Request request = new Request.Builder()
                             .url(url)
@@ -89,7 +101,19 @@ public class ProductViewActivity extends Activity {
 
                                      @Override
                                      public void onResponse(Call call, Response response) throws IOException {
+                                         String backmess = response.body().string();
+                                         if("token为空".equals(backmess))
+                                         {
+                                             Intent intent = new Intent(ProductViewActivity.this, Login.class);
+                                             startActivity(intent);
+
+                                         }else if("token错误".equals(backmess)){
+                                             Intent intent = new Intent(ProductViewActivity.this,Login.class);
+                                             startActivity(intent);
+                                         }else {
                                              finish();
+                                         }
+
                                      }
                                  });
                 }

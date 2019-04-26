@@ -1,6 +1,7 @@
 package com.zz.secondhand.entity;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Date;
 
 public class Product implements Serializable {
@@ -111,5 +112,21 @@ public class Product implements Serializable {
 
     public void setStatus(String status) {
         this.status = status == null ? null : status.trim();
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", user=" + user +
+                ", createtime=" + createtime +
+                ", title='" + title + '\'' +
+                ", image=" + Arrays.toString(image) +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", style='" + style + '\'' +
+                ", type='" + type + '\'' +
+                ", status='" + status + '\'' +
+                '}';
     }
 }

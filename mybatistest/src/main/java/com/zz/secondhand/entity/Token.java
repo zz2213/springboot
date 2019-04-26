@@ -11,19 +11,10 @@ import java.io.Serializable;
 public class Token implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private Integer id;
-
     private  String tokenData;
 
     private Integer userId;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getTokenData() {
         return tokenData;
@@ -44,7 +35,6 @@ public class Token implements Serializable {
     @Override
     public String toString() {
         return "Token{" +
-                "id=" + id +
                 ", tokenData='" + tokenData + '\'' +
                 ", userId=" + userId +
                 '}';

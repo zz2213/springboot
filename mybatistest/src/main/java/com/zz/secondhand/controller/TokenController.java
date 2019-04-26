@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class TokenController {
     @Autowired
     TokenService tokenService;
-    @RequestMapping("find")
+    @RequestMapping(value = "find",produces = {"application/json;charset=UTF-8"})
     public String findToken(@RequestParam("token")String token){
         Token token1= JSON.parseObject(token,Token.class);
         return  tokenService.find(token1);

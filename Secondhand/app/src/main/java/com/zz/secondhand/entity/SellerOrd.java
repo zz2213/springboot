@@ -47,11 +47,11 @@ public class SellerOrd implements Serializable {
         this.id = id;
     }
 
-    public User getBuyer() {
+    public User getUser() {
         return user;
     }
 
-    public void setBuyer(User user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
@@ -85,5 +85,18 @@ public class SellerOrd implements Serializable {
 
     public void setOrdernember(String ordernember) {
         this.ordernember = ordernember;
+    }
+
+    @Override
+    public String toString() {
+        return "SellerOrd{" +
+                "id=" + id +
+                ", user=" + user +
+                ", product=" + product +
+                ", createtime=" + createtime +
+                ", status='" + status + '\'' +
+                ", ordernember='" + ordernember + '\'' +
+                ", address='" + address + '\'' +
+                '}';
     }
 }

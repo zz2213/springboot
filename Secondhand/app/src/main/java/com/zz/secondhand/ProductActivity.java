@@ -2,6 +2,7 @@ package com.zz.secondhand;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.annotation.Nullable;
@@ -12,7 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.zz.secondhand.entity.Product;
+import com.zz.secondhand.entity.Token;
 import com.zz.secondhand.entity.User;
+import com.zz.secondhand.utils.Myapplication;
 import okhttp3.*;
 
 import java.io.IOException;
@@ -30,6 +33,7 @@ import static com.zz.secondhand.utils.GlobalVariables.UPDATE_PRODUCT;
  */
 public class ProductActivity  extends Activity{
     TextView textView;
+    private Myapplication myapplication;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,11 +49,20 @@ public class ProductActivity  extends Activity{
             @Override
             public void onClick(View v) {
                 System.out.println("*******************");
+                myapplication=(Myapplication) getApplication();
+                Token token = new Token();
+                token=myapplication.getToken();
+                System.out.println(token.toString());
+
+                SharedPreferences userToken=getSharedPreferences("userToken",0);
+                String tokenResult=userToken.getString("token","");
+
                 String url=UPDATE_PRODUCT;
                 OkHttpClient okHttpClient = new OkHttpClient();
                 RequestBody requestBody = new FormBody.Builder()
                         .add("status","下架")
                         .add("id",product.getId().toString())
+                        .add("token",tokenResult)
                         .build();
                 final Request request = new Request.Builder()
                         .url(url)
@@ -64,7 +77,19 @@ public class ProductActivity  extends Activity{
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
-                        finish();
+                        String backmess = response.body().string();
+                        if("token为空".equals(backmess))
+                        {
+                            Intent intent = new Intent(ProductActivity.this, Login.class);
+                            startActivity(intent);
+
+                        }else if("token错误".equals(backmess)){
+                            Intent intent = new Intent(ProductActivity.this,Login.class);
+                            startActivity(intent);
+                        }else {
+                            finish();
+                        }
+
 
                     }
                 });

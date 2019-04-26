@@ -30,12 +30,12 @@ public class UserController {
     TokenService tokenService;
     @Autowired
     StringRedisTemplate stringRedisTemplate;
-    @RequestMapping("/index")
+    @RequestMapping(value = "/index",produces = {"application/json;charset=UTF-8"})
     public String index(){
         return "index";
     }
 
-    @RequestMapping(value = "/register")
+    @RequestMapping(value = "/register",produces = {"application/json;charset=UTF-8"})
     public void  register(HttpServletRequest request, HttpServletResponse response) throws IOException, ClassNotFoundException {
         int user_id=0;
         ObjectInputStream obj;
@@ -70,7 +70,7 @@ public class UserController {
 //        System.out.println(user.toString());
     }
 
-    @RequestMapping("getUser")
+    @RequestMapping(value = "getUser",produces = {"application/json;charset=UTF-8"})
     public String GetUser(@RequestParam("name")String name , @RequestParam("pass") String pass){
         String responsepass = userService.Sel(name);
         ReturnMessage returnMessage= new ReturnMessage();
@@ -91,7 +91,7 @@ public class UserController {
 
         return JSON.toJSONString(returnMessage);
     }
-    @RequestMapping("/update")
+    @RequestMapping(value = "/update",produces = {"application/json;charset=UTF-8"})
     public String update(@RequestParam("user") String user){
         User user1= JSON.parseObject(user,User.class);
        return userService.Update(user1);

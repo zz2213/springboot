@@ -10,7 +10,7 @@
         select id,user_id,product_id,createtime,status,ordernember,address from seller_ord  where product_id=#{product_id}
     </select>
     <select id="findSellerOrdByUserId" resultMap="BaseResultMap">
-        select id,user_id,product_id,createtime,status,ordernember,address from seller_ord  where user_id=#{user_id}
+        select seller_ord.id,seller_ord.user_id,product_id,product.title,seller_ord.createtime ,seller_ord.status,ordernember,address from seller_ord join product on product_id= product.id where product.user_id=#{user_id}
     </select>
     <select id="querySellerOrd" resultMap="BaseResultMap">
         select seller_ord.id,user.realname, seller_ord.user_id,product.title,product_id,product.price,seller_ord.createtime,seller_ord.status,ordernember,address from seller_ord  LEFT JOIN product on product_id =product.id left join user on seller_ord.user_id =user.id

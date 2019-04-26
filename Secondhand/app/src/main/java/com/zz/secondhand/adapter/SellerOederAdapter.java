@@ -2,16 +2,21 @@ package com.zz.secondhand.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import com.zz.secondhand.Login;
 import com.zz.secondhand.R;
+import com.zz.secondhand.activity.MyGoodsActivity;
 import com.zz.secondhand.activity.OrderDetailed;
 import com.zz.secondhand.activity.SellerOrdDEtailed;
 import com.zz.secondhand.entity.ProductOrd;
 import com.zz.secondhand.entity.SellerOrd;
+import com.zz.secondhand.entity.Token;
+import com.zz.secondhand.utils.Myapplication;
 import okhttp3.*;
 
 import java.io.IOException;
@@ -27,6 +32,7 @@ import static com.zz.secondhand.utils.GlobalVariables.UPDATE_ORDER;
  * @date 2019/4/189:49
  */
 public class SellerOederAdapter extends BaseAdapter {
+    private Myapplication myapplication;
     protected Context context;
     protected LayoutInflater inflater;
     protected int resource;
@@ -61,20 +67,23 @@ public class SellerOederAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-      OrderAdapter.ViewHolderOrder viewHolderOrder=null;
+      SellerOederAdapter.ViewHolderOrder viewHolderOrder=null;
         if(convertView == null) {
             convertView = inflater.inflate(resource, null);
-            viewHolderOrder=new OrderAdapter.ViewHolderOrder();
-            viewHolderOrder.image=(ImageView)convertView.findViewById(R.id.order_goods_image);
-            viewHolderOrder.textView=(TextView)convertView.findViewById(R.id.order_goods_title);
-            viewHolderOrder.button=(Button) convertView.findViewById(R.id.order_btn_status);
-            viewHolderOrder.button_detailed=(Button) convertView.findViewById(R.id.order_btn_detailed);
+            viewHolderOrder=new SellerOederAdapter.ViewHolderOrder();
+            viewHolderOrder.image=(ImageView)convertView.findViewById(R.id.sell_order_image);
+            viewHolderOrder.textView=(TextView)convertView.findViewById(R.id.sell_order_title);
+            viewHolderOrder.textViewst=(TextView)convertView.findViewById(R.id.sellerorder_status);
+            viewHolderOrder.button=(Button) convertView.findViewById(R.id.sell_order_status_btn);
+            viewHolderOrder.button_detailed=(Button) convertView.findViewById(R.id.sell_order_detailed);
             convertView.setTag(viewHolderOrder);
         }else{
-            viewHolderOrder=(OrderAdapter.ViewHolderOrder) convertView.getTag();
+            viewHolderOrder=(SellerOederAdapter.ViewHolderOrder) convertView.getTag();
         }
         viewHolderOrder.textView.setText(list.get(position).getProduct().getTitle());
-        final  Button button1=(Button) convertView.findViewById(R.id.order_btn_status);
+        System.out.println(list.get(position).getProduct().getTitle());
+//        viewHolderOrder.textViewst.setText(list.get(position).getStatus());
+        final  Button button1=(Button) convertView.findViewById(R.id.sell_order_status_btn);
         viewHolderOrder.button.setText(list.get(position).getStatus());
         viewHolderOrder.button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,10 +92,21 @@ public class SellerOederAdapter extends BaseAdapter {
                     case "已付款":
                         Toast toast = (Toast) Toast.makeText(context, "已付款等待商家发货", Toast.LENGTH_SHORT);
                         toast.show();
+
+                        myapplication=(Myapplication)context.getApplicationContext ();
+                        Token token = new Token();
+                        token=myapplication.getToken();
+                        System.out.println(token.toString());
+
+                        SharedPreferences userToken=context.getSharedPreferences("userToken",0);
+                        String tokenResult=userToken.getString("token","");
+
+
                         String url=UPDATE_ORDER;
                         OkHttpClient okHttpClient = new OkHttpClient();
                         RequestBody requestBody = new FormBody.Builder()
                                 .add("status", "已发货")
+                                .add("token",tokenResult)
                                 .add("number",list.get(position).getProduct().getId().toString())
                                 .build();
                         final Request request = new Request.Builder()
@@ -103,8 +123,20 @@ public class SellerOederAdapter extends BaseAdapter {
                             @Override
                             public void onResponse(Call call, Response response) throws IOException
                             {
+                                String backmess = response.body().string();
+                                if("token为空".equals(backmess))
+                                {
+                                    Intent intent = new Intent(context, Login.class);
+                                    context.startActivity(intent);
 
-                                button1.setText("已发货");
+                                }else if("token错误".equals(backmess)){
+                                    Intent intent = new Intent(context,Login.class);
+                                    context.startActivity(intent);
+                                }else {
+                                    button1.setText("已发货");
+                                }
+
+
                             }
                         });
                         break;
@@ -130,7 +162,19 @@ public class SellerOederAdapter extends BaseAdapter {
                             @Override
                             public void onResponse(Call call, Response response) throws IOException
                             {
-                                button1.setText("完成");
+                                String backmess = response.body().string();
+                                if("token为空".equals(backmess))
+                                {
+                                    Intent intent = new Intent(context, Login.class);
+                                    context.startActivity(intent);
+
+                                }else if("token错误".equals(backmess)){
+                                    Intent intent = new Intent(context,Login.class);
+                                    context.startActivity(intent);
+                                }else {
+                                    button1.setText("完成");
+                                }
+
                             }
                         });
                         break;
@@ -153,6 +197,7 @@ public class SellerOederAdapter extends BaseAdapter {
     public static class ViewHolderOrder{
         ImageView image;
         TextView textView;
+        TextView textViewst;
         Button button;
         Button button_detailed;
 

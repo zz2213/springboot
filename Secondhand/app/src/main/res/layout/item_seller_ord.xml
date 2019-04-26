@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <TextView
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            android:id="@+id/sell_order_title"
+            android:gravity="center"
+            android:text="goods"/>
+    <TextView
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            android:id="@+id/sell_order_status"
+            android:gravity="center"
+            android:text="状态"/>
+    <ImageView
+            android:layout_width="0dp" android:contentDescription="TODO"
+            android:layout_height="80dp"
+            android:id="@+id/sell_order_image"
+            android:layout_weight="1"/>
+    <Button
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            android:id="@+id/sell_order_detailed"
+            android:text="详情"/>
+    <Button
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            android:id="@+id/sell_order_status_btn"
+            android:text="下架"/>
+
+</LinearLayout>
