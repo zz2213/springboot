@@ -31,10 +31,10 @@ import static com.zz.secondhand.utils.GlobalVariables.FIND_PRODUCT_TYPE;
  * @date 2019/4/1616:49
  */
 public class MyGoodsActivity extends Activity {
-    String listProduct;
-    ArrayList<Product> productArrayList;
-    String tokenErr="token错误";
-    String tokenEmpty="token为空";
+   private String listProduct;
+    private ArrayList<Product> productArrayList;
+    private String tokenErr="token错误";
+    private String tokenEmpty="token为空";
     @Override
     public void onCreate( @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,14 +79,11 @@ public class MyGoodsActivity extends Activity {
                     Intent intent = new Intent(MyGoodsActivity.this,Login.class);
                     startActivity(intent);
                 }else {
-                    MyGoodsActivity.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            productArrayList = (ArrayList<Product>) JSON.parseArray(listProduct,Product.class);
-                            System.out.println(productArrayList.toString());
-                            MyWantAdapter myWantAdapter = new MyWantAdapter(MyGoodsActivity.this, R.layout.item_order, productArrayList);
-                            orderlistView.setAdapter(myWantAdapter);
-                        }
+                    MyGoodsActivity.this.runOnUiThread(() -> {
+                        productArrayList = (ArrayList<Product>) JSON.parseArray(listProduct,Product.class);
+                        System.out.println(productArrayList.toString());
+                        MyWantAdapter myWantAdapter = new MyWantAdapter(MyGoodsActivity.this, R.layout.item_order, productArrayList);
+                        orderlistView.setAdapter(myWantAdapter);
                     });
                 }
 

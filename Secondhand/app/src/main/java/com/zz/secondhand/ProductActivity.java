@@ -32,7 +32,10 @@ import static com.zz.secondhand.utils.GlobalVariables.UPDATE_PRODUCT;
  * @date 2019/4/1015:15
  */
 public class ProductActivity  extends Activity{
-    TextView textView;
+    private TextView textView;
+    private TextView proDescribe;
+    private TextView proPrice;
+    private TextView proQq;
     private Myapplication myapplication;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,7 +45,13 @@ public class ProductActivity  extends Activity{
         Product product =(Product) intent.getSerializableExtra("product");
         Button button = findViewById(R.id.pro_buy_btn);
         textView = (TextView)findViewById(R.id.pro_title);
+        proDescribe=(TextView)findViewById(R.id.pro_describe);
+        proPrice=(TextView)findViewById(R.id.pro_price);
+        proQq = (TextView)findViewById(R.id.pro_qq);
         textView.setText(product.getTitle());
+        proDescribe.setText(product.getDescription());
+        proPrice.setText(product.getPrice().toString());
+        proQq.setText(product.getUser().getQq());
         button.setText("下架");
         Toast.makeText(this,product.getTitle(),Toast.LENGTH_SHORT).show();
         button.setOnClickListener(new View.OnClickListener() {
