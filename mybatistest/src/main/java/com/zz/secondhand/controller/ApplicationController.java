@@ -5,6 +5,7 @@ import com.zz.secondhand.entity.Admin;
 import com.zz.secondhand.entity.Product;
 import com.zz.secondhand.entity.User;
 import com.zz.secondhand.service.AdminService;
+import com.zz.secondhand.service.HomeProductService;
 import com.zz.secondhand.service.ProductServive;
 import com.zz.secondhand.service.UserService;
 import com.zz.secondhand.utils.ProductUtils;
@@ -18,6 +19,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,6 +39,8 @@ public class ApplicationController {
     ProductServive productServive;
     @Autowired
     UserService userService;
+    @Autowired
+    HomeProductService homeProductService;
 
     @ResponseBody
     @RequestMapping(value = "/getadmin" ,produces = {"application/json;charset=UTF-8"})
@@ -323,6 +327,22 @@ public class ApplicationController {
         jsonObject.put("count",countx);
         jsonObject.put("data",list);
         return  jsonObject.toJSONString();
+    }
+    @ResponseBody
+    @RequestMapping(value = "/recommend")
+    public String recommend(@RequestBody ProductDto productDto ) throws ParseException {
+        return homeProductService.recommendPro(productDto);
+    }
+    @ResponseBody
+    @RequestMapping(value = "/listhomeproduct",produces = {"application/json;charset=UTF-8"})
+    public String listHomeProduct(@RequestParam(required = false,defaultValue ="1" ) int page,
+                                  @RequestParam(required = false,defaultValue ="15") int limit){
+        return homeProductService.queryHomeProduct(page,limit);
+    }
+    @ResponseBody
+    @RequestMapping("/cancelrecommend")
+    public String cancelRecommend(@RequestBody ProductDto productDto){
+        return homeProductService.deleteProduct(productDto.getId());
     }
 
 }

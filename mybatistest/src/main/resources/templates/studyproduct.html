@@ -23,6 +23,7 @@
 
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-xs" lay-event="recommend">推荐</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 
@@ -30,7 +31,8 @@
 <script src="static/js/layui/layui.js" th:src="@{static/js/layui/layui.js}" charset="utf-8"></script>
 <script type="text/javascript" th:inline="javascript">
 layui.use('table', function(){
-  var table = layui.table;
+var $=layui.jquery,
+   table = layui.table;
 
   table.render({
     elem: '#test'
@@ -111,10 +113,24 @@ layui.use('table', function(){
            end: function() {
         //刷新页面,
 		location.reload();
-	}
+               	}
 
       });
+    }else{
+         layer.confirm('推荐该商品', function(index){
+       $.ajax({
+      url:"/recommend",
+      type:"post",
+      contentType:"application/json;charset=UTF-8",
+      data:JSON.stringify(obj.data),
+      success: function (result){
+                                  location.reload();
+                               }
+             });
+        layer.close(index);
+      });
     }
+
   });
 });
 </script>

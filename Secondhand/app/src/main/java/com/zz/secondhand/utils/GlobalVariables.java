@@ -23,6 +23,7 @@ public class GlobalVariables {
     final static public String UPDATE_ORDER=MO_URL+"/ProductOrdController/updateorder";
     final static  public String UPDATE_USER=MO_URL+"/Secondhand/update";
     final static  public String FIND_TOKEN=MO_URL+"/Token/find";
+    final static public String QUERRY_HOME_PRO=MO_URL+"/HomeController/querryhomepro";
     final static public String FAILED="failed";
     final static public String SUCCESS="success";
 

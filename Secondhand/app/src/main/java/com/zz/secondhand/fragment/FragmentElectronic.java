@@ -111,6 +111,7 @@ public class FragmentElectronic extends Fragment {
                                     Intent intent = new Intent(getActivity(), ProductViewActivity.class);
                                     intent.putExtra("product",productArrayList.get(position));
                                     intent.putExtra("user",user);
+                                    System.out.println(user.toString());
                                     startActivity(intent);
                                 }
                             });

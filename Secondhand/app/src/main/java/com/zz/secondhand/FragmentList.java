@@ -62,7 +62,7 @@ public class FragmentList extends Fragment implements IndexViewPager.OnPageChang
         list.add(fragmentLife);
         list.add(fragmentElectronic);
         list.add(fragmentStudy);
-        viewPager.setScanScroll(false);
+        viewPager.setScanScroll(true);
 
         viewPager.setAdapter(new MyFragmentAdapter(getFragmentManager(),list));
         viewPager.addOnPageChangeListener(this);
@@ -77,6 +77,21 @@ public class FragmentList extends Fragment implements IndexViewPager.OnPageChang
 
     @Override
     public void onPageSelected(int i) {
+        initBtnListener();
+        switch (i){
+            case 0:
+                button1.setBackgroundColor(Color.parseColor("#ff735c"));
+                viewPager.setCurrentItem(0);
+                break;
+            case 1:
+                button2.setBackgroundColor(Color.parseColor("#ff735c"));
+                viewPager.setCurrentItem(1);
+                break;
+            case 2:
+                button3.setBackgroundColor(Color.parseColor("#ff735c"));
+                viewPager.setCurrentItem(2);
+                break;
+        }
 
     }
 

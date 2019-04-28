@@ -3,7 +3,6 @@ package com.zz.secondhand.fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,25 +15,20 @@ import com.alibaba.fastjson.JSON;
 import com.zz.secondhand.*;
 import com.zz.secondhand.activity.ProductViewActivity;
 import com.zz.secondhand.adapter.MyAdapter;
-import com.zz.secondhand.entity.Goods;
 import com.zz.secondhand.entity.Product;
 import com.zz.secondhand.entity.Token;
 import com.zz.secondhand.entity.User;
 import com.zz.secondhand.utils.Myapplication;
 import okhttp3.*;
-
 import java.io.IOException;
 import java.util.ArrayList;
-
-import static android.widget.Toast.makeText;
 import static com.zz.secondhand.utils.GlobalVariables.FIND_PRODUCT_STYLE;
-import static com.zz.secondhand.utils.GlobalVariables.LOGIN_URL;
 
 /**
  * @author Administrator
  * @title: FragmentLife
  * @projectName Secondhand
- * @description: TODO
+ * @description: 商品生活分类
  * @date 2019/4/913:02
  */
 public class FragmentLife  extends Fragment {
@@ -115,6 +109,7 @@ public class FragmentLife  extends Fragment {
                                            String data = productArrayList.get(position).getTitle();
                                            Intent intent = new Intent(getActivity(), ProductViewActivity.class);
                                            intent.putExtra("product",productArrayList.get(position));
+                                           System.out.println(user.toString());
                                            intent.putExtra("user",user);
                                            startActivity(intent);
                                        }

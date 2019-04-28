@@ -93,7 +93,6 @@ public class User implements Serializable {
                 ", password='" + password + '\'' +
                 ", number=" + number +
                 ", school='" + school + '\'' +
-                ", image='" + image + '\'' +
                 ", qq='" + qq + '\'' +
                 '}';
     }

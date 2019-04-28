@@ -14,9 +14,6 @@ import java.util.ArrayList;
 
 /**
  * @author Administrator
- * @title: ProductServive
- * @projectName mybatistest
- * @description: TODO
  * @date 2019/4/1610:41
  */
 @Resource
