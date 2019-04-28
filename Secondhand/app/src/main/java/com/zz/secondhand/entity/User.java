@@ -1,11 +1,13 @@
 package com.zz.secondhand.entity;
 
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import android.support.annotation.NonNull;
 import java.io.Serializable;
 import java.util.Arrays;
 
+/**
+ * @author Administrator
+ */
 public class User implements Serializable{
 
     private static final long serialVersionUID = 1L;
@@ -93,15 +95,7 @@ public class User implements Serializable{
     }
 
 
-    public void readObject(ObjectInputStream ois)
-            throws IOException, ClassNotFoundException{
-        ois.defaultReadObject();
-    }
-
-    public Object Clone() throws CloneNotSupportedException{
-        return super.clone();
-    }
-
+    @NonNull
     @Override
     public String toString() {
         return "User{" +

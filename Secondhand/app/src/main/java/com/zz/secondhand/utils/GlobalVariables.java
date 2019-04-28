@@ -1,5 +1,6 @@
 package com.zz.secondhand.utils;
 
+import java.net.StandardSocketOptions;
 import java.net.URL;
 
 /**
@@ -27,5 +28,8 @@ public class GlobalVariables {
     final static public String QUERRY_HOME_PRO=MO_URL+"/HomeController/querryhomepro";
     final static public String FAILED="failed";
     final static public String SUCCESS="success";
-
+    final static public String TOKEN_ERROR="token错误";
+    final static public String TOKEN_EMP="token为空";
+    final static public String ISSELLER="已出售";
+    final static public String ONSELLER="在售";
 }

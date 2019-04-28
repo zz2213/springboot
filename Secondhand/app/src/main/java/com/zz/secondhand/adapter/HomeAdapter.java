@@ -1,5 +1,6 @@
 package com.zz.secondhand.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -53,22 +54,20 @@ public class HomeAdapter extends BaseAdapter {
         return position;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-    MyAdapter.ViewHolder vh = null;
+        HomeAdapter.ViewHolder vh;
         if(convertView == null){
             convertView = inflater.inflate(resource,null);
-//            if(convertView == null){
-//                System.out.println(convertView);
-//            }
-            vh = new MyAdapter.ViewHolder();
-            vh.image = (ImageView) convertView.findViewById(R.id.goods_image);
-            vh.textView= (TextView) convertView.findViewById(R.id.goods_title);
-            vh.textPrice=(TextView)convertView.findViewById(R.id.goods_price);
-            vh.textStatus=(TextView)convertView.findViewById(R.id.goods_status);
+            vh = new HomeAdapter.ViewHolder();
+            vh.image = convertView.findViewById(R.id.goods_image);
+            vh.textView= convertView.findViewById(R.id.goods_title);
+            vh.textPrice= convertView.findViewById(R.id.goods_price);
+            vh.textStatus= convertView.findViewById(R.id.goods_status);
             convertView.setTag(vh);
         }else{
-            vh=(MyAdapter.ViewHolder)convertView.getTag();
+            vh=(HomeAdapter.ViewHolder)convertView.getTag();
         }
 
         vh.textView.setText(list.get(position).getTitle());

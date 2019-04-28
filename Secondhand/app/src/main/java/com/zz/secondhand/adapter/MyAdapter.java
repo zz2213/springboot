@@ -1,5 +1,6 @@
 package com.zz.secondhand.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -11,14 +12,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.zz.secondhand.R;
-import com.zz.secondhand.entity.Goods;
 import com.zz.secondhand.entity.Product;
 import com.zz.secondhand.utils.ImageUtil;
 
 import java.util.ArrayList;
 
 /**
- * @Auther: msi-pc
+ * @author zz
  * @Date: 2019/4/9 20:12
  * @Description: 配置商品列表
  */
@@ -52,19 +52,17 @@ public class MyAdapter extends BaseAdapter {
         return position;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder vh = null;
+        ViewHolder vh;
         if(convertView == null){
             convertView = inflater.inflate(resource,null);
-//            if(convertView == null){
-//                System.out.println(convertView);
-//            }
             vh = new ViewHolder();
-            vh.image = (ImageView) convertView.findViewById(R.id.goods_image);
-            vh.textView= (TextView) convertView.findViewById(R.id.goods_title);
-            vh.textPrice=(TextView)convertView.findViewById(R.id.goods_price);
-            vh.textStatus=(TextView)convertView.findViewById(R.id.goods_status);
+            vh.image = convertView.findViewById(R.id.goods_image);
+            vh.textView= convertView.findViewById(R.id.goods_title);
+            vh.textPrice= convertView.findViewById(R.id.goods_price);
+            vh.textStatus= convertView.findViewById(R.id.goods_status);
             convertView.setTag(vh);
         }else{
             vh=(ViewHolder)convertView.getTag();

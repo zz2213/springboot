@@ -1,5 +1,7 @@
 package com.zz.secondhand.entity;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -11,7 +13,6 @@ import java.util.Date;
  * @date 2019/4/188:47
  */
 public class SellerOrd implements Serializable {
-    private static final long serialVersionUID = 1L;
 
     private Integer id;
 
@@ -33,10 +34,6 @@ public class SellerOrd implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
     }
 
     public Integer getId() {
@@ -87,6 +84,7 @@ public class SellerOrd implements Serializable {
         this.ordernember = ordernember;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "SellerOrd{" +

@@ -1,8 +1,10 @@
 package com.zz.secondhand.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,8 @@ import okhttp3.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static com.zz.secondhand.utils.GlobalVariables.TOKEN_EMP;
+import static com.zz.secondhand.utils.GlobalVariables.TOKEN_ERROR;
 import static com.zz.secondhand.utils.GlobalVariables.UPDATE_ORDER;
 
 /**
@@ -40,7 +44,7 @@ public class SellerOederAdapter extends BaseAdapter {
         this.context = context;
         this.resource = resource;
         if(list == null){
-            this.list=new ArrayList<SellerOrd>();
+            this.list= new ArrayList<>();
         }else{
             this.list=list;
         }
@@ -62,131 +66,126 @@ public class SellerOederAdapter extends BaseAdapter {
         return position;
     }
 
+    @SuppressLint("CutPasteId")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-      SellerOederAdapter.ViewHolderOrder viewHolderOrder=null;
+      SellerOederAdapter.ViewHolderOrder viewHolderOrder;
         if(convertView == null) {
             convertView = inflater.inflate(resource, null);
             viewHolderOrder=new SellerOederAdapter.ViewHolderOrder();
-            viewHolderOrder.image=(ImageView)convertView.findViewById(R.id.sell_order_image);
-            viewHolderOrder.textView=(TextView)convertView.findViewById(R.id.sell_order_title);
-            viewHolderOrder.textViewst=(TextView)convertView.findViewById(R.id.sellerorder_status);
-            viewHolderOrder.button=(Button) convertView.findViewById(R.id.sell_order_status_btn);
-            viewHolderOrder.button_detailed=(Button) convertView.findViewById(R.id.sell_order_detailed);
+            viewHolderOrder.image= convertView.findViewById(R.id.sell_order_image);
+            viewHolderOrder.textView= convertView.findViewById(R.id.sell_order_title);
+            viewHolderOrder.textViewst= convertView.findViewById(R.id.sellerorder_status);
+            viewHolderOrder.button= convertView.findViewById(R.id.sell_order_status_btn);
+            viewHolderOrder.buttonDetailed = convertView.findViewById(R.id.sell_order_detailed);
             convertView.setTag(viewHolderOrder);
         }else{
             viewHolderOrder=(SellerOederAdapter.ViewHolderOrder) convertView.getTag();
         }
         viewHolderOrder.textView.setText(list.get(position).getProduct().getTitle());
         System.out.println(list.get(position).getProduct().getTitle());
-//        viewHolderOrder.textViewst.setText(list.get(position).getStatus());
-        final  Button button1=(Button) convertView.findViewById(R.id.sell_order_status_btn);
+        final  Button button1= convertView.findViewById(R.id.sell_order_status_btn);
         viewHolderOrder.button.setText(list.get(position).getStatus());
-        viewHolderOrder.button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (list.get(position).getStatus()){
-                    case "已付款":
-                        Toast toast = (Toast) Toast.makeText(context, "已付款等待商家发货", Toast.LENGTH_SHORT);
-                        toast.show();
+        viewHolderOrder.button.setOnClickListener(v -> {
+            switch (list.get(position).getStatus()){
+                case "已付款":
+                    Toast toast = Toast.makeText(context, "已付款等待商家发货", Toast.LENGTH_SHORT);
+                    toast.show();
 
-                        myapplication=(Myapplication)context.getApplicationContext ();
-                        Token token = new Token();
-                        token=myapplication.getToken();
-                        System.out.println(token.toString());
+                    myapplication=(Myapplication)context.getApplicationContext ();
+                    Token token;
+                    token=myapplication.getToken();
+                    System.out.println(token.toString());
 
-                        SharedPreferences userToken=context.getSharedPreferences("userToken",0);
-                        String tokenResult=userToken.getString("token","");
+                    SharedPreferences userToken=context.getSharedPreferences("userToken",0);
+                    String tokenResult=userToken.getString("token","");
 
 
-                        String url=UPDATE_ORDER;
-                        OkHttpClient okHttpClient = new OkHttpClient();
-                        RequestBody requestBody = new FormBody.Builder()
-                                .add("status", "已发货")
-                                .add("token",tokenResult)
-                                .add("number",list.get(position).getProduct().getId().toString())
-                                .build();
-                        final Request request = new Request.Builder()
-                                .url(url)
-                                .post(requestBody)
-                                .build();
-                        Call call = okHttpClient.newCall(request);
-                        call.enqueue(new Callback() {
-                            @Override
-                            public void onFailure(Call call, IOException e) {
-                                Log.d("你好", "onFailure: ");
-                            }
+                    OkHttpClient okHttpClient = new OkHttpClient();
+                    RequestBody requestBody = new FormBody.Builder()
+                            .add("status", "已发货")
+                            .add("token",tokenResult)
+                            .add("number",list.get(position).getProduct().getId().toString())
+                            .build();
+                    final Request request = new Request.Builder()
+                            .url(UPDATE_ORDER)
+                            .post(requestBody)
+                            .build();
+                    Call call = okHttpClient.newCall(request);
+                    call.enqueue(new Callback() {
+                        @Override
+                        public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                            Log.d("你好", "onFailure: ");
+                        }
 
-                            @Override
-                            public void onResponse(Call call, Response response) throws IOException
+                        @Override
+                        public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException
+                        {
+                            assert response.body() != null;
+                            String backmess = response.body().string();
+                            if(TOKEN_EMP.equals(backmess))
                             {
-                                String backmess = response.body().string();
-                                if("token为空".equals(backmess))
-                                {
-                                    Intent intent = new Intent(context, Login.class);
-                                    context.startActivity(intent);
+                                Intent intent = new Intent(context, Login.class);
+                                context.startActivity(intent);
 
-                                }else if("token错误".equals(backmess)){
-                                    Intent intent = new Intent(context,Login.class);
-                                    context.startActivity(intent);
-                                }else {
-                                    button1.setText("已发货");
-                                }
-
-
-                            }
-                        });
-                        break;
-                    case "已收货":
-                        Toast toast1 = (Toast) Toast.makeText(context, "已收钱", Toast.LENGTH_SHORT);
-                        toast1.show();
-                        OkHttpClient okHttpClient1 = new OkHttpClient();
-                        RequestBody requestBody1 = new FormBody.Builder()
-                                .add("status", "完成")
-                                .add("number", list.get(position).getProduct().getId().toString())
-                                .build();
-                        final Request request1 = new Request.Builder()
-                                .url(UPDATE_ORDER)
-                                .post(requestBody1)
-                                .build();
-                        Call call1 = okHttpClient1.newCall(request1);
-                        call1.enqueue(new Callback() {
-                            @Override
-                            public void onFailure(Call call, IOException e) {
-                                Log.d("你好", "onFailure: ");
+                            }else if(TOKEN_ERROR.equals(backmess)){
+                                Intent intent = new Intent(context,Login.class);
+                                context.startActivity(intent);
+                            }else {
+                                button1.setText("已发货");
                             }
 
-                            @Override
-                            public void onResponse(Call call, Response response) throws IOException
+
+                        }
+                    });
+                    break;
+                case "已收货":
+                    Toast toast1 = Toast.makeText(context, "已收钱", Toast.LENGTH_SHORT);
+                    toast1.show();
+                    OkHttpClient okHttpClient1 = new OkHttpClient();
+                    RequestBody requestBody1 = new FormBody.Builder()
+                            .add("status", "完成")
+                            .add("number", list.get(position).getProduct().getId().toString())
+                            .build();
+                    final Request request1 = new Request.Builder()
+                            .url(UPDATE_ORDER)
+                            .post(requestBody1)
+                            .build();
+                    Call call1 = okHttpClient1.newCall(request1);
+                    call1.enqueue(new Callback() {
+                        @Override
+                        public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                            Log.d("你好", "onFailure: ");
+                        }
+
+                        @Override
+                        public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException
+                        {
+                            assert response.body() != null;
+                            String backmess = response.body().string();
+                            if(TOKEN_EMP.equals(backmess))
                             {
-                                String backmess = response.body().string();
-                                if("token为空".equals(backmess))
-                                {
-                                    Intent intent = new Intent(context, Login.class);
-                                    context.startActivity(intent);
+                                Intent intent = new Intent(context, Login.class);
+                                context.startActivity(intent);
 
-                                }else if("token错误".equals(backmess)){
-                                    Intent intent = new Intent(context,Login.class);
-                                    context.startActivity(intent);
-                                }else {
-                                    button1.setText("完成");
-                                }
-
+                            }else if(TOKEN_ERROR.equals(backmess)){
+                                Intent intent = new Intent(context,Login.class);
+                                context.startActivity(intent);
+                            }else {
+                                button1.setText("完成");
                             }
-                        });
-                        break;
-                }
 
+                        }
+                    });
+                    break;
+                    default:
             }
 
         });
-        viewHolderOrder.button_detailed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, SellerOrdDetailed.class);
-                intent.putExtra("seller0rd",list.get(position));
-                context.startActivity(intent);
-            }
+        viewHolderOrder.buttonDetailed.setOnClickListener(v -> {
+            Intent intent = new Intent(context, SellerOrdDetailed.class);
+            intent.putExtra("seller0rd",list.get(position));
+            context.startActivity(intent);
         });
 
         return convertView;
@@ -196,7 +195,7 @@ public class SellerOederAdapter extends BaseAdapter {
         TextView textView;
         TextView textViewst;
         Button button;
-        Button button_detailed;
+        Button buttonDetailed;
 
     }
 }

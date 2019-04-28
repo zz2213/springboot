@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.ListView;
@@ -19,6 +20,8 @@ import okhttp3.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import static com.zz.secondhand.utils.GlobalVariables.FIND_SELLER_ORDER;
+import static com.zz.secondhand.utils.GlobalVariables.TOKEN_EMP;
+import static com.zz.secondhand.utils.GlobalVariables.TOKEN_ERROR;
 
 /**
  * @author Administrator
@@ -28,61 +31,57 @@ import static com.zz.secondhand.utils.GlobalVariables.FIND_SELLER_ORDER;
  * @date 2019/4/189:45
  */
 public class SellerOrdActivity extends Activity {
-    private Myapplication myapplication;
-    ArrayList<SellerOrd> sellerOrdArrayList;
+    private ArrayList<SellerOrd> sellerOrdArrayList;
     @Override
     protected void onCreate( @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seller_ord);
 
-        myapplication=(Myapplication) getApplication();
-        Token token = new Token();
-        token=myapplication.getToken();
+        Myapplication myapplication = (Myapplication) getApplication();
+        Token token;
+        token= myapplication.getToken();
         System.out.println(token.toString());
 
         SharedPreferences userToken=getSharedPreferences("userToken",0);
         String tokenResult=userToken.getString("token","");
 
         Intent intent = getIntent();
-        ListView orderlistView = (ListView)findViewById(R.id.order_seller_list);
+        ListView orderlistView = findViewById(R.id.order_seller_list);
         User self =(User) intent.getSerializableExtra("user");
-        String url=FIND_SELLER_ORDER;
         OkHttpClient okHttpClient = new OkHttpClient();
         RequestBody requestBody = new FormBody.Builder()
                 .add("user_id", self.getId().toString())
                 .add("token",tokenResult)
                 .build();
         final Request request = new Request.Builder()
-                .url(url)
+                .url(FIND_SELLER_ORDER)
                 .post(requestBody)
                 .build();
         Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 Log.d("你好", "onFailure: ");
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                assert response.body() != null;
                 String backmess = response.body().string();
-                if("token为空".equals(backmess))
+                if(TOKEN_EMP.equals(backmess))
                 {
                     Intent intent = new Intent(SellerOrdActivity.this, Login.class);
                     startActivity(intent);
 
-                }else if("token错误".equals(backmess)){
+                }else if(TOKEN_ERROR.equals(backmess)){
                     Intent intent = new Intent(SellerOrdActivity.this,Login.class);
                     startActivity(intent);
                 }else {
-                    SellerOrdActivity.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            sellerOrdArrayList = (ArrayList<SellerOrd>) JSON.parseArray(backmess,SellerOrd.class);
-                            System.out.println("))))))))))))"+sellerOrdArrayList.toString());
-                            SellerOederAdapter sellerOederAdapter = new SellerOederAdapter(SellerOrdActivity.this, R.layout.item_seller_ord,sellerOrdArrayList);
-                            orderlistView.setAdapter(sellerOederAdapter);
-                        }
+                    SellerOrdActivity.this.runOnUiThread(() -> {
+                        sellerOrdArrayList = (ArrayList<SellerOrd>) JSON.parseArray(backmess,SellerOrd.class);
+                        System.out.println("))))))))))))"+sellerOrdArrayList.toString());
+                        SellerOederAdapter sellerOederAdapter = new SellerOederAdapter(SellerOrdActivity.this, R.layout.item_seller_ord,sellerOrdArrayList);
+                        orderlistView.setAdapter(sellerOederAdapter);
                     });
                 }
 

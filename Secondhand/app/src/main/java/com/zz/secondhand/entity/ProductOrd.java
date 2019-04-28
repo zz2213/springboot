@@ -3,6 +3,9 @@ package com.zz.secondhand.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * @author Administrator
+ */
 public class ProductOrd implements Serializable {
     private static final long serialVersionUID = 1L;
     private Integer id;
@@ -25,10 +28,6 @@ public class ProductOrd implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public String getAddress() {
-        return address;
     }
 
     public void setAddress(String address) {

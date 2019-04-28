@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import com.alibaba.fastjson.JSON;
 import com.zz.secondhand.Login;
@@ -25,8 +24,11 @@ import okhttp3.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static com.zz.secondhand.utils.GlobalVariables.FIND_PRODUCT_STYLE;
+import static com.zz.secondhand.utils.GlobalVariables.TOKEN_EMP;
+import static com.zz.secondhand.utils.GlobalVariables.TOKEN_ERROR;
 
 /**
  * @author Administrator
@@ -37,7 +39,7 @@ import static com.zz.secondhand.utils.GlobalVariables.FIND_PRODUCT_STYLE;
  */
 public class FragmentElectronic extends Fragment {
     private Myapplication myapplication;
-    ArrayList<Product> productArrayList;
+    private ArrayList<Product> productArrayList;
 
     public User getUser() {
         return user;
@@ -47,75 +49,67 @@ public class FragmentElectronic extends Fragment {
         this.user = user;
     }
 
-    User user;
+    private User user;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_electrobic,container,false);
-        return view;
+        return inflater.inflate(R.layout.fragment_electrobic,container,false);
     }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ListView listView = (ListView)getActivity().findViewById(R.id.electrobic_list);
+        ListView listView = Objects.requireNonNull(getActivity()).findViewById(R.id.electrobic_list);
 
         myapplication=(Myapplication) getActivity().getApplication();
-        Token token = new Token();
+        Token token;
         token=myapplication.getToken();
         System.out.println(token.toString());
 
         SharedPreferences userToken=getActivity().getSharedPreferences("userToken",0);
         String tokenResult=userToken.getString("token","");
 
-        String url=FIND_PRODUCT_STYLE;
         OkHttpClient okHttpClient = new OkHttpClient();
         RequestBody requestBody = new FormBody.Builder()
                 .add("style","电子")
                 .add("token",tokenResult)
                 .build();
         final Request request = new Request.Builder()
-                .url(url)
+                .url(FIND_PRODUCT_STYLE)
                 .post(requestBody)
                 .build();
         Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 Log.d("你好", "onFailure: ");
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                assert response.body() != null;
                 String backmess = response.body().string();
-                if("token为空".equals(backmess))
+                if(TOKEN_EMP.equals(backmess))
                 {
                     Intent intent = new Intent(getActivity(), Login.class);
                     startActivity(intent);
 
-                }else if("token错误".equals(backmess)){
+                }else if(TOKEN_ERROR.equals(backmess)){
                     Intent intent = new Intent(getActivity(),Login.class);
                     startActivity(intent);
                 }else {
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            productArrayList = (ArrayList<Product>) JSON.parseArray(backmess,Product.class);
-                            MyAdapter adapter = new MyAdapter(getContext(), R.layout.item_goods,productArrayList);
-                            listView.setAdapter(adapter);
-                            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    String data = productArrayList.get(position).getTitle();
-                                    Intent intent = new Intent(getActivity(), ProductViewActivity.class);
-                                    intent.putExtra("product",productArrayList.get(position));
-                                    intent.putExtra("user",user);
-                                    System.out.println(user.toString());
-                                    startActivity(intent);
-                                }
-                            });
-                        }
+                    Objects.requireNonNull(getActivity()).runOnUiThread(() -> {
+                        productArrayList = (ArrayList<Product>) JSON.parseArray(backmess,Product.class);
+                        MyAdapter adapter = new MyAdapter(getContext(), R.layout.item_goods,productArrayList);
+                        listView.setAdapter(adapter);
+                        listView.setOnItemClickListener((parent, view, position, id) -> {
+                            Intent intent = new Intent(getActivity(), ProductViewActivity.class);
+                            intent.putExtra("product",productArrayList.get(position));
+                            intent.putExtra("user",user);
+                            System.out.println(user.toString());
+                            startActivity(intent);
+                        });
                     });
                 }
 
@@ -130,46 +124,43 @@ public class FragmentElectronic extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ListView listView = (ListView)getActivity().findViewById(R.id.electrobic_list);
+        ListView listView = Objects.requireNonNull(getActivity()).findViewById(R.id.electrobic_list);
         myapplication=(Myapplication) getActivity().getApplication();
-        Token token = new Token();
+        Token token;
         token=myapplication.getToken();
-        String url=FIND_PRODUCT_STYLE;
         OkHttpClient okHttpClient = new OkHttpClient();
         RequestBody requestBody = new FormBody.Builder()
                 .add("style","电子")
                 .add("token", JSON.toJSONString(token))
                 .build();
         final Request request = new Request.Builder()
-                .url(url)
+                .url(FIND_PRODUCT_STYLE)
                 .post(requestBody)
                 .build();
         Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 Log.d("你好", "onFailure: ");
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                assert response.body() != null;
                 String backmess = response.body().string();
-                if("token为空".equals(backmess))
+                if(TOKEN_EMP.equals(backmess))
                 {
                     Intent intent = new Intent(getActivity(), Login.class);
                     startActivity(intent);
 
-                }else if("token错误".equals(backmess)){
+                }else if(TOKEN_ERROR.equals(backmess)){
                     Intent intent = new Intent(getActivity(),Login.class);
                    startActivity(intent);
                 }else {
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            productArrayList = (ArrayList<Product>) JSON.parseArray(backmess,Product.class);
-                            MyAdapter adapter = new MyAdapter(getContext(), R.layout.item_goods,productArrayList);
-                            listView.setAdapter(adapter);
-                        }
+                    Objects.requireNonNull(getActivity()).runOnUiThread(() -> {
+                        productArrayList = (ArrayList<Product>) JSON.parseArray(backmess,Product.class);
+                        MyAdapter adapter = new MyAdapter(getContext(), R.layout.item_goods,productArrayList);
+                        listView.setAdapter(adapter);
                     });
                 }
 

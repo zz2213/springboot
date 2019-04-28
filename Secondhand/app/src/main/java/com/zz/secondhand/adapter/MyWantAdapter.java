@@ -9,13 +9,12 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.alibaba.fastjson.JSON;
 import com.zz.secondhand.ProductActivity;
 import com.zz.secondhand.R;
 import com.zz.secondhand.entity.Product;
-import com.zz.secondhand.entity.ProductOrd;
-
 import java.util.ArrayList;
+
+import static com.zz.secondhand.utils.GlobalVariables.ONSELLER;
 
 /**
  * @author Administrator
@@ -58,22 +57,22 @@ public class MyWantAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-      ViewHolderOrder viewHolderOrder=null;
+      ViewHolderOrder viewHolderOrder;
         if(convertView == null) {
             convertView = inflater.inflate(resource, null);
             viewHolderOrder=new ViewHolderOrder();
-            viewHolderOrder.image=(ImageView)convertView.findViewById(R.id.order_goods_image);
-            viewHolderOrder.textView=(TextView)convertView.findViewById(R.id.order_goods_title);
-            viewHolderOrder.textView1=(TextView)convertView.findViewById(R.id.order_goods_status);
-            viewHolderOrder.button=(Button) convertView.findViewById(R.id.order_btn_status);
-            viewHolderOrder.button_detailed=(Button) convertView.findViewById(R.id.order_btn_detailed);
+            viewHolderOrder.image= convertView.findViewById(R.id.order_goods_image);
+            viewHolderOrder.textView= convertView.findViewById(R.id.order_goods_title);
+            viewHolderOrder.textView1= convertView.findViewById(R.id.order_goods_status);
+            viewHolderOrder.button= convertView.findViewById(R.id.order_btn_status);
+            viewHolderOrder.buttonDetailed = convertView.findViewById(R.id.order_btn_detailed);
             convertView.setTag(viewHolderOrder);
         }else{
             viewHolderOrder=(ViewHolderOrder) convertView.getTag();
         }
         viewHolderOrder.textView.setText(list.get(position).getTitle());
         viewHolderOrder.textView1.setText(list.get(position).getStatus());
-        if (list.get(position).getStatus().equals("在售"))
+        if (ONSELLER.equals(list.get(position).getStatus()))
         {
             viewHolderOrder.button.setText("下架");
         }
@@ -82,14 +81,10 @@ public class MyWantAdapter extends BaseAdapter {
             viewHolderOrder.button.setText(list.get(position).getStatus());
             viewHolderOrder.button.setClickable(false);
         }
-        viewHolderOrder.button_detailed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String data = list.get(position).getTitle();
-                Intent intent = new Intent(context, ProductActivity.class);
-                intent.putExtra("product", list.get(position));
-                context.startActivity(intent);
-            }
+        viewHolderOrder.buttonDetailed.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ProductActivity.class);
+            intent.putExtra("product", list.get(position));
+            context.startActivity(intent);
         });
 
         return convertView;
@@ -99,7 +94,7 @@ public class MyWantAdapter extends BaseAdapter {
         TextView textView;
         TextView textView1;
         Button button;
-        Button button_detailed;
+        Button buttonDetailed;
 
     }
 }

@@ -1,5 +1,6 @@
 package com.zz.secondhand.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -7,16 +8,15 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.zz.secondhand.Login;
-import com.zz.secondhand.MainActivity;
 import com.zz.secondhand.R;
 import com.zz.secondhand.entity.Product;
 import com.zz.secondhand.entity.ProductOrd;
@@ -27,7 +27,8 @@ import com.zz.secondhand.utils.Myapplication;
 import okhttp3.*;
 import java.io.IOException;
 import java.util.Date;
-import static com.zz.secondhand.utils.GlobalVariables.CREATE_PRODUCTORD;
+
+import static com.zz.secondhand.utils.GlobalVariables.*;
 
 /**
  * @author Administrator
@@ -38,7 +39,8 @@ import static com.zz.secondhand.utils.GlobalVariables.CREATE_PRODUCTORD;
  */
 public class ProductViewActivity extends Activity {
     private Myapplication myapplication;
-    private Bitmap head;
+
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate( @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,94 +48,79 @@ public class ProductViewActivity extends Activity {
         Intent intent = getIntent();
         Product product =(Product) intent.getSerializableExtra("product");
         User user =(User) intent.getSerializableExtra("user");
-        TextView product_view_type =findViewById(R.id.product_view_type);
-        TextView product_view_title=findViewById(R.id.product_view_title);
-        TextView product_view_style= findViewById(R.id.product_view_style);
-        TextView product_view_describe=findViewById(R.id.product_view_describe);
-        TextView product_view_price= findViewById(R.id.product_view_price);
-        TextView product_view_qq=findViewById(R.id.product_view_qq);
+        TextView productViewType =findViewById(R.id.product_view_type);
+        TextView productViewTitle =findViewById(R.id.product_view_title);
+        TextView productViewStyle = findViewById(R.id.product_view_style);
+        TextView productViewDescribe =findViewById(R.id.product_view_describe);
+        TextView productViewPrice = findViewById(R.id.product_view_price);
+        TextView productViewQq =findViewById(R.id.product_view_qq);
         ImageView imageView =findViewById(R.id.product_view_image);
-        Button product_buy_btn=findViewById(R.id.product_buy_btn);
-        product_view_type.setText(product.getType());
-        product_view_title.setText(product.getTitle());
-        product_view_style.setText(product.getStyle());
-        product_view_describe.setText(product.getDescription());
-        product_view_price.setText(product.getPrice().toString());
-        product_view_qq.setText(product.getUser().getQq());
-        head =ImageUtil.Bytes2Bitmap(product.getImage()) ;
-        if (head!=null){
-            Drawable drawable = new BitmapDrawable(getResources(),head);
+        Button productBuyBtn =findViewById(R.id.product_buy_btn);
+        productViewType.setText(product.getType());
+        productViewTitle .setText(product.getTitle());
+        productViewStyle .setText(product.getStyle());
+        productViewDescribe .setText(product.getDescription());
+        productViewPrice .setText(product.getPrice().toString());
+        productViewQq .setText(product.getUser().getQq());
+        Bitmap head = ImageUtil.Bytes2Bitmap(product.getImage());
+        if (head !=null){
+            Drawable drawable = new BitmapDrawable(getResources(), head);
             imageView.setImageDrawable(drawable);
-        }else {
-
         }
-
-
-        product_buy_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(user.getId().equals(product.getUser().getId()))
-                {
-                    Toast.makeText(getApplicationContext(), "你不能购买自己的商品", Toast.LENGTH_SHORT).show();
-                    System.out.println("你不能购买自己的商品");
-                }
-                else if("已出售".equals(product.getStatus())){
-                    Toast.makeText(getApplicationContext(), "你不能购买已出售的商品", Toast.LENGTH_SHORT).show();
-                }
-                else{
-
-                    myapplication=(Myapplication) getApplication();
-                    Token token = new Token();
-                    token=myapplication.getToken();
-                    System.out.println(token.toString());
-
-                    SharedPreferences userToken=getSharedPreferences("userToken",0);
-                    String tokenResult=userToken.getString("token","");
-
-                    ProductOrd productOrd = new ProductOrd();
-                    productOrd.setUser(user);
-                    productOrd.setProduct(product);
-                    productOrd.setCreatetime(new Date());
-//                    productOrd.setStatus(product.getTitle());
-
-                    String url=CREATE_PRODUCTORD;
-                    OkHttpClient okHttpClient = new OkHttpClient();
-                    RequestBody requestBody = new FormBody.Builder()
-                            .add("productOrd", JSON.toJSONString(productOrd))
-                            .add("token",tokenResult)
-                            .build();
-                    final Request request = new Request.Builder()
-                            .url(url)
-                            .post(requestBody)
-                            .build();
-                    Call call = okHttpClient.newCall(request);
-                    call.enqueue(new Callback() {
-                                     @Override
-                                     public void onFailure(Call call, IOException e) {
-                                         Log.d("你好", "onFailure: ");
-                                     }
-
-                                     @Override
-                                     public void onResponse(Call call, Response response) throws IOException {
-                                         String backmess = response.body().string();
-                                         if("token为空".equals(backmess))
-                                         {
-                                             Intent intent = new Intent(ProductViewActivity.this, Login.class);
-                                             startActivity(intent);
-
-                                         }else if("token错误".equals(backmess)){
-                                             Intent intent = new Intent(ProductViewActivity.this,Login.class);
-                                             startActivity(intent);
-                                         }else {
-                                             finish();
-                                         }
-
-                                     }
-                                 });
-                }
-
-
+        productBuyBtn .setOnClickListener(v -> {
+            if(user.getId().equals(product.getUser().getId()))
+            {
+                Toast.makeText(getApplicationContext(), "你不能购买自己的商品", Toast.LENGTH_SHORT).show();
+                System.out.println("你不能购买自己的商品");
             }
+            else if(ISSELLER.equals(product.getStatus())){
+                Toast.makeText(getApplicationContext(), "你不能购买已出售的商品", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                myapplication=(Myapplication) getApplication();
+                Token token = myapplication.getToken();
+                System.out.println(token.toString());
+                SharedPreferences userToken=getSharedPreferences("userToken",0);
+                String tokenResult=userToken.getString("token","");
+                ProductOrd productOrd = new ProductOrd();
+                productOrd.setUser(user);
+                productOrd.setProduct(product);
+                productOrd.setCreatetime(new Date());
+                OkHttpClient okHttpClient = new OkHttpClient();
+                RequestBody requestBody = new FormBody.Builder()
+                        .add("productOrd", JSON.toJSONString(productOrd))
+                        .add("token",tokenResult)
+                        .build();
+                final Request request = new Request.Builder()
+                        .url(CREATE_PRODUCTORD)
+                        .post(requestBody)
+                        .build();
+                Call call = okHttpClient.newCall(request);
+                call.enqueue(new Callback() {
+                                 @Override
+                                 public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                                     Log.d("你好", "onFailure: ");
+                                 }
+                                 @Override
+                                 public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                                     assert response.body() != null;
+                                     String backmess = response.body().string();
+                                     if(TOKEN_EMP.equals(backmess))
+                                     {
+                                         Intent intent1 = new Intent(ProductViewActivity.this, Login.class);
+                                         startActivity(intent1);
+
+                                     }else if(TOKEN_ERROR.equals(backmess)){
+                                         Intent intent1 = new Intent(ProductViewActivity.this,Login.class);
+                                         startActivity(intent1);
+                                     }else {
+                                         finish();
+                                     }
+
+                                 }
+                             });
+            }
+
         });
 
     }

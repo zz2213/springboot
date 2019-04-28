@@ -1,9 +1,14 @@
 package com.zz.secondhand.entity;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Date;
 
+/**
+ * @author Administrator
+ */
 public class Product implements Serializable {
     private static final long serialVersionUID = 1L;
     private Integer id;
@@ -19,9 +24,9 @@ public class Product implements Serializable {
     private String description;
 
     private Long price;
-//生活
+
     private String style;
-//商品
+
     private String type;
 
     private String status;
@@ -47,10 +52,6 @@ public class Product implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public Date getCreatetime() {
-        return createtime;
     }
 
     public void setCreatetime(Date createtime) {
@@ -114,6 +115,7 @@ public class Product implements Serializable {
         this.status = status == null ? null : status.trim();
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Product{" +

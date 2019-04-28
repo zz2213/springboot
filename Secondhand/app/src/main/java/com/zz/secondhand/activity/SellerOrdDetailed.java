@@ -1,5 +1,6 @@
 package com.zz.secondhand.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import java.text.SimpleDateFormat;
  * @date 2019/4/189:56
  */
 public class SellerOrdDetailed extends Activity {
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +30,7 @@ public class SellerOrdDetailed extends Activity {
         TextView goodsName = findViewById(R.id.sellergoods_name);
         goodsName.setText(sellerOrd.getProduct().getTitle());
         TextView orderTime = findViewById(R.id.sellerorder_time);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         orderTime.setText(sdf.format(sellerOrd.getCreatetime()));
         TextView orderNumber = findViewById(R.id.sellerorder_number);
         orderNumber.setText(sellerOrd.getOrdernember());

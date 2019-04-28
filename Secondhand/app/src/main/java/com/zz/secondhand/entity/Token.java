@@ -1,5 +1,7 @@
 package com.zz.secondhand.entity;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 
 /**
@@ -28,6 +30,7 @@ public class Token implements Serializable {
         this.userId = userId;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Token{" +
