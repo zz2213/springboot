@@ -41,4 +41,13 @@ public class ReturnMessage implements Serializable {
     public void setMess(String mess) {
         this.mess = mess;
     }
+
+    @Override
+    public String toString() {
+        return "ReturnMessage{" +
+                "user=" + user +
+                ", token=" + token +
+                ", mess='" + mess + '\'' +
+                '}';
+    }
 }

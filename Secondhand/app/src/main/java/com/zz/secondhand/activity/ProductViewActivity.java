@@ -3,11 +3,15 @@ package com.zz.secondhand.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
@@ -18,6 +22,7 @@ import com.zz.secondhand.entity.Product;
 import com.zz.secondhand.entity.ProductOrd;
 import com.zz.secondhand.entity.Token;
 import com.zz.secondhand.entity.User;
+import com.zz.secondhand.utils.ImageUtil;
 import com.zz.secondhand.utils.Myapplication;
 import okhttp3.*;
 import java.io.IOException;
@@ -33,6 +38,7 @@ import static com.zz.secondhand.utils.GlobalVariables.CREATE_PRODUCTORD;
  */
 public class ProductViewActivity extends Activity {
     private Myapplication myapplication;
+    private Bitmap head;
     @Override
     protected void onCreate( @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +52,7 @@ public class ProductViewActivity extends Activity {
         TextView product_view_describe=findViewById(R.id.product_view_describe);
         TextView product_view_price= findViewById(R.id.product_view_price);
         TextView product_view_qq=findViewById(R.id.product_view_qq);
+        ImageView imageView =findViewById(R.id.product_view_image);
         Button product_buy_btn=findViewById(R.id.product_buy_btn);
         product_view_type.setText(product.getType());
         product_view_title.setText(product.getTitle());
@@ -53,6 +60,13 @@ public class ProductViewActivity extends Activity {
         product_view_describe.setText(product.getDescription());
         product_view_price.setText(product.getPrice().toString());
         product_view_qq.setText(product.getUser().getQq());
+        head =ImageUtil.Bytes2Bitmap(product.getImage()) ;
+        if (head!=null){
+            Drawable drawable = new BitmapDrawable(getResources(),head);
+            imageView.setImageDrawable(drawable);
+        }else {
+
+        }
 
 
         product_buy_btn.setOnClickListener(new View.OnClickListener() {

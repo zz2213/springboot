@@ -109,7 +109,7 @@ public class FragmentLife  extends Fragment {
                                            String data = productArrayList.get(position).getTitle();
                                            Intent intent = new Intent(getActivity(), ProductViewActivity.class);
                                            intent.putExtra("product",productArrayList.get(position));
-                                           System.out.println(user.toString());
+                                           System.out.println("test"+user.toString());
                                            intent.putExtra("user",user);
                                            startActivity(intent);
                                        }

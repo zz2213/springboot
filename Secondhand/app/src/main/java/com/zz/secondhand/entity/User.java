@@ -4,6 +4,7 @@ package com.zz.secondhand.entity;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
+import java.util.Arrays;
 
 public class User implements Serializable{
 
@@ -101,9 +102,6 @@ public class User implements Serializable{
         return super.clone();
     }
 
-
-
-
     @Override
     public String toString() {
         return "User{" +
@@ -113,7 +111,7 @@ public class User implements Serializable{
                 ", password='" + password + '\'' +
                 ", number=" + number +
                 ", school='" + school + '\'' +
-                ", image='" + image + '\'' +
+                ", image=" + Arrays.toString(image) +
                 ", qq='" + qq + '\'' +
                 '}';
     }

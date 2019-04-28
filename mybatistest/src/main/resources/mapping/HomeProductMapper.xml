@@ -13,6 +13,7 @@
         <result column="style" jdbcType="VARCHAR" property="style" />
         <result column="type" jdbcType="VARCHAR" property="type" />
         <result column="status" jdbcType="VARCHAR" property="status" />
+        <result column="qq" jdbcType="VARCHAR" property="user.qq" />
     </resultMap>
     <insert id="createProduct" parameterType="java.lang.Integer">
         insert into homeproduct( product_id) values(#{id})
@@ -22,7 +23,7 @@
         select product.id,user_id,createtime,title,image,description,price,style,type ,status from homeproduct  left join  product on homeproduct.product_id =product.id  limit #{page},#{limit}
     </select>
     <select id="queryHomeProduct2" resultMap="BaseResultMap" >
-        select product.id,user_id,createtime,title,image,description,price,style,type ,status from homeproduct  left join  product on homeproduct.product_id =product.id
+        select product.id,user_id,createtime,title,product.image,description,price,style,type ,qq,status from homeproduct  left join  product on homeproduct.product_id =product.id left join user on product.user_id=user.id
     </select>
     <select id="queryCount" resultType="java.lang.Integer">
         select count(*) from homeproduct  left join  product on homeproduct.product_id =product.id

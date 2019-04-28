@@ -10,7 +10,8 @@ import java.net.URL;
  * @date 2019/4/1515:43
  */
 public class GlobalVariables {
-    final static public String MO_URL="http://192.168.40.116:8080";
+    final static public String MO_URL="http://106.14.162.13:8080";
+    final static public String ii="106.14.162.13  192.168.40.116";
     final static public String REGISTER_URL = MO_URL+"/Secondhand/register";
     final static public String LOGIN_URL=MO_URL+"/Secondhand/getUser";
     final static public String CREATE_PRODUCT_URL=MO_URL+"/ProductController/index";

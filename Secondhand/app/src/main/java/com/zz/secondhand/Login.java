@@ -154,6 +154,7 @@ public class Login extends Activity {
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         String backmess = response.body().string();
+                        System.out.println(backmess);
                         ReturnMessage returnMessage = JSON.parseObject(backmess,ReturnMessage.class);
 
                         if(returnMessage.getMess().equals(SUCCESS))
