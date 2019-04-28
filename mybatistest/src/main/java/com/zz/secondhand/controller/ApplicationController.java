@@ -26,9 +26,6 @@ import java.util.Map;
 
 /**
  * @author Administrator
- * @title: ApplicationController
- * @projectName mybatistest
- * @description: TODO
  * @date 2019/4/22 16:05
  */
 @Controller
@@ -42,7 +39,7 @@ public class ApplicationController {
     UserService userService;
 
     @ResponseBody
-    @RequestMapping("/getadmin")
+    @RequestMapping(value = "/getadmin" ,produces = {"application/json;charset=UTF-8"})
     public String getadmin( @RequestParam(required = false,defaultValue ="1" ) int page,
                             @RequestParam(required = false,defaultValue ="15") int limit){
         List<Admin> list=adminService.queeryalladmin(page,limit);
@@ -55,102 +52,111 @@ public class ApplicationController {
         return  jsonObject.toJSONString();
     }
 
-    @RequestMapping("/test1")
+    @RequestMapping(value = "/test1",produces = {"application/json;charset=UTF-8"})
     public String test(@RequestBody ProductDto productDto){
         Product product = ProductUtils.dtoToProduct(productDto);
         productServive.updateProduct(product);
         return "product";
     }
-    @RequestMapping("/test2")
+
+    @RequestMapping(value = "/test2",produces = {"application/json;charset=UTF-8"})
     public String test2(@RequestBody ProductDto productDto){
         productServive.deleteProduct(productDto.getId());
         return "product";
     }
-    @RequestMapping("/adminupdate")
+
+    @RequestMapping(value = "/adminupdate",produces = {"application/json;charset=UTF-8"})
     public String adminupdate(){
         return "adminupdate";
     }
-    @RequestMapping("/adminadd")
+
+    @RequestMapping(value = "/adminadd",produces = {"application/json;charset=UTF-8"})
     public String adminadd(){
         return "adminadd";
     }
-    @RequestMapping("/userdelete")
+
+    @RequestMapping(value = "/userdelete",produces = {"application/json;charset=UTF-8"})
     public String userdelete(@RequestBody User user){
         userService.deleteUser(user.getId());
         return "product";
     }
+
     @ResponseBody
-    @RequestMapping("/updateadmin")
+    @RequestMapping(value = "/updateadmin",produces = {"application/json;charset=UTF-8"})
     public String updateadmin(@RequestBody Admin admin){
         adminService.Update(admin);
         return "ok";
     }
+
     @ResponseBody
-    @RequestMapping("/addadmin")
+    @RequestMapping(value = "/addadmin",produces = {"application/json;charset=UTF-8"})
     public String addadmin(@RequestBody Admin admin){
         System.out.println(admin.toString());
         adminService.insert(admin);
         return "ok";
     }
 
-    @RequestMapping("/updateuser")
+    @RequestMapping(value = "/updateuser",produces = {"application/json;charset=UTF-8"})
     public String updateuser(@RequestBody User user){
         userService.Update(user);
         return "product";
     }
 
 
-    @RequestMapping("/product")
+    @RequestMapping(value = "/product",produces = {"application/json;charset=UTF-8"})
     public String index(){
         return "product";
     }
-    @RequestMapping("/buyerord")
+
+    @RequestMapping(value = "/buyerord",produces = {"application/json;charset=UTF-8"})
     public String buyerord(){
         return "buyerord";
     }
-    @RequestMapping("/sellerord")
+
+    @RequestMapping(value = "/sellerord",produces = {"application/json;charset=UTF-8"})
     public String sellerord(){
         return "seller";
     }
-    @RequestMapping("/sellerupdate")
+
+    @RequestMapping(value = "/sellerupdate",produces = {"application/json;charset=UTF-8"})
     public String sellerupdate(){
 
         return "sellerupdate";
     }
 
-    @RequestMapping("/buyerupdate")
+    @RequestMapping(value = "/buyerupdate",produces = {"application/json;charset=UTF-8"})
     public String buyerupdate(){
 
         return "buyerupdate";
     }
 
-    @RequestMapping("/studyproduct")
+    @RequestMapping(value = "/studyproduct",produces = {"application/json;charset=UTF-8"})
     public String study(){
 
         return "studyproduct";
     }
 
-    @RequestMapping("/productupdate")
+    @RequestMapping(value = "/productupdate",produces = {"application/json;charset=UTF-8"})
     public String productup(){
 
         return "productupdate";
     }
-    @RequestMapping("/userupdate")
+    @RequestMapping(value = "/userupdate",produces = {"application/json;charset=UTF-8"})
     public String userup(){
 
         return "userupdate";
     }
-    @RequestMapping("/user")
+    @RequestMapping(value = "/user",produces = {"application/json;charset=UTF-8"})
     public String userrounter(){
         return "user";
     }
-    @RequestMapping("/admin")
+    @RequestMapping(value = "/admin",produces = {"application/json;charset=UTF-8"})
     public String adminrounter(){
         return "admin";
     }
 
     @ResponseBody
-    @RequestMapping("/showDataStudy")
+    @RequestMapping(value = "/showDataStudy",produces = {"application/json;charset=UTF-8"})
     public String studyshow(
             @RequestParam(required = false,defaultValue ="1" ) int page,
             @RequestParam(required = false,defaultValue ="15") int limit
@@ -183,12 +189,12 @@ public class ApplicationController {
         return  jsonObject.toJSONString();
     }
 
-    @RequestMapping("/elctronicproduct")
+    @RequestMapping(value = "/elctronicproduct",produces = {"application/json;charset=UTF-8"})
     public String electronic(){
         return "elctronicproduct";
     }
     @ResponseBody
-    @RequestMapping("/showDataEle")
+    @RequestMapping(value = "/showDataEle",produces = {"application/json;charset=UTF-8"})
     public String elctronicshow(
             @RequestParam(required = false,defaultValue ="1" ) int page,
             @RequestParam(required = false,defaultValue ="15") int limit
@@ -222,7 +228,7 @@ public class ApplicationController {
     }
 
     @ResponseBody
-    @RequestMapping("/showData")
+    @RequestMapping(value = "/showData",produces = {"application/json;charset=UTF-8"})
     public String methodshow(
             @RequestParam(required = false,defaultValue ="1" ) int page,
             @RequestParam(required = false,defaultValue ="15") int limit
@@ -256,13 +262,13 @@ public class ApplicationController {
 
     }
 
-    @GetMapping("/login")
+    @GetMapping(value = "/login",produces = {"application/json;charset=UTF-8"})
     public ModelAndView login(ModelAndView modelAndView){
         modelAndView.setViewName("login");
         return modelAndView;
     }
 
-    @PostMapping("/login")
+    @PostMapping(value = "/login",produces = {"application/json;charset=UTF-8"})
     public ModelAndView login(ModelAndView modelAndView, @Valid Admin admin, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             modelAndView.addObject("error",bindingResult.getFieldError().getDefaultMessage());
@@ -289,7 +295,7 @@ public class ApplicationController {
     }
 
     @ResponseBody
-    @RequestMapping("/getuser")
+    @RequestMapping(value = "/getuser",produces = {"application/json;charset=UTF-8"})
     public String getuser(
             @RequestParam(required = false,defaultValue ="1" ) int page,
             @RequestParam(required = false,defaultValue ="15") int limit

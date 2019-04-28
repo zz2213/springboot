@@ -33,7 +33,7 @@ public class OrderSellerController {
     public String findByid(@RequestParam("user_id") String user_id){
         return JSON.toJSONString(sellerOrdService.findSellerOrdByUserId(user_id));
     }
-    @RequestMapping("/getseller")
+    @RequestMapping(value = "/getseller",produces = {"application/json;charset=UTF-8"})
     public String querrysellerord(){
        List<SellerOrd> list = sellerOrdService.querySellerOrd();
         ArrayList<SellerOrdVo> sellerOrdVos=new ArrayList<SellerOrdVo>();
@@ -60,7 +60,7 @@ public class OrderSellerController {
         jsonObject.put("data",sellerOrdVos);
         return  jsonObject.toJSONString();
     }
-    @RequestMapping("/updateseller")
+    @RequestMapping(value = "/updateseller",produces = {"application/json;charset=UTF-8"})
     public String updateserller(@RequestBody SellerOrdVo sellerOrdVo){
         Product product =new Product();
         product.setId(sellerOrdVo.getProduct_id());

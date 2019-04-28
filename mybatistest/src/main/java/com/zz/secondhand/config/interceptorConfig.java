@@ -4,6 +4,7 @@ import com.zz.secondhand.Interceptor.TokenInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 /**
@@ -25,11 +26,19 @@ public class interceptorConfig extends WebMvcConfigurationSupport {
         .addPathPatterns("/ProductOrdController/updateorder")
         .addPathPatterns("/ProductController/findproductstyle")
         .addPathPatterns("/ProductController/findproductstyle")
-        .addPathPatterns("/ProductController/updateProductstatus");
-
+        .addPathPatterns("/ProductController/updateProductstatus")
+        .excludePathPatterns("/static/**");
         super.addInterceptors(registry);
     }
-@Bean
+
+    @Override
+    protected void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/static/**")
+        .addResourceLocations("classpath:/static/");
+        super.addResourceHandlers(registry);
+    }
+
+    @Bean
     public TokenInterceptor tokenInterceptor(){
         return new TokenInterceptor();
 }

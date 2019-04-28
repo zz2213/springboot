@@ -54,7 +54,7 @@ public class ProductOrdController {
         productOrdService.updateProductOrdByuserID(number,status);
         return "xxx";
     }
-    @RequestMapping("/getbuyer")
+    @RequestMapping(value = "/getbuyer",produces = {"application/json;charset=UTF-8"})
     public String querrybuyerord(){
         List<ProductOrd> list = productOrdService.querySellerOrd();
         ArrayList<SellerOrdVo> sellerOrdVos=new ArrayList<SellerOrdVo>();
@@ -81,7 +81,7 @@ public class ProductOrdController {
         jsonObject.put("data",sellerOrdVos);
         return  jsonObject.toJSONString();
     }
-    @RequestMapping("/updatebuyer")
+    @RequestMapping(value = "/updatebuyer",produces = {"application/json;charset=UTF-8"})
     public String updatebuyer(@RequestBody SellerOrdVo sellerOrdVo){
         Product product =new Product();
         product.setId(sellerOrdVo.getProduct_id());
