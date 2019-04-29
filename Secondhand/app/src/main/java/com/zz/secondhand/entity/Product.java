@@ -10,7 +10,7 @@ import java.util.Date;
  * @author Administrator
  */
 public class Product implements Serializable {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -6569273561860085796L;
     private Integer id;
 
     private User user;
@@ -66,6 +66,9 @@ public class Product implements Serializable {
         this.title = title == null ? null : title.trim();
     }
 
+    public Date getCreatetime() {
+        return createtime;
+    }
 
     public byte[] getImage() {
         return image;
@@ -115,20 +118,4 @@ public class Product implements Serializable {
         this.status = status == null ? null : status.trim();
     }
 
-    @NonNull
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", user=" + user +
-                ", createtime=" + createtime +
-                ", title='" + title + '\'' +
-                ", image=" + Arrays.toString(image) +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                ", style='" + style + '\'' +
-                ", type='" + type + '\'' +
-                ", status='" + status + '\'' +
-                '}';
-    }
 }

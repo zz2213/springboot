@@ -39,17 +39,13 @@ public class UserService {
     }
     public String Update(User user){
         String status;
-        System.out.println(user.toString());
         int success=userMapper.Update(user);
         if (success==1)
         {
            User returnUser = userMapper.findUserById(user.getId());
-            System.out.println("ok");
             status= JSON.toJSONString(returnUser);
-            System.out.println("update"+status);
         }else {
             status="false";
-            System.out.println("error");
         }
 
         return status;

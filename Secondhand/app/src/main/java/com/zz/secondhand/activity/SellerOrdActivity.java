@@ -40,11 +40,8 @@ public class SellerOrdActivity extends Activity {
         Myapplication myapplication = (Myapplication) getApplication();
         Token token;
         token= myapplication.getToken();
-        System.out.println(token.toString());
-
         SharedPreferences userToken=getSharedPreferences("userToken",0);
         String tokenResult=userToken.getString("token","");
-
         Intent intent = getIntent();
         ListView orderlistView = findViewById(R.id.order_seller_list);
         User self =(User) intent.getSerializableExtra("user");
@@ -79,7 +76,6 @@ public class SellerOrdActivity extends Activity {
                 }else {
                     SellerOrdActivity.this.runOnUiThread(() -> {
                         sellerOrdArrayList = (ArrayList<SellerOrd>) JSON.parseArray(backmess,SellerOrd.class);
-                        System.out.println("))))))))))))"+sellerOrdArrayList.toString());
                         SellerOederAdapter sellerOederAdapter = new SellerOederAdapter(SellerOrdActivity.this, R.layout.item_seller_ord,sellerOrdArrayList);
                         orderlistView.setAdapter(sellerOederAdapter);
                     });

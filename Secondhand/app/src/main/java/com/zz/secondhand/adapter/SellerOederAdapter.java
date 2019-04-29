@@ -83,7 +83,6 @@ public class SellerOederAdapter extends BaseAdapter {
             viewHolderOrder=(SellerOederAdapter.ViewHolderOrder) convertView.getTag();
         }
         viewHolderOrder.textView.setText(list.get(position).getProduct().getTitle());
-        System.out.println(list.get(position).getProduct().getTitle());
         final  Button button1= convertView.findViewById(R.id.sell_order_status_btn);
         viewHolderOrder.button.setText(list.get(position).getStatus());
         viewHolderOrder.button.setOnClickListener(v -> {
@@ -91,16 +90,11 @@ public class SellerOederAdapter extends BaseAdapter {
                 case "已付款":
                     Toast toast = Toast.makeText(context, "已付款等待商家发货", Toast.LENGTH_SHORT);
                     toast.show();
-
                     myapplication=(Myapplication)context.getApplicationContext ();
                     Token token;
                     token=myapplication.getToken();
-                    System.out.println(token.toString());
-
                     SharedPreferences userToken=context.getSharedPreferences("userToken",0);
                     String tokenResult=userToken.getString("token","");
-
-
                     OkHttpClient okHttpClient = new OkHttpClient();
                     RequestBody requestBody = new FormBody.Builder()
                             .add("status", "已发货")

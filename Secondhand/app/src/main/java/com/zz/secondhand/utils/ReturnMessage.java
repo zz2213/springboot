@@ -14,9 +14,9 @@ import java.io.Serializable;
  */
 public class ReturnMessage implements Serializable {
     private static final long serialVersionUID = 1L;
-    User user;
-    Token token;
-    String mess;
+    private User user;
+    private Token token;
+    private String mess;
 
     public User getUser() {
         return user;

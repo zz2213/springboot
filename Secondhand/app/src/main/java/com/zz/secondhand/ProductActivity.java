@@ -47,15 +47,11 @@ public class ProductActivity  extends Activity{
         button.setText("下架");
         Toast.makeText(this,product.getTitle(),Toast.LENGTH_SHORT).show();
         button.setOnClickListener(v -> {
-            System.out.println("*******************");
             myapplication=(Myapplication) getApplication();
             Token token;
             token=myapplication.getToken();
-            System.out.println(token.toString());
-
             SharedPreferences userToken=getSharedPreferences("userToken",0);
             String tokenResult=userToken.getString("token","");
-
             OkHttpClient okHttpClient = new OkHttpClient();
             RequestBody requestBody = new FormBody.Builder()
                     .add("status","下架")
@@ -81,7 +77,6 @@ public class ProductActivity  extends Activity{
                     {
                         Intent intent1 = new Intent(ProductActivity.this, Login.class);
                         startActivity(intent1);
-
                     }else if(TOKEN_ERROR.equals(backmess)){
                         Intent intent1 = new Intent(ProductActivity.this,Login.class);
                         startActivity(intent1);

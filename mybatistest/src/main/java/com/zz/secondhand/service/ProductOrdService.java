@@ -34,24 +34,23 @@ public class ProductOrdService {
     SellerOrdService sellerOrdService;
     @Autowired
     SellerOrdMapper sellerOrdMapper;
+
+
+
     @Transactional(rollbackOn = Exception.class)
-    public int createProductOrd(ProductOrd productOrd, SellerOrd sellerOrd){
+    public void createProductOrd(ProductOrd productOrd, SellerOrd sellerOrd){
         productOrd.setStatus("未付款");
         int i=productOrdMapper.createProductOrd(productOrd);
-        int j = sellerOrdService.createSellerOrd(sellerOrd);
         productMapper.updateProductstatus("已出售",productOrd.getProduct().getId());
-        return i;
     }
-    public ArrayList<ProductOrd> findProductOrdByUserId(int user_id)
+    public ArrayList<ProductOrd> findProductOrdByUserId(int userId)
     {
-        ArrayList<ProductOrd> arrayList=productOrdMapper.findProductOrdByUserId(user_id);
-        return arrayList;
+        return productOrdMapper.findProductOrdByUserId(userId);
     }
-    public int updateProductOrdByuserID(String ordernumber,String status){
+    @Transactional(rollbackOn = Exception.class)
+    public void updateProductOrdByuserID(String ordernumber, String status){
         sellerOrdService.updateSellerOrdBynumber(ordernumber,status);
         productOrdMapper.updateProductOrdBynumber(ordernumber,status);
-        System.out.println("status"+status);
-        return 1;
     }
     public  ArrayList<ProductOrd> querySellerOrd(){
         return productOrdMapper.querySellerOrd();
@@ -59,15 +58,15 @@ public class ProductOrdService {
     public int queryAllCount(){
         return productOrdMapper.queryAllCount();
     }
-   public int updateBuyerOrd(SellerOrdVo sellerOrdVo, Product product){
+   public void updateBuyerOrd(SellerOrdVo sellerOrdVo, Product product){
        productServive.updateProduct(product);
-       return productOrdMapper.updateBuyerOrd(sellerOrdVo);
+       productOrdMapper.updateBuyerOrd(sellerOrdVo);
    }
    @Transactional(rollbackOn = Exception.class)
-   public  int deletebuyerord(SellerOrdVo sellerOrdVo){
+   public void deletebuyerord(SellerOrdVo sellerOrdVo){
     SellerOrd sellerOrd=sellerOrdMapper.findSellerOrdByProductId(sellerOrdVo.getProduct_id());
     sellerOrdMapper.updateSellerOrdBynumber(sellerOrd.getOrdernember(),"已取消");
        productMapper.updateProductstatus("在售",sellerOrdVo.getProduct_id());
-    return productOrdMapper.deletebuyerord(sellerOrdVo.getId());
+       productOrdMapper.deletebuyerord(sellerOrdVo.getId());
    }
 }

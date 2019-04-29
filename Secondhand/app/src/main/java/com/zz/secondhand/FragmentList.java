@@ -20,12 +20,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Auther: msi-pc
+ * @author msi-pc
  * @Date: 2019/4/8 18:43
  * @Description:
  */
 public class FragmentList extends Fragment implements IndexViewPager.OnPageChangeListener, View.OnClickListener{
-    private List<Fragment> list;
     private  View view;
     private  IndexViewPager viewPager;
     private Button button1,button2,button3;
@@ -43,11 +42,11 @@ public class FragmentList extends Fragment implements IndexViewPager.OnPageChang
         return view;
     }
     private void initView(){
-        viewPager = (IndexViewPager) view.findViewById(R.id.viewpaper01);
-        list=new ArrayList<>();
-        button1=(Button)view.findViewById(R.id.frag01);
-        button2=(Button)view.findViewById(R.id.frag02);
-        button3=(Button)view.findViewById(R.id.frag03);
+        viewPager = view.findViewById(R.id.viewpaper01);
+        List<Fragment> list = new ArrayList<>();
+        button1= view.findViewById(R.id.frag01);
+        button2= view.findViewById(R.id.frag02);
+        button3= view.findViewById(R.id.frag03);
 
         button1.setOnClickListener(this);
         button2.setOnClickListener(this);
@@ -64,7 +63,7 @@ public class FragmentList extends Fragment implements IndexViewPager.OnPageChang
         list.add(fragmentStudy);
         viewPager.setScanScroll(true);
 
-        viewPager.setAdapter(new MyFragmentAdapter(getFragmentManager(),list));
+        viewPager.setAdapter(new MyFragmentAdapter(getFragmentManager(), list));
         viewPager.addOnPageChangeListener(this);
         viewPager.setOffscreenPageLimit(3);
         viewPager.setCurrentItem(0);
@@ -91,6 +90,7 @@ public class FragmentList extends Fragment implements IndexViewPager.OnPageChang
                 button3.setBackgroundColor(Color.parseColor("#ff735c"));
                 viewPager.setCurrentItem(2);
                 break;
+                default:
         }
 
     }
@@ -115,6 +115,7 @@ public class FragmentList extends Fragment implements IndexViewPager.OnPageChang
                 button3.setBackgroundColor(Color.parseColor("#ff735c"));
                 viewPager.setCurrentItem(2);
                 break;
+                default:
         }
 
     }

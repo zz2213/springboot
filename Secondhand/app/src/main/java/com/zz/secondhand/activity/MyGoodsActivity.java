@@ -78,7 +78,6 @@ public class MyGoodsActivity extends Activity {
                 }else {
                     MyGoodsActivity.this.runOnUiThread(() -> {
                         productArrayList = (ArrayList<Product>) JSON.parseArray(listProduct,Product.class);
-                        System.out.println(productArrayList.toString());
                         MyWantAdapter myWantAdapter = new MyWantAdapter(MyGoodsActivity.this, R.layout.item_order, productArrayList);
                         orderlistView.setAdapter(myWantAdapter);
                     });

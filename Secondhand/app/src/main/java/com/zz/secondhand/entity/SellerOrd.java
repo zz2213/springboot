@@ -14,6 +14,7 @@ import java.util.Date;
  */
 public class SellerOrd implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private Integer id;
 
     private User user;

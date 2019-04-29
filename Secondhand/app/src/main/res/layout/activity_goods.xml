@@ -53,14 +53,27 @@
                 android:layout_gravity="center_vertical"
                 android:text="分类:"
                 android:textSize="14sp" />
-
-    <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
-            android:layout_gravity="center_vertical"
-            android:id="@+id/spinner">       <!--通过entries属性指定一个下拉列表项，是一个数组资源-->
-    </Spinner>
+        <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rg">
+            <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/radio1"
+                    android:text="生活"
+                    android:checked="true"/>
+            <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/radio2"
+                    android:text="学习"/>
+            <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/radio3"
+                    android:text="电子"/>
+        </RadioGroup>
     </LinearLayout>
 
     <LinearLayout

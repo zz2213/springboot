@@ -67,7 +67,6 @@ public class UserController {
         }
         outObj.flush();
         outObj.close();
-//        System.out.println(user.toString());
     }
 
     @RequestMapping(value = "getUser",produces = {"application/json;charset=UTF-8"})
@@ -76,7 +75,6 @@ public class UserController {
         ReturnMessage returnMessage= new ReturnMessage();
         String back=null;
         User user = null;
-        System.out.printf(pass);
         if(responsepass.equals(pass))
         {    returnMessage.setMess("success");
              user = userService.FindUserByName(name);

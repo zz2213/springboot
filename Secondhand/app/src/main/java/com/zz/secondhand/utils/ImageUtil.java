@@ -13,14 +13,14 @@ import java.io.*;
  * @date 2019/4/199:02
  */
  public  class ImageUtil {
-    public static  Bitmap Bytes2Bitmap(byte[] b) {
+    public static  Bitmap bytes2bitmap(byte[] b) {
                  if (b.length != 0) {
                          return BitmapFactory.decodeByteArray(b, 0, b.length);
                      } else {
                          return null;
                     }
              }
-    public static byte[] Bitmap2Bytes(Bitmap bm) {
+    public static byte[] bitmap2bytes(Bitmap bm) {
                  ByteArrayOutputStream baos = new ByteArrayOutputStream();
                  bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
                 return baos.toByteArray();

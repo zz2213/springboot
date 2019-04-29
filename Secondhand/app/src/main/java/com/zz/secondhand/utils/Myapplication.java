@@ -1,5 +1,6 @@
 package com.zz.secondhand.utils;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
 import android.content.SharedPreferences;
@@ -7,13 +8,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.AbsListView;
 import android.widget.ListView;
 import com.alibaba.fastjson.JSON;
 import com.cniupay.pay.CNiuPay;
 import com.zz.secondhand.entity.Token;
-import com.zz.secondhand.entity.User;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -84,19 +83,16 @@ public class Myapplication extends Application {
         }
     };
 
-    //防止短时间内多次点击，弹出多个activity 或者 dialog ，等操作
+    /**
+     * @description: 防止短时间内多次点击，弹出多个activity 或者 dialog ，等操作
+     * @param activity
+     */
     private void fixViewMutiClickInShortTime(final Activity activity) {
-        activity.getWindow().getDecorView().getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                proxyOnlick(activity.getWindow().getDecorView(),5);
-            }
-        });
+        activity.getWindow().getDecorView().getViewTreeObserver().addOnGlobalLayoutListener(() -> proxyOnlick(activity.getWindow().getDecorView(),5));
     }
 
     private void proxyOnlick(View view, int recycledContainerDeep) {
         if (view.getVisibility() == View.VISIBLE) {
-            boolean forceHook = recycledContainerDeep == 1;
             if (view instanceof ViewGroup) {
                 boolean existAncestorRecycle = recycledContainerDeep > 0;
                 ViewGroup p = (ViewGroup) view;
@@ -123,7 +119,7 @@ public class Myapplication extends Application {
      * 通过反射  查找到view 的clicklistener
      * @param view
      */
-    public static void getClickListenerForView(View view) {
+    private static void getClickListenerForView(View view) {
         try {
             Class viewClazz = Class.forName("android.view.View");
             //事件监听器都是这个实例保存的
@@ -133,7 +129,7 @@ public class Myapplication extends Application {
             }
             Object listenerInfoObj = listenerInfoMethod.invoke(view);
 
-            Class listenerInfoClazz = Class.forName("android.view.View$ListenerInfo");
+            @SuppressLint("PrivateApi") Class listenerInfoClazz = Class.forName("android.view.View$ListenerInfo");
 
             Field onClickListenerField = listenerInfoClazz.getDeclaredField("mOnClickListener");
 
@@ -160,7 +156,7 @@ public class Myapplication extends Application {
     static class ProxyOnclickListener implements View.OnClickListener {
         private View.OnClickListener onclick;
 
-        private int MIN_CLICK_DELAY_TIME = 500;
+        private int minClickDelayTime = 500;
 
         private long lastClickTime = 0;
 
@@ -172,7 +168,7 @@ public class Myapplication extends Application {
         public void onClick(View v) {
             //点击时间控制
             long currentTime = System.currentTimeMillis();
-            if (currentTime - lastClickTime > MIN_CLICK_DELAY_TIME) {
+            if (currentTime - lastClickTime > minClickDelayTime) {
                 lastClickTime = currentTime;
                 Log.e("OnClickListenerProxy", "OnClickListenerProxy"+this);
                 if (onclick != null) {

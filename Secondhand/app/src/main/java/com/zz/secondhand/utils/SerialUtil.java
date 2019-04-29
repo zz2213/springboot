@@ -10,7 +10,7 @@ import java.io.*;
  * @date 2019/4/1914:35
  */
 public class SerialUtil {
-    public static final void saveObject(String path, Object saveObject){
+    public static void saveObject(String path, Object saveObject){
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
         File f = new File(path);
@@ -18,9 +18,7 @@ public class SerialUtil {
             fos = new FileOutputStream(f);
             oos = new ObjectOutputStream(fos);
             oos.writeObject(saveObject);
-        }catch(FileNotFoundException e){
-            e.printStackTrace();
-        }catch(IOException e){
+        } catch(IOException e){
             e.printStackTrace();
         }finally{
             try{
@@ -36,7 +34,7 @@ public class SerialUtil {
         }
     }
 
-    public static final Object restoreObject(String path){
+    public static Object restoreObject(String path){
         FileInputStream fis = null;
         ObjectInputStream ois = null;
         Object object = null;
@@ -49,11 +47,9 @@ public class SerialUtil {
             fis = new FileInputStream(f);
             ois = new ObjectInputStream(fis);
             object = ois.readObject();
-        }catch(IOException e){
+        }catch(IOException | ClassNotFoundException e){
             e.printStackTrace();
-        }catch(ClassNotFoundException e){
-            e.printStackTrace();
-        }finally{
+        } finally{
             try{
                 if(ois != null) {ois.close();}
                 if(fis != null) {fis.close();}

@@ -23,7 +23,6 @@ public class SellerOrdDetailed extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seller_order_detailed);
         Intent intent = getIntent();
-
         SellerOrd sellerOrd =(SellerOrd) intent.getSerializableExtra("seller0rd");
         TextView orderUserName = findViewById(R.id.sellerorder_user_name);
         orderUserName.setText(sellerOrd.getUser().getId().toString());

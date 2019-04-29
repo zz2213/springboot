@@ -33,7 +33,6 @@ public class MyWantAdapter extends BaseAdapter {
         this.context = context;
         this.resource = resource;
         if(list == null){
-            System.out.println("对不起  为空" );
             this.list=new ArrayList<>();
         }else{
             this.list=list;

@@ -95,7 +95,6 @@ public class ApplicationController {
     @ResponseBody
     @RequestMapping(value = "/addadmin",produces = {"application/json;charset=UTF-8"})
     public String addadmin(@RequestBody Admin admin){
-        System.out.println(admin.toString());
         adminService.insert(admin);
         return "ok";
     }
@@ -167,21 +166,21 @@ public class ApplicationController {
     ){
         List<ProductVo> datas=productServive.queryProductByStyle(page,limit,"学习");
         ArrayList<ProductDto> list= new ArrayList<ProductDto>();
-        for(int i=0;i<datas.size();i++){
-            ProductDto productDto=new ProductDto();
-            productDto.setId(datas.get(i).getId());
+        for (ProductVo data : datas) {
+            ProductDto productDto = new ProductDto();
+            productDto.setId(data.getId());
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            productDto.setCreatetime(formatter.format(datas.get(i).getCreatetime()));
-            productDto.setDescription(datas.get(i).getDescription());
+            productDto.setCreatetime(formatter.format(data.getCreatetime()));
+            productDto.setDescription(data.getDescription());
             Base64 encoder = new Base64();
-            String stringBase64 =(datas.get(i).getImage() != null ? encoder.encodeToString(datas.get(i).getImage()) : "");
+            String stringBase64 = (data.getImage() != null ? encoder.encodeToString(data.getImage()) : "");
             productDto.setImage(stringBase64);
-            productDto.setPrice(datas.get(i).getPrice());
-            productDto.setStatus(datas.get(i).getStatus());
-            productDto.setTitle(datas.get(i).getTitle());
-            productDto.setType(datas.get(i).getType());
-            productDto.setStyle(datas.get(i).getStyle());
-            productDto.setUser_id(datas.get(i).getUser_id());
+            productDto.setPrice(data.getPrice());
+            productDto.setStatus(data.getStatus());
+            productDto.setTitle(data.getTitle());
+            productDto.setType(data.getType());
+            productDto.setStyle(data.getStyle());
+            productDto.setUser_id(data.getUser_id());
             list.add(productDto);
         }
         int countx = productServive.queryAllCount("学习");
@@ -205,21 +204,21 @@ public class ApplicationController {
     ){
         List<ProductVo> datas=productServive.queryProductByStyle(page,limit,"电子");
         ArrayList<ProductDto> list= new ArrayList<ProductDto>();
-        for(int i=0;i<datas.size();i++){
-            ProductDto productDto=new ProductDto();
-            productDto.setId(datas.get(i).getId());
+        for (ProductVo data : datas) {
+            ProductDto productDto = new ProductDto();
+            productDto.setId(data.getId());
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            productDto.setCreatetime(formatter.format(datas.get(i).getCreatetime()));
-            productDto.setDescription(datas.get(i).getDescription());
+            productDto.setCreatetime(formatter.format(data.getCreatetime()));
+            productDto.setDescription(data.getDescription());
             Base64 encoder = new Base64();
-            String stringBase64 =(datas.get(i).getImage() != null ? encoder.encodeToString(datas.get(i).getImage()) : "");
+            String stringBase64 = (data.getImage() != null ? encoder.encodeToString(data.getImage()) : "");
             productDto.setImage(stringBase64);
-            productDto.setPrice(datas.get(i).getPrice());
-            productDto.setStatus(datas.get(i).getStatus());
-            productDto.setTitle(datas.get(i).getTitle());
-            productDto.setType(datas.get(i).getType());
-            productDto.setStyle(datas.get(i).getStyle());
-            productDto.setUser_id(datas.get(i).getUser_id());
+            productDto.setPrice(data.getPrice());
+            productDto.setStatus(data.getStatus());
+            productDto.setTitle(data.getTitle());
+            productDto.setType(data.getType());
+            productDto.setStyle(data.getStyle());
+            productDto.setUser_id(data.getUser_id());
             list.add(productDto);
         }
         int countx = productServive.queryAllCount("电子");
@@ -239,21 +238,21 @@ public class ApplicationController {
     ){
         List<ProductVo> datas=productServive.queryProductByStyle(page,limit,"生活");
         ArrayList<ProductDto> list= new ArrayList<ProductDto>();
-        for(int i=0;i<datas.size();i++){
-            ProductDto productDto=new ProductDto();
-            productDto.setId(datas.get(i).getId());
+        for (ProductVo data : datas) {
+            ProductDto productDto = new ProductDto();
+            productDto.setId(data.getId());
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            productDto.setCreatetime(formatter.format(datas.get(i).getCreatetime()));
-            productDto.setDescription(datas.get(i).getDescription());
+            productDto.setCreatetime(formatter.format(data.getCreatetime()));
+            productDto.setDescription(data.getDescription());
             Base64 encoder = new Base64();
-            String stringBase64 =(datas.get(i).getImage() != null ? encoder.encodeToString(datas.get(i).getImage()) : "");
+            String stringBase64 = (data.getImage() != null ? encoder.encodeToString(data.getImage()) : "");
             productDto.setImage(stringBase64);
-            productDto.setPrice(datas.get(i).getPrice());
-            productDto.setStatus(datas.get(i).getStatus());
-            productDto.setTitle(datas.get(i).getTitle());
-            productDto.setType(datas.get(i).getType());
-            productDto.setStyle(datas.get(i).getStyle());
-            productDto.setUser_id(datas.get(i).getUser_id());
+            productDto.setPrice(data.getPrice());
+            productDto.setStatus(data.getStatus());
+            productDto.setTitle(data.getTitle());
+            productDto.setType(data.getType());
+            productDto.setStyle(data.getStyle());
+            productDto.setUser_id(data.getUser_id());
             list.add(productDto);
         }
         int countx = productServive.queryAllCount("生活");
@@ -306,18 +305,18 @@ public class ApplicationController {
     ){
         List<User> datas=userService.queryUser(page,limit);
         ArrayList<UserVO> list= new ArrayList<UserVO>();
-        for(int i=0;i<datas.size();i++){
-            UserVO userVO=new UserVO();
-            userVO.setId(datas.get(i).getId());
+        for (User data : datas) {
+            UserVO userVO = new UserVO();
+            userVO.setId(data.getId());
             Base64 encoder = new Base64();
-            String stringBase64 =(datas.get(i).getImage() != null ? encoder.encodeToString(datas.get(i).getImage()) : "");
+            String stringBase64 = (data.getImage() != null ? encoder.encodeToString(data.getImage()) : "");
             userVO.setImage(stringBase64);
-            userVO.setName(datas.get(i).getName());
-            userVO.setRealname(datas.get(i).getRealname());
-            userVO.setPassword(datas.get(i).getPassword());
-            userVO.setNumber(datas.get(i).getNumber());
-            userVO.setSchool(datas.get(i).getSchool());
-            userVO.setQq(datas.get(i).getQq());
+            userVO.setName(data.getName());
+            userVO.setRealname(data.getRealname());
+            userVO.setPassword(data.getPassword());
+            userVO.setNumber(data.getNumber());
+            userVO.setSchool(data.getSchool());
+            userVO.setQq(data.getQq());
             list.add(userVO);
         }
         int countx = userService.queryAllCount();

@@ -40,7 +40,6 @@ public class SellerOrdService {
         return sellerOrdMapper.findSellerOrdByProductId(product_id);
     }
     public ArrayList<SellerOrd> findSellerOrdByUserId(String user_id){
-        System.out.println(sellerOrdMapper.findSellerOrdByUserId(user_id).toString());
         return sellerOrdMapper.findSellerOrdByUserId(user_id);
     }
     public int updateSellerOrdBynumber(String ordernumber,String status){

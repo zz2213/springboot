@@ -39,7 +39,6 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
             return false;
         }else
         {
-            System.out.println(token.getUserId());
             String tokenresult=stringRedisTemplate.opsForValue().get(token.getUserId().toString());
             if (token.getTokenData().equals(tokenresult))
             {

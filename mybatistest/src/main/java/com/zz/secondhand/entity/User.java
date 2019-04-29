@@ -1,6 +1,7 @@
 package com.zz.secondhand.entity;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -90,9 +91,11 @@ public class User implements Serializable {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", realname='" + realname + '\'' +
                 ", password='" + password + '\'' +
                 ", number=" + number +
                 ", school='" + school + '\'' +
+                ", image=" + Arrays.toString(image) +
                 ", qq='" + qq + '\'' +
                 '}';
     }

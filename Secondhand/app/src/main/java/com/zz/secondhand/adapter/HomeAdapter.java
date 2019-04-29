@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.zz.secondhand.R;
 import com.zz.secondhand.entity.Product;
 import com.zz.secondhand.utils.ImageUtil;
@@ -73,12 +74,12 @@ public class HomeAdapter extends BaseAdapter {
         vh.textView.setText(list.get(position).getTitle());
         vh.textPrice.setText(list.get(position).getPrice().toString());
         vh.textStatus.setText(list.get(position).getStatus());
-        Bitmap head = ImageUtil.Bytes2Bitmap(list.get(position).getImage()) ;
+        Bitmap head = ImageUtil.bytes2bitmap(list.get(position).getImage()) ;
         if (head!=null){
             Drawable drawable = new BitmapDrawable(context.getResources(),head);
             vh.image.setImageDrawable(drawable);
         }else {
-            System.out.println("图片为空");
+            Toast.makeText(context, "图片为空", Toast.LENGTH_SHORT).show();
         }
 
         return convertView;

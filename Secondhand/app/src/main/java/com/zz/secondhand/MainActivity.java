@@ -1,5 +1,6 @@
 package com.zz.secondhand;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -20,20 +21,23 @@ import com.zz.secondhand.entity.User;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Administrator
+ */
 public class MainActivity extends FragmentActivity implements
         ViewPager.OnPageChangeListener, TabHost.OnTabChangeListener {
 
     private boolean isExit;
     private FragmentTabHost mTabHost;
     private LayoutInflater layoutInflater;
-    private Class fragmentArray[] = { FragmentHome.class, FragmentList.class,FragmentFind.class,FragmentMy.class };
-    private int imageViewArray[] = { R.drawable.tab_home_btn, R.drawable.tab_find_btn ,R.drawable.tab_find_btn ,R.drawable.tab_my_btn};
-    private String textViewArray[] = { "首页","分类" ,"发布","我的"};
-    private List<Fragment> list = new ArrayList<Fragment>();
+    private Class[] fragmentArray = {FragmentHome.class, FragmentList.class, FragmentFind.class, FragmentMy.class};
+    private int[] imageViewArray = {R.drawable.tab_home_btn, R.drawable.tab_find_btn, R.drawable.tab_find_btn, R.drawable.tab_my_btn};
+    private String[] textViewArray = {"首页", "分类", "发布", "我的"};
+    private List<Fragment> list = new ArrayList<>();
     private ViewPager vp;
     private  User self;
 
-    public User getSelf() {
+    User getSelf() {
         return self;
     }
 
@@ -42,29 +46,23 @@ public class MainActivity extends FragmentActivity implements
     }
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Intent intent = getIntent();
         self =(User) intent.getSerializableExtra("user");
-        Token token = new Token();
         SharedPreferences userToken=getSharedPreferences("userToken",0);
-        token=JSON.parseObject(userToken.getString("token","default"),Token.class);
-        System.out.println("mainActivity"+token.toString());
+        Token token = JSON.parseObject(userToken.getString("token", "default"), Token.class);
         //初始化控件
         initView();
         //初始化页面
-        initPage(self);
+        initPage();
 
     }
 
-    //    控件初始化控件
     private void initView() {
-        vp = (ViewPager) findViewById(R.id.pager);
+        vp = findViewById(R.id.pager);
 
         /*实现OnPageChangeListener接口,目的是监听Tab选项卡的变化，然后通知ViewPager适配器切换界面*/
         /*简单来说,是为了让ViewPager滑动的时候能够带着底部菜单联动*/
@@ -77,7 +75,7 @@ public class MainActivity extends FragmentActivity implements
         /*实例化FragmentTabHost对象并进行绑定*/
 
         //绑定tahost
-        mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
+        mTabHost = findViewById(android.R.id.tabhost);
         //绑定viewpager
         mTabHost.setup(this, getSupportFragmentManager(), R.id.pager);
 
@@ -101,8 +99,7 @@ public class MainActivity extends FragmentActivity implements
         }
     }
 
-    /*初始化Fragment*/
-    private void initPage(User user) {
+    private void initPage() {
         FragmentHome fragmentHome = new FragmentHome();
         FragmentList fragmentList = new FragmentList();
         FragmentFind fragmentFind = new FragmentFind();
@@ -121,24 +118,22 @@ public class MainActivity extends FragmentActivity implements
 
     private View getTabItemView(int i) {
         //将xml布局转换为view对象
-        View view = layoutInflater.inflate(R.layout.tab_content, null);
+        @SuppressLint("InflateParams") View view = layoutInflater.inflate(R.layout.tab_content, null);
         //利用view对象，找到布局中的组件,并设置内容，然后返回视图
-        ImageView mImageView = (ImageView) view
+        ImageView mImageView = view
                 .findViewById(R.id.tab_imageview);
-        TextView mTextView = (TextView) view.findViewById(R.id.tab_textview);
+        TextView mTextView = view.findViewById(R.id.tab_textview);
         mImageView.setBackgroundResource(imageViewArray[i]);
         mTextView.setText(textViewArray[i]);
         return view;
     }
 
-    //arg0 ==1的时候表示正在滑动，arg0==2的时候表示滑动完毕了，arg0==0的时候表示什么都没做，就是停在那。
     @Override
     public void onPageScrollStateChanged(int arg0) {
 
     }
 
 
-    //表示在前一个页面滑动到后一个页面的时候，在前一个页面滑动前调用的方法
     @Override
     public void onPageScrolled(int arg0, float arg1, int arg2) {
 
@@ -166,6 +161,7 @@ public class MainActivity extends FragmentActivity implements
         vp.setCurrentItem(position);
     }
 
+    @SuppressLint("ShowToast")
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if(keyCode == KeyEvent.KEYCODE_BACK){
@@ -175,12 +171,7 @@ public class MainActivity extends FragmentActivity implements
         }else {
             Toast.makeText(this,"再按一次退出",Toast.LENGTH_SHORT);
             isExit = true;
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    isExit=false;
-                }
-            },2000);
+            new Handler().postDelayed(() -> isExit=false,2000);
         }
         return true;
     }

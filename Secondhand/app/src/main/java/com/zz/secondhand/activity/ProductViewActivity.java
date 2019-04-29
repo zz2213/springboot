@@ -62,7 +62,7 @@ public class ProductViewActivity extends Activity {
         productViewDescribe .setText(product.getDescription());
         productViewPrice .setText(product.getPrice().toString());
         productViewQq .setText(product.getUser().getQq());
-        Bitmap head = ImageUtil.Bytes2Bitmap(product.getImage());
+        Bitmap head = ImageUtil.bytes2bitmap(product.getImage());
         if (head !=null){
             Drawable drawable = new BitmapDrawable(getResources(), head);
             imageView.setImageDrawable(drawable);
@@ -71,7 +71,6 @@ public class ProductViewActivity extends Activity {
             if(user.getId().equals(product.getUser().getId()))
             {
                 Toast.makeText(getApplicationContext(), "你不能购买自己的商品", Toast.LENGTH_SHORT).show();
-                System.out.println("你不能购买自己的商品");
             }
             else if(ISSELLER.equals(product.getStatus())){
                 Toast.makeText(getApplicationContext(), "你不能购买已出售的商品", Toast.LENGTH_SHORT).show();
@@ -79,7 +78,6 @@ public class ProductViewActivity extends Activity {
             else{
                 myapplication=(Myapplication) getApplication();
                 Token token = myapplication.getToken();
-                System.out.println(token.toString());
                 SharedPreferences userToken=getSharedPreferences("userToken",0);
                 String tokenResult=userToken.getString("token","");
                 ProductOrd productOrd = new ProductOrd();

@@ -32,7 +32,6 @@ public class TokenService {
        ReturnMessage returnMessage=new ReturnMessage();
        String tokenresult=stringRedisTemplate.opsForValue().get(token.getUserId().toString());
        if(token.getTokenData().equals(tokenresult)){
-           System.out.println(token.toString());
            User user = userService.findUserById(token.getUserId());
            returnMessage.setUser(user);
            returnMessage.setMess("success");

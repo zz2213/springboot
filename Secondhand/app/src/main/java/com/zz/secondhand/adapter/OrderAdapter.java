@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import com.alibaba.fastjson.JSON;
 import com.cniupay.pay.CNiuPay;
 import com.cniupay.pay.enums.PayResultCodeEnum;
 import com.cniupay.pay.listener.PayResultListener;
@@ -78,7 +79,7 @@ public class OrderAdapter  extends BaseAdapter {
         }else{
             viewHolderOrder=(ViewHolderOrder) convertView.getTag();
         }
-        final  Button button1= convertView.findViewById(R.id.order_btn_status);
+        viewHolderOrder.button.setText(list.get(position).getStatus());
         viewHolderOrder.textView.setText(list.get(position).getProduct().getTitle());
         viewHolderOrder.button.setOnClickListener(v -> {
             switch (list.get(position).getStatus()){
@@ -97,10 +98,8 @@ public class OrderAdapter  extends BaseAdapter {
                                 myapplication=(Myapplication)context.getApplicationContext ();
                                 Token token;
                                 token=myapplication.getToken();
-                                System.out.println(token.toString());
                                 SharedPreferences userToken=context.getSharedPreferences("userToken",0);
                                 String tokenResult=userToken.getString("token","");
-                                System.out.println("succ");
                                 Toast toast = Toast.makeText(context, "已付款等待商家发货", Toast.LENGTH_SHORT);
                                 toast.show();
                                 OkHttpClient okHttpClient = new OkHttpClient();
@@ -134,7 +133,7 @@ public class OrderAdapter  extends BaseAdapter {
                                             Intent intent = new Intent(context,Login.class);
                                             context.startActivity(intent);
                                         }else {
-                                            button1.setText("已付款");
+                                            viewHolderOrder.button.setText("已付款");
                                         }
 
                                     }
@@ -145,21 +144,24 @@ public class OrderAdapter  extends BaseAdapter {
                             }
                         }
                     });
-
                     break;
                 case "已发货":
                     Toast toast1 = Toast.makeText(context, "已收货", Toast.LENGTH_SHORT);
                     toast1.show();
-                    OkHttpClient okHttpClient1 = new OkHttpClient();
-                    RequestBody requestBody1 = new FormBody.Builder()
+                    Token token;
+                    myapplication=(Myapplication)context.getApplicationContext ();
+                    token=myapplication.getToken();
+                    OkHttpClient okHttpClient = new OkHttpClient();
+                    RequestBody requestBody = new FormBody.Builder()
                             .add("status", "已收货")
+                            .add("token", JSON.toJSONString(token))
                             .add("number", list.get(position).getProduct().getId().toString())
                             .build();
-                    final Request request1 = new Request.Builder()
+                    final Request request = new Request.Builder()
                             .url(UPDATE_ORDER)
-                            .post(requestBody1)
+                            .post(requestBody)
                             .build();
-                    Call call1 = okHttpClient1.newCall(request1);
+                    Call call1 = okHttpClient.newCall(request);
                     call1.enqueue(new Callback() {
                         @Override
                         public void onFailure(@NonNull Call call, @NonNull IOException e) {
@@ -180,7 +182,7 @@ public class OrderAdapter  extends BaseAdapter {
                                 Intent intent = new Intent(context,Login.class);
                                 context.startActivity(intent);
                             }else {
-                                button1.setText("已收货");
+                                viewHolderOrder.button.setText("已收货");
                             }
 
 
@@ -188,12 +190,9 @@ public class OrderAdapter  extends BaseAdapter {
                     });
                     break;
                     default:
+                        break;
             }
             });
-        viewHolderOrder.button.setText(list.get(position).getStatus());
-        System.out.println("************************");
-        System.out.println(list.get(position).getProduct().getTitle());
-        System.out.println("************************");
         viewHolderOrder.buttonDetailed.setOnClickListener(v -> {
             Intent intent = new Intent(context, OrderDetailed.class);
             intent.putExtra("productord",list.get(position));
