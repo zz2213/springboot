@@ -58,6 +58,7 @@ public class MainActivity extends FragmentActivity implements
         initView();
         //初始化页面
         initPage();
+        onPageSelected(0);
 
     }
 
@@ -133,7 +134,6 @@ public class MainActivity extends FragmentActivity implements
 
     }
 
-
     @Override
     public void onPageScrolled(int arg0, float arg1, int arg2) {
 
@@ -161,18 +161,4 @@ public class MainActivity extends FragmentActivity implements
         vp.setCurrentItem(position);
     }
 
-    @SuppressLint("ShowToast")
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_BACK){
-            if(isExit){
-                this.finish();
-            }
-        }else {
-            Toast.makeText(this,"再按一次退出",Toast.LENGTH_SHORT);
-            isExit = true;
-            new Handler().postDelayed(() -> isExit=false,2000);
-        }
-        return true;
-    }
 }
