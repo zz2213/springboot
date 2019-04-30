@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.zz.secondhand.entity.Token;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 
 /**
  * @author Administrator
@@ -27,6 +29,25 @@ import java.lang.reflect.Method;
 public class Myapplication extends Application {
 
     private Token token;
+
+    private ArrayList<Fragment>  fragmentArrayList;
+    private ArrayList<Activity>  activityArrayList;
+
+    public ArrayList<Fragment> getFragmentArrayList() {
+        return fragmentArrayList;
+    }
+
+    public void setFragmentArrayList(ArrayList<Fragment> fragmentArrayList) {
+        this.fragmentArrayList = fragmentArrayList;
+    }
+
+    public ArrayList<Activity> getActivityArrayList() {
+        return activityArrayList;
+    }
+
+    public void setActivityArrayList(ArrayList<Activity> activityArrayList) {
+        this.activityArrayList = activityArrayList;
+    }
 
     public Token getToken() {
         return token;
@@ -166,7 +187,6 @@ public class Myapplication extends Application {
 
         @Override
         public void onClick(View v) {
-            //点击时间控制
             long currentTime = System.currentTimeMillis();
             if (currentTime - lastClickTime > minClickDelayTime) {
                 lastClickTime = currentTime;

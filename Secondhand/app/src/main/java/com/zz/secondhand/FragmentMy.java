@@ -20,6 +20,7 @@ import com.zz.secondhand.activity.OrderActivity;
 import com.zz.secondhand.activity.SellerOrdActivity;
 import com.zz.secondhand.entity.User;
 import com.zz.secondhand.utils.ImageUtil;
+import com.zz.secondhand.utils.Myapplication;
 
 import java.util.Objects;
 
@@ -43,6 +44,7 @@ public class FragmentMy extends Fragment {
         this.self = self;
     }
     private User self;
+    private Myapplication myapplication;
 
 
     @Nullable
@@ -56,6 +58,7 @@ public class FragmentMy extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
 
         super.onActivityCreated(savedInstanceState);
+        myapplication =(Myapplication) getActivity().getApplication();
         LinearLayout home = Objects.requireNonNull(getActivity()).findViewById(R.id.layout_my);
         LinearLayout myOrder = getActivity().findViewById(R.id.my_order);
         TextView myorder1= getActivity().findViewById(R.id.btn1);
@@ -81,7 +84,6 @@ public class FragmentMy extends Fragment {
             editor.remove("token");
             editor.apply();
             Intent intent = new Intent(getActivity(), Login.class);
-            getActivity().finish();
             startActivity(intent);
 
 

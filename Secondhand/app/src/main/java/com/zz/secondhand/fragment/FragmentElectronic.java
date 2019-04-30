@@ -25,6 +25,7 @@ import okhttp3.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.IdentityHashMap;
 import java.util.Objects;
 
 import static com.zz.secondhand.utils.GlobalVariables.FIND_PRODUCT_STYLE;
@@ -117,7 +118,7 @@ private void doData(boolean isDo){
                 Intent intent = new Intent(getActivity(),Login.class);
                 startActivity(intent);
             }else {
-                Objects.requireNonNull(getActivity()).runOnUiThread(() -> {
+                (Objects.requireNonNull(getActivity())).runOnUiThread(() -> {
                     productArrayList = (ArrayList<Product>) JSON.parseArray(backmess,Product.class);
                     MyAdapter adapter = new MyAdapter(getContext(), R.layout.item_goods,productArrayList);
                     listView.setAdapter(adapter);
@@ -139,4 +140,5 @@ private void doData(boolean isDo){
         doData(false);
 
     }
+
 }

@@ -1,5 +1,8 @@
 package com.zz.secondhand;
 
+import android.arch.lifecycle.ViewModelProvider;
+import android.content.Context;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -13,21 +16,27 @@ import java.util.List;
 public class MyFragmentAdapter extends FragmentPagerAdapter
 
     {
-        List<Fragment> list;
-        MyFragmentAdapter(FragmentManager fm, List<Fragment> list) {
+        private String[] textViewArray = {"首页", "分类", "发布", "我的"};
+        private List<Fragment> fragmentList;
+        MyFragmentAdapter(FragmentManager fm,List<Fragment> fragmentList) {
         super(fm);
-        this.list=list;
-    }//写构造方法，方便赋值调用
+        this.fragmentList=fragmentList;
+    }
         @Override
         public Fragment getItem(int arg0) {
-        return list.get(arg0);
-    }//根据Item的位置返回对应位置的Fragment，绑定item和Fragment
+        return fragmentList.get(arg0);
+    }
 
         @Override
         public int getCount() {
-        return list.size();
+        return fragmentList.size();
     }//设置Item的数量
 
+        @Nullable
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return textViewArray[position];
+        }
     }
 
 

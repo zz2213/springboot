@@ -21,6 +21,8 @@ import com.wildma.pictureselector.PictureSelector;
 import com.zz.secondhand.entity.Token;
 import com.zz.secondhand.entity.User;
 import com.zz.secondhand.utils.ImageUtil;
+import com.zz.secondhand.utils.Myapplication;
+
 import static android.widget.Toast.makeText;
 import static com.zz.secondhand.utils.GlobalVariables.*;
 
@@ -30,9 +32,11 @@ import static com.zz.secondhand.utils.GlobalVariables.*;
 public class Register extends Activity {
     private Token token;
     private ImageView imageView;
+    private Myapplication myapplication;
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        myapplication =(Myapplication) getApplication();
         setContentView(R.layout.register);
         Button registerBtnSure = findViewById(R.id.register_btn_sure);
         EditText userName = findViewById(R.id.user_name);
@@ -123,4 +127,6 @@ public class Register extends Activity {
             }
         }
     }
+
+
 }

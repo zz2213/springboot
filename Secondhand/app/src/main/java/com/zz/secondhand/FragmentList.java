@@ -62,7 +62,6 @@ public class FragmentList extends Fragment implements IndexViewPager.OnPageChang
         list.add(fragmentElectronic);
         list.add(fragmentStudy);
         viewPager.setScanScroll(true);
-
         viewPager.setAdapter(new MyFragmentAdapter(getFragmentManager(), list));
         viewPager.addOnPageChangeListener(this);
         viewPager.setOffscreenPageLimit(3);

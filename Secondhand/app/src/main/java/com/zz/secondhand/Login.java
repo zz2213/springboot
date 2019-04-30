@@ -40,7 +40,7 @@ public class Login extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
-
+        myapplication =(Myapplication) getApplication();
         Button registerButton = findViewById(R.id.login_btn_register);
         Button loginButton = findViewById(R.id.login_btn_login);
         loginEditPwd = findViewById(R.id.login_edit_pwd);
@@ -171,6 +171,5 @@ public class Login extends Activity {
 
 
     }
-
 
 }

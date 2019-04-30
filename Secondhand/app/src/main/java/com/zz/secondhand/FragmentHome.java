@@ -130,4 +130,6 @@ public class FragmentHome extends Fragment {
         super.onResume();
         doData(false);
     }
+
+
 }
