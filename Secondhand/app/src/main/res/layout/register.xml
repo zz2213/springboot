@@ -55,7 +55,10 @@
             android:hint="请输入您的学校" />
     <EditText
             android:drawableLeft="@android:drawable/ic_lock_idle_lock"
-            android:layout_width="match_parent" android:inputType="" 
+            android:layout_width="match_parent"
+            android:inputType="phone"
+            android:digits="0123456789"
+            android:maxLength="11"
             android:layout_height="60dp"
             android:ems="10"
             android:id="@+id/user_number"
@@ -68,7 +71,7 @@
             android:layout_height="60dp"
             android:ems="10"
             android:id="@+id/user_qq"
-
+            android:digits="0123456789"
             android:layout_centerHorizontal="true"
             android:hint="请输入QQ" />
 
