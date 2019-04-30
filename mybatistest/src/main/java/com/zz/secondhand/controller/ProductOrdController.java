@@ -51,7 +51,6 @@ public class ProductOrdController {
     }
     @RequestMapping(value = "/updateorder",produces = {"application/json;charset=UTF-8"})
     public  String updateOrder(@RequestParam("number") String number,@RequestParam("status") String status){
-        System.out.println("2222222222222");
         productOrdService.updateProductOrdByuserID(number,status);
         return "xxx";
     }

@@ -41,6 +41,8 @@ public class ProductOrdService {
     public void createProductOrd(ProductOrd productOrd, SellerOrd sellerOrd){
         productOrd.setStatus("未付款");
         int i=productOrdMapper.createProductOrd(productOrd);
+        sellerOrd.setStatus("未付款");
+        sellerOrdMapper.createSellerOrd(sellerOrd);
         productMapper.updateProductstatus("已出售",productOrd.getProduct().getId());
     }
     public ArrayList<ProductOrd> findProductOrdByUserId(int userId)

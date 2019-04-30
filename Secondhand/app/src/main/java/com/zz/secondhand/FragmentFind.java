@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 import com.zz.secondhand.entity.User;
 
 import java.util.Objects;
@@ -35,11 +36,11 @@ public class FragmentFind extends Fragment {
         Button button1 = getActivity().findViewById(R.id.goods);
         self =((MainActivity)getActivity()).getSelf();
         button.setOnClickListener(v -> {
-
-            Intent intent = new Intent(getActivity(),GoodsActivity.class);
+            Toast.makeText(getContext(),"暂不支持",Toast.LENGTH_SHORT).show();
+            /*Intent intent = new Intent(getActivity(),GoodsActivity.class);
             intent.putExtra("productType","求购");
             intent.putExtra("user",self);
-            startActivity(intent);
+            startActivity(intent);*/
         });
         button1.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(),GoodsActivity.class);
