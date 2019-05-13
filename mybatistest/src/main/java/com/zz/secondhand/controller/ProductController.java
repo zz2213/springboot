@@ -33,8 +33,8 @@ public class ProductController {
        return JSON.toJSONString(productServive.findProductByType(type,user_id));
     }
     @RequestMapping(value = "/findproductstyle",produces = {"application/json;charset=UTF-8"})
-    public String findByStyle(@RequestParam("style") String style){
-        return JSON.toJSONString(productServive.findProductByStyle(style));
+    public String findByStyle(@RequestParam("style") String style ){
+        return JSON.toJSONString(productServive.findProductByStyle(style,"在售"));
     }
     @RequestMapping(value = "/updateProductstatus",produces = {"application/json;charset=UTF-8"})
     public String updateProductstatus(@RequestParam("status") String status,@RequestParam("id") Integer id){

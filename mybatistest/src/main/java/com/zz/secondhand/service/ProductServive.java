@@ -29,8 +29,8 @@ public class ProductServive {
    public ArrayList<Product> findProductByType(String type,Integer user_id){
         return productMapper.findProductByType(type,user_id);
    }
-   public  ArrayList<Product> findProductByStyle(String style){
-        return productMapper.findProductByStyle(style);
+   public  ArrayList<Product> findProductByStyle(String style, String status){
+        return productMapper.findProductByStyle(style,status);
    }
     public String updateProductstatus(String status,Integer id){
         int i =productMapper.updateProductstatus(status,id);

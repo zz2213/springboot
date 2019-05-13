@@ -38,7 +38,16 @@
     </select>
 
     <select id="findProductByStyle" resultMap="BaseResultMap">
-        select product.id,user_id,createtime,title,product.image, description, price,style,type, status,qq from product  join user  on product.user_id=user.id where style=#{style}
+        select product.id,user_id,createtime,title,product.image, description, price,style,type, status,qq from product  join user  on product.user_id=user.id
+        <where>
+            <if test="style!=''and style!=null">
+                style=#{style}
+            </if>
+        <if test="status!='' and status!=null">
+            and status=#{status}
+        </if>
+        </where>
+
     </select>
     <update id="updateProductstatus" >
         update product set status=#{status} where id=#{id}

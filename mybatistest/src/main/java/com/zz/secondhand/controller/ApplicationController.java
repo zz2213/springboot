@@ -255,7 +255,6 @@ public class ApplicationController {
             productDto.setType(data.getType());
             productDto.setStyle(data.getStyle());
             productDto.setUser_id(data.getUser_id());
-            System.out.println(productDto.toString());
             list.add(productDto);
         }
         int countx = productServive.queryAllCount("生活");
