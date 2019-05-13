@@ -25,7 +25,16 @@
     select count(*) from product where style=#{style}
 </select>
     <select id="queryProductByStyle" resultType="com.zz.secondhand.vo.ProductVo">
-        select * from product where style=#{style} limit #{page},#{limit}
+        select * from product
+        <where>
+            <if test="style!=null">
+                style=#{style}
+            </if>
+            <if test=" id != null">
+               and id=#{id}
+            </if>
+        </where>
+         limit #{page},#{limit}
     </select>
 
     <select id="findProductByStyle" resultMap="BaseResultMap">
@@ -40,7 +49,7 @@
             <if test="user.id!=null and user.id!='' ">
                 user_id=#{user.id},
             </if>
-            <if test="createtime!=null and createtime!=''">
+            <if test="createtime!=null">
                 createtime=#{createtime},
             </if>
             <if test="title!=null and title!=''">

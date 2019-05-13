@@ -60,6 +60,7 @@ public class ProductOrdController {
         ArrayList<SellerOrdVo> sellerOrdVos=new ArrayList<SellerOrdVo>();
         for (int i =0 ; i< list.size();i++){
             SellerOrdVo sellerOrdVo=new SellerOrdVo();
+            System.out.println(list.get(i).toString());
             sellerOrdVo.setAddress(list.get(i).getAddress());
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             sellerOrdVo.setCreatetime(formatter.format(list.get(i).getCreatetime()));

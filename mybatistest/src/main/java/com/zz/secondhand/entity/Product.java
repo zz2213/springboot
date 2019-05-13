@@ -109,4 +109,19 @@ public class Product implements Serializable {
         this.status = status == null ? null : status.trim();
     }
 
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", user=" + user +
+                ", createtime=" + createtime +
+                ", title='" + title + '\'' +
+                ", image=" + Arrays.toString(image) +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", style='" + style + '\'' +
+                ", type='" + type + '\'' +
+                ", status='" + status + '\'' +
+                '}';
+    }
 }

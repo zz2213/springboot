@@ -40,9 +40,9 @@ public class ProductServive {
             return "failure";
         }
     }
-    public  ArrayList<ProductVo> queryProductByStyle( int page, int limit,  String style){
+    public  ArrayList<ProductVo> queryProductByStyle( int page, int limit,  String style,Integer id){
         page=(page-1)*limit;
-        return productMapper.queryProductByStyle(page,limit,style);
+        return productMapper.queryProductByStyle(page,limit,style,id);
     }
     public int queryAllCount(String style){
         return productMapper.queryAllCount(style);

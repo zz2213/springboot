@@ -10,7 +10,13 @@
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
 <body>
-
+<div class="demoTable">
+    搜索ID：
+    <div class="layui-inline">
+        <input class="layui-input" name="id" id="demoReload" autocomplete="off">
+    </div>
+    <button class="layui-btn" data-type="reload">搜索</button>
+</div>
 <table class="layui-hide" id="test" lay-filter="test"></table>
 
 <script type="text/html" id="toolbarDemo">
@@ -36,7 +42,7 @@ var $=layui.jquery,
 
   table.render({
     elem: '#test'
-    ,url:'/showData'
+    ,url:'/showDataEle'
     ,title: '商品'
     ,cols: [
     [
@@ -52,25 +58,28 @@ var $=layui.jquery,
       ,{field:'status',title:'状态', width:120}
        ,{fixed: 'right',title:'操作', toolbar: '#barDemo', width:150}
     ]]
+     ,id: 'testReload'
     ,page: true
   });
+ var active = {
+    reload: function(){
+      var demoReload = $('#demoReload');
+       console.log(demoReload.val());
+      //执行重载
+      table.reload('testReload', {
+        page: {
+          curr: 1 //重新从第 1 页开始
+        }
+        ,where: {
+           id: demoReload.val()
+        }
+      });
+    }
+  };
 
-  //头工具栏事件
-  table.on('toolbar(test)', function(obj){
-    var checkStatus = table.checkStatus(obj.config.id);
-    switch(obj.event){
-      case 'getCheckData':
-        var data = checkStatus.data;
-        layer.alert(JSON.stringify(data));
-      break;
-      case 'getCheckLength':
-        var data = checkStatus.data;
-        layer.msg('选中了：'+ data.length + ' 个');
-      break;
-      case 'isAll':
-        layer.msg(checkStatus.isAll ? '全选': '未全选');
-      break;
-    };
+  $('.demoTable .layui-btn').on('click', function(){
+    var type = $(this).data('type');
+    active[type] ? active[type].call(this) : '';
   });
 
   //监听行工具事件

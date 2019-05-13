@@ -22,9 +22,7 @@ import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Administrator
@@ -162,9 +160,10 @@ public class ApplicationController {
     @RequestMapping(value = "/showDataStudy",produces = {"application/json;charset=UTF-8"})
     public String studyshow(
             @RequestParam(required = false,defaultValue ="1" ) int page,
-            @RequestParam(required = false,defaultValue ="15") int limit
+            @RequestParam(required = false,defaultValue ="15") int limit,
+            @RequestParam(required = false) Integer id
     ){
-        List<ProductVo> datas=productServive.queryProductByStyle(page,limit,"学习");
+        List<ProductVo> datas=productServive.queryProductByStyle(page,limit,"学习",id);
         ArrayList<ProductDto> list= new ArrayList<ProductDto>();
         for (ProductVo data : datas) {
             ProductDto productDto = new ProductDto();
@@ -200,9 +199,10 @@ public class ApplicationController {
     @RequestMapping(value = "/showDataEle",produces = {"application/json;charset=UTF-8"})
     public String elctronicshow(
             @RequestParam(required = false,defaultValue ="1" ) int page,
-            @RequestParam(required = false,defaultValue ="15") int limit
+            @RequestParam(required = false,defaultValue ="15") int limit,
+              @RequestParam(required = false) Integer id
     ){
-        List<ProductVo> datas=productServive.queryProductByStyle(page,limit,"电子");
+        List<ProductVo> datas=productServive.queryProductByStyle(page,limit,"电子",id);
         ArrayList<ProductDto> list= new ArrayList<ProductDto>();
         for (ProductVo data : datas) {
             ProductDto productDto = new ProductDto();
@@ -234,9 +234,11 @@ public class ApplicationController {
     @RequestMapping(value = "/showData",produces = {"application/json;charset=UTF-8"})
     public String methodshow(
             @RequestParam(required = false,defaultValue ="1" ) int page,
-            @RequestParam(required = false,defaultValue ="15") int limit
+            @RequestParam(required = false,defaultValue ="15") int limit,
+            @RequestParam(required = false) Integer id
     ){
-        List<ProductVo> datas=productServive.queryProductByStyle(page,limit,"生活");
+        System.out.println(id);
+        List<ProductVo> datas=productServive.queryProductByStyle(page,limit,"生活",id);
         ArrayList<ProductDto> list= new ArrayList<ProductDto>();
         for (ProductVo data : datas) {
             ProductDto productDto = new ProductDto();
@@ -253,6 +255,7 @@ public class ApplicationController {
             productDto.setType(data.getType());
             productDto.setStyle(data.getStyle());
             productDto.setUser_id(data.getUser_id());
+            System.out.println(productDto.toString());
             list.add(productDto);
         }
         int countx = productServive.queryAllCount("生活");
@@ -260,7 +263,7 @@ public class ApplicationController {
         jsonObject.put("code",0);
         jsonObject.put("msg","");
         jsonObject.put("count",countx);
-        jsonObject.put("data",list);
+        jsonObject.put("data",list);;
         return  jsonObject.toJSONString();
 
     }
