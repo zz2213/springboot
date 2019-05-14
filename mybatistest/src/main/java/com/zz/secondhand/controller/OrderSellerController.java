@@ -34,8 +34,10 @@ public class OrderSellerController {
         return JSON.toJSONString(sellerOrdService.findSellerOrdByUserId(user_id));
     }
     @RequestMapping(value = "/getseller",produces = {"application/json;charset=UTF-8"})
-    public String querrysellerord(){
-       List<SellerOrd> list = sellerOrdService.querySellerOrd();
+    public String querrysellerord(@RequestParam(required = false,defaultValue ="1" ) int page,
+                                  @RequestParam(required = false,defaultValue ="15") int limit,
+                                  @RequestParam(required = false) String ordernember){
+       List<SellerOrd> list = sellerOrdService.querySellerOrd(page, limit, ordernember);
         ArrayList<SellerOrdVo> sellerOrdVos=new ArrayList<SellerOrdVo>();
       for (int i =0 ; i< list.size();i++){
           SellerOrdVo sellerOrdVo=new SellerOrdVo();

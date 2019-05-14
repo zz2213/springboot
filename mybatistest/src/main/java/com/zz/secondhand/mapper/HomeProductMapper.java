@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public interface HomeProductMapper {
     int createProduct(Integer id);
-    ArrayList<ProductVo> queryHomeProduct(@Param("page") int page, @Param("limit") int limit);
+    ArrayList<ProductVo> queryHomeProduct(@Param("page") int page, @Param("limit") int limit, @Param("title") String title);
     ArrayList<Product> queryHomeProduct2();
     int queryCount();
     int findproductbyproductid(@Param("id") Integer id);

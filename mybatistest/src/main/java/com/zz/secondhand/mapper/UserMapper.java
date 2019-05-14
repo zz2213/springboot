@@ -16,7 +16,7 @@ public interface UserMapper  {
     User findUserById(@Param("id") Integer id);
     int Register(User user);
     int Update(User user);
-    List<User> queryUser(@Param("page") int page, @Param("limit") int limit);
+    List<User> queryUser(@Param("page") int page, @Param("limit") int limit, @Param("name") String name);
     int queryAllCount();
     int deleteUser(Integer id);
 }

@@ -12,7 +12,13 @@
         select id,name,password from admin where name = #{name}
     </select>
     <select id="queeryalladmin" resultType="com.zz.secondhand.entity.Admin">
-        select * from admin limit #{page},#{limit}
+        select * from admin
+        <where>
+            <if test="name!=null and name !=''">
+                name LIKE CONCAT(#{name},'%')
+            </if>
+        </where>
+        limit #{page},#{limit}
     </select>
 
     <select id="queryAllCount" resultType="java.lang.Integer">

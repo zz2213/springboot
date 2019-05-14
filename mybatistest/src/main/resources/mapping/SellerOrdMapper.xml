@@ -14,6 +14,12 @@
     </select>
     <select id="querySellerOrd" resultMap="BaseResultMap">
         select seller_ord.id,user.realname, seller_ord.user_id,product.title,product_id,product.price,seller_ord.createtime,seller_ord.status,ordernember,address from seller_ord  LEFT JOIN product on product_id =product.id left join user on seller_ord.user_id =user.id
+        <where>
+            <if test="ordernember!=null and ordernember !=''">
+                ordernember LIKE CONCAT(#{ordernember},'%')
+            </if>
+        </where>
+        limit #{page},#{limit}
     </select>
     <select id="queryAllCount" resultType="java.lang.Integer">
         select count(*) from seller_ord

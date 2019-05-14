@@ -9,7 +9,13 @@
     <link rel="stylesheet" th:href="@{static/js/layui/css/layui.css}"  media="all">
 </head>
 <body>
-
+<div class="demoTable">
+    搜索用户名：
+    <div class="layui-inline">
+        <input class="layui-input" name="id" id="demoReload" autocomplete="off">
+    </div>
+    <button class="layui-btn" data-type="reload">搜索</button>
+</div>
 <table class="layui-hide" id="test" lay-filter="test"></table>
 
 <script type="text/html" id="barDemo">
@@ -27,7 +33,7 @@ layui.use('table', function(){
   table.render({
     elem: '#test'
     ,url:'/getadmin'
-    ,title: '商品'
+    ,title: '管理员'
     ,cols: [
     [
       {field:'id', title:'ID', width:120, fixed: 'left', unresize: true, sort: true}
@@ -35,7 +41,28 @@ layui.use('table', function(){
       ,{field:'password',title:'密码', width:120, edit: 'text'}
         ,{fixed: 'right',title:'操作', toolbar: '#barDemo', width:200}
     ]]
+    ,id: 'admintable'
     ,page: true
+  });
+   var active = {
+    reload: function(){
+      var demoReload = $('#demoReload');
+       console.log(demoReload.val());
+      //执行重载
+      table.reload('admintable', {
+        page: {
+          curr: 1 //重新从第 1 页开始
+        }
+        ,where: {
+           name: demoReload.val()
+        }
+      });
+    }
+  };
+
+  $('.demoTable .layui-btn').on('click', function(){
+    var type = $(this).data('type');
+    active[type] ? active[type].call(this) : '';
   });
 
   //头工具栏事件

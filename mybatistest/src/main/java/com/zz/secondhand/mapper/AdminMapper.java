@@ -16,7 +16,7 @@ import java.util.List;
 public interface AdminMapper {
     int insert(Admin admin);
     Admin findByName(String name);
-   List<Admin> queeryalladmin(@Param("page") int page, @Param("limit") int limit);
+   List<Admin> queeryalladmin(@Param("page") int page, @Param("limit") int limit, @Param("name") String name);
     int queryAllCount();
     int Update(Admin admin);
 }

@@ -4,6 +4,7 @@ import com.zz.secondhand.entity.Product;
 import com.zz.secondhand.entity.ProductOrd;
 import com.zz.secondhand.entity.SellerOrd;
 import com.zz.secondhand.vo.SellerOrdVo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.ArrayList;
 
@@ -20,7 +21,7 @@ public interface ProductOrdMapper {
     ArrayList<ProductOrd> findProductOrdByUserId(int user_id);
     int updateProductOrdBynumber(String ordnumber,String status );
     int updateBuyerOrd(SellerOrdVo sellerOrdVo);
-    ArrayList<ProductOrd> querySellerOrd();
+    ArrayList<ProductOrd> querySellerOrd(@Param("page") int page, @Param("limit") int limit, @Param("ordernember") String ordernember);
     int queryAllCount();
     int deletebuyerord(Integer id);
 

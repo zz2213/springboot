@@ -30,11 +30,11 @@ public class HomeProductService {
      * @param limit
      * @return 返回推荐商品列表
      */
-    public  String queryHomeProduct(int page, int limit){
+    public  String queryHomeProduct(int page, int limit, String title){
         page=(page-1)*limit;
-        homeProductMapper.queryHomeProduct(page,limit);
+      /*  homeProductMapper.queryHomeProduct(page,limit,title);*/
 
-        List<ProductVo> datas=homeProductMapper.queryHomeProduct(page,limit);
+        List<ProductVo> datas=homeProductMapper.queryHomeProduct(page,limit,title);
         ArrayList<ProductDto> list= new ArrayList<ProductDto>();
         for(int i=0;i<datas.size();i++){
             ProductDto productDto=new ProductDto();

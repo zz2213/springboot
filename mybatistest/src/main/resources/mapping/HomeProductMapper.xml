@@ -20,7 +20,13 @@
     </insert>
 
     <select id="queryHomeProduct" resultType="com.zz.secondhand.vo.ProductVo">
-        select product.id,user_id,createtime,title,image,description,price,style,type ,status from homeproduct  left join  product on homeproduct.product_id =product.id  limit #{page},#{limit}
+        select product.id,user_id,createtime,title,image,description,price,style,type ,status from homeproduct  left join  product on homeproduct.product_id =product.id
+        <where>
+            <if test="title!=null and title!=''">
+                title LIKE CONCAT (#{title},'%')
+            </if>
+        </where>
+        limit #{page},#{limit}
     </select>
     <select id="queryHomeProduct2" resultMap="BaseResultMap" >
         select product.id,user_id,createtime,title,product.image,description,price,style,type ,qq,status from homeproduct  left join  product on homeproduct.product_id =product.id left join user on product.user_id=user.id

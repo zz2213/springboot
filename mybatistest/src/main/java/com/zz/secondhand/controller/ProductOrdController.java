@@ -55,12 +55,13 @@ public class ProductOrdController {
         return "xxx";
     }
     @RequestMapping(value = "/getbuyer",produces = {"application/json;charset=UTF-8"})
-    public String querrybuyerord(){
-        List<ProductOrd> list = productOrdService.querySellerOrd();
+    public String querrybuyerord(@RequestParam(required = false,defaultValue ="1" ) int page,
+                                 @RequestParam(required = false,defaultValue ="15") int limit,
+                                 @RequestParam(required = false) String ordernember){
+        List<ProductOrd> list = productOrdService.querySellerOrd(page, limit, ordernember);
         ArrayList<SellerOrdVo> sellerOrdVos=new ArrayList<SellerOrdVo>();
         for (int i =0 ; i< list.size();i++){
             SellerOrdVo sellerOrdVo=new SellerOrdVo();
-            System.out.println(list.get(i).toString());
             sellerOrdVo.setAddress(list.get(i).getAddress());
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             sellerOrdVo.setCreatetime(formatter.format(list.get(i).getCreatetime()));

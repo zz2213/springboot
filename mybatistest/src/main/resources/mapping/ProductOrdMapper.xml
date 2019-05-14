@@ -19,7 +19,14 @@
         update product_ord set user_id=#{user_id},product_id=#{product_id},createtime=#{createtime},status=#{status},address=#{address} where id=#{id}
     </update>
     <select id="querySellerOrd" resultMap="TwoResultMap">
-        select product_ord.id,user.realname, product_ord.user_id,product.title,product_id,product.price,product_ord.createtime,product_ord.status,ordernember,address from product_ord  LEFT JOIN product on product_id =product.id left join user on product_ord.user_id =user.id
+        select product_ord.id,user.realname, product_ord.user_id,product.title,product_id,product.price,product_ord.createtime,product_ord.status,ordernember,address
+        from product_ord  LEFT JOIN product on product_id =product.id left join user on product_ord.user_id =user.id
+        <where>
+            <if test="ordernember!=null and ordernember !=''">
+                ordernember LIKE CONCAT(#{ordernember},'%')
+            </if>
+        </where>
+        limit #{page},#{limit}
     </select>
     <select id="queryAllCount" resultType="java.lang.Integer">
         select count(*) from product_ord

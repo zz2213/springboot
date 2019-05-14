@@ -6,11 +6,17 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" th:href="@{static/js/layui/css/layui.css}"  media="all">
+    <link rel="stylesheet" th:href="@{/static/js/layui/css/layui.css}"  media="all">
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
 <body>
-
+<div class="demoTable">
+    搜索ID：
+    <div class="layui-inline">
+        <input class="layui-input" name="id" id="demoReload" autocomplete="off">
+    </div>
+    <button class="layui-btn" data-type="reload">搜索</button>
+</div>
 <table class="layui-hide" id="test" lay-filter="test"></table>
 
 <script type="text/html" id="barDemo">
@@ -42,9 +48,29 @@ layui.use('table', function(){
       ,{field:'status',title:'状态', width:120}
        ,{fixed: 'right',title:'操作', toolbar: '#barDemo', width:150}
     ]]
+      ,id: 'testReload'
     ,page: true
   });
+ var active = {
+    reload: function(){
+      var demoReload = $('#demoReload');
+       console.log(demoReload.val());
+      //执行重载
+      table.reload('testReload', {
+        page: {
+          curr: 1 //重新从第 1 页开始
+        }
+        ,where: {
+           title: demoReload.val()
+        }
+      });
+    }
+  };
 
+  $('.demoTable .layui-btn').on('click', function(){
+    var type = $(this).data('type');
+    active[type] ? active[type].call(this) : '';
+  });
 
   //监听行工具事件
   table.on('tool(test)', function(obj){

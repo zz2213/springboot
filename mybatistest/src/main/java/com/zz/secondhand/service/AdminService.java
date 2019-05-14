@@ -24,9 +24,9 @@ public class AdminService {
 
       return adminMapper.findByName(name);
   }
-  public List<Admin> queeryalladmin(int page,int limit){
+  public List<Admin> queeryalladmin(int page,int limit, String name){
       page=(page-1)*limit;
-   return adminMapper.queeryalladmin(page,limit);
+   return adminMapper.queeryalladmin(page,limit,name);
   }
   public int queryAllCount(){
       return adminMapper.queryAllCount();

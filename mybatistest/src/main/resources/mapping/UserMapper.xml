@@ -52,7 +52,13 @@
     </update>
 
     <select id="queryUser" resultType="com.zz.secondhand.entity.User">
-        select * from user  limit #{page},#{limit}
+        select * from user
+        <where>
+            <if test="name!=null and name !=''">
+                name LIKE CONCAT(#{name},'%')
+            </if>
+        </where>
+        limit #{page},#{limit}
     </select>
     <select id="queryAllCount" resultType="java.lang.Integer" parameterType="java.lang.String">
         select count(*) from user

@@ -55,9 +55,9 @@ public class UserService {
         System.out.println(user.toString());
         return user;
     }
-    public List<User> queryUser( int page, int limit){
+    public List<User> queryUser( int page, int limit,String name){
         page=(page-1)*limit;
-        return userMapper.queryUser(page,limit);
+        return userMapper.queryUser(page,limit,name);
     }
     public  int queryAllCount(){
         return userMapper.queryAllCount();

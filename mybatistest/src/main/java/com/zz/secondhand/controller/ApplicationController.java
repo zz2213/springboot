@@ -40,11 +40,18 @@ public class ApplicationController {
     @Autowired
     HomeProductService homeProductService;
 
+    /**
+     * 查询管理员
+     * @param page
+     * @param limit
+     * @return管理员集合
+     */
     @ResponseBody
     @RequestMapping(value = "/getadmin" ,produces = {"application/json;charset=UTF-8"})
     public String getadmin( @RequestParam(required = false,defaultValue ="1" ) int page,
-                            @RequestParam(required = false,defaultValue ="15") int limit){
-        List<Admin> list=adminService.queeryalladmin(page,limit);
+                            @RequestParam(required = false,defaultValue ="15") int limit,
+                            @RequestParam(required = false) String name){
+        List<Admin> list=adminService.queeryalladmin(page, limit, name);
         int countx = adminService.queryAllCount();
         JSONObject jsonObject=new JSONObject();
         jsonObject.put("code",0);
@@ -237,7 +244,6 @@ public class ApplicationController {
             @RequestParam(required = false,defaultValue ="15") int limit,
             @RequestParam(required = false) Integer id
     ){
-        System.out.println(id);
         List<ProductVo> datas=productServive.queryProductByStyle(page,limit,"生活",id);
         ArrayList<ProductDto> list= new ArrayList<ProductDto>();
         for (ProductVo data : datas) {
@@ -299,13 +305,21 @@ public class ApplicationController {
         return modelAndView;
     }
 
+    /**
+     * c查询用户
+     * @param page
+     * @param limit
+     * @param name
+     * @return 用户集合
+     */
     @ResponseBody
     @RequestMapping(value = "/getuser",produces = {"application/json;charset=UTF-8"})
     public String getuser(
             @RequestParam(required = false,defaultValue ="1" ) int page,
-            @RequestParam(required = false,defaultValue ="15") int limit
+            @RequestParam(required = false,defaultValue ="15") int limit,
+            @RequestParam(required = false) String name
     ){
-        List<User> datas=userService.queryUser(page,limit);
+        List<User> datas=userService.queryUser(page,limit,name);
         ArrayList<UserVO> list= new ArrayList<UserVO>();
         for (User data : datas) {
             UserVO userVO = new UserVO();
@@ -337,13 +351,18 @@ public class ApplicationController {
     @ResponseBody
     @RequestMapping(value = "/listhomeproduct",produces = {"application/json;charset=UTF-8"})
     public String listHomeProduct(@RequestParam(required = false,defaultValue ="1" ) int page,
-                                  @RequestParam(required = false,defaultValue ="15") int limit){
-        return homeProductService.queryHomeProduct(page,limit);
+                                  @RequestParam(required = false,defaultValue ="15") int limit,
+                                  @RequestParam(required = false) String title){
+        return homeProductService.queryHomeProduct(page,limit, title);
     }
     @ResponseBody
     @RequestMapping("/cancelrecommend")
     public String cancelRecommend(@RequestBody ProductDto productDto){
         return homeProductService.deleteProduct(productDto.getId());
+    }
+    @RequestMapping("/homeProduct")
+    public String homeproductrounter(){
+        return "homeproduct";
     }
 
 }

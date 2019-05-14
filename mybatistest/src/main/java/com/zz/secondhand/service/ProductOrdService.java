@@ -54,8 +54,9 @@ public class ProductOrdService {
         sellerOrdService.updateSellerOrdBynumber(ordernumber,status);
         productOrdMapper.updateProductOrdBynumber(ordernumber,status);
     }
-    public  ArrayList<ProductOrd> querySellerOrd(){
-        return productOrdMapper.querySellerOrd();
+    public  ArrayList<ProductOrd> querySellerOrd(int page,int limit, String ordernember){
+        page=(page-1)*limit;
+        return productOrdMapper.querySellerOrd(page, limit, ordernember);
     }
     public int queryAllCount(){
         return productOrdMapper.queryAllCount();
