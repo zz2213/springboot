@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.widget.Button;
 import android.widget.TextView;
 import com.zz.secondhand.R;
+import com.zz.secondhand.entity.OrderForm;
 import com.zz.secondhand.entity.SellerOrd;
 
 import java.text.SimpleDateFormat;
@@ -23,7 +24,7 @@ public class SellerOrdDetailed extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seller_order_detailed);
         Intent intent = getIntent();
-        SellerOrd sellerOrd =(SellerOrd) intent.getSerializableExtra("seller0rd");
+        OrderForm sellerOrd =(OrderForm) intent.getSerializableExtra("seller0rd");
         TextView orderUserName = findViewById(R.id.sellerorder_user_name);
         orderUserName.setText(sellerOrd.getUser().getId().toString());
         TextView goodsName = findViewById(R.id.sellergoods_name);

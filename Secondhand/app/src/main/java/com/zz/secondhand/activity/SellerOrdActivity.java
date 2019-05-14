@@ -12,6 +12,7 @@ import com.alibaba.fastjson.JSON;
 import com.zz.secondhand.Login;
 import com.zz.secondhand.R;
 import com.zz.secondhand.adapter.SellerOederAdapter;
+import com.zz.secondhand.entity.OrderForm;
 import com.zz.secondhand.entity.SellerOrd;
 import com.zz.secondhand.entity.Token;
 import com.zz.secondhand.entity.User;
@@ -31,7 +32,7 @@ import static com.zz.secondhand.utils.GlobalVariables.TOKEN_ERROR;
  * @date 2019/4/189:45
  */
 public class SellerOrdActivity extends Activity {
-    private ArrayList<SellerOrd> sellerOrdArrayList;
+    private ArrayList<OrderForm> sellerOrdArrayList;
     @Override
     protected void onCreate( @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +48,7 @@ public class SellerOrdActivity extends Activity {
         User self =(User) intent.getSerializableExtra("user");
         OkHttpClient okHttpClient = new OkHttpClient();
         RequestBody requestBody = new FormBody.Builder()
-                .add("user_id", self.getId().toString())
+                .add("business_id", self.getId().toString())
                 .add("token",tokenResult)
                 .build();
         final Request request = new Request.Builder()
@@ -75,7 +76,7 @@ public class SellerOrdActivity extends Activity {
                     startActivity(intent);
                 }else {
                     SellerOrdActivity.this.runOnUiThread(() -> {
-                        sellerOrdArrayList = (ArrayList<SellerOrd>) JSON.parseArray(backmess,SellerOrd.class);
+                        sellerOrdArrayList = (ArrayList<OrderForm>) JSON.parseArray(backmess,OrderForm.class);
                         SellerOederAdapter sellerOederAdapter = new SellerOederAdapter(SellerOrdActivity.this, R.layout.item_seller_ord,sellerOrdArrayList);
                         orderlistView.setAdapter(sellerOederAdapter);
                     });

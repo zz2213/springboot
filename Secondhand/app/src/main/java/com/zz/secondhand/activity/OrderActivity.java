@@ -26,7 +26,7 @@ import static com.zz.secondhand.utils.GlobalVariables.TOKEN_ERROR;
  * @Description:
  */
 public class OrderActivity extends Activity {
-    private ArrayList<ProductOrd> productArrayList;
+    private ArrayList<OrderForm> productArrayList;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +69,7 @@ public class OrderActivity extends Activity {
                     startActivity(intent);
                 }else {
                     OrderActivity.this.runOnUiThread(() -> {
-                        productArrayList = (ArrayList<ProductOrd>) JSON.parseArray(backmess,ProductOrd.class);
+                        productArrayList = (ArrayList<OrderForm>) JSON.parseArray(backmess,OrderForm.class);
                         OrderAdapter orderAdapter = new OrderAdapter(OrderActivity.this, R.layout.item_order,productArrayList);
                         orderlistView.setAdapter(orderAdapter);
                     });

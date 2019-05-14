@@ -17,6 +17,7 @@ import com.cniupay.pay.listener.PayResultListener;
 import com.zz.secondhand.Login;
 import com.zz.secondhand.R;
 import com.zz.secondhand.activity.OrderDetailed;
+import com.zz.secondhand.entity.OrderForm;
 import com.zz.secondhand.entity.ProductOrd;
 import com.zz.secondhand.entity.Token;
 import com.zz.secondhand.utils.Myapplication;
@@ -38,8 +39,8 @@ public class OrderAdapter  extends BaseAdapter {
     protected Context context;
     protected LayoutInflater inflater;
     protected int resource;
-    protected ArrayList<ProductOrd> list;
-    public OrderAdapter(Context context,int resource ,ArrayList<ProductOrd > list){
+    protected ArrayList<OrderForm> list;
+    public OrderAdapter(Context context,int resource ,ArrayList<OrderForm> list){
         inflater=LayoutInflater.from(context);
         this.context = context;
         this.resource = resource;

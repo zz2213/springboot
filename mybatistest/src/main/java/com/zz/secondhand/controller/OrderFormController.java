@@ -27,5 +27,14 @@ public class OrderFormController {
         orderForm1.setOrdernember("SE"+orderForm1.getProduct().getId()+String.valueOf(orderForm1.getCreatetime().getTime()));
         return orderFormService.createOrderForm(orderForm1);
     }
+    @RequestMapping(value = "/myorder",produces = {"application/json;charset=UTF-8"})
+    public String myOrder(@RequestParam("user_id") int user_id){
+        return JSON.toJSONString(orderFormService.queryOrderFormByUserId(user_id));
+    }
+    @RequestMapping(value = "/sellorder",produces = {"application/json;charset=UTF-8"})
+    public String mySeller(@RequestParam("business_id") int business_id){
+        return JSON.toJSONString(orderFormService.queryOrderFormByBusiness(business_id));
+    }
+
 
 }

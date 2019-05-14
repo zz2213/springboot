@@ -1,5 +1,6 @@
 package com.zz.secondhand.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Date;
  * @description: TODO
  * @date 2019/5/1414:33
  */
-public class OrderForm {
+public class OrderForm implements Serializable {
     private static final long serialVersionUID = 1L;
     private Integer id;
 
