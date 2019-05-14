@@ -9,7 +9,7 @@ package com.zz.secondhand.utils;
  * @date 2019/4/1515:43
  */
 public class GlobalVariables {
-    private final static String MO_URL="http://192.168.40.116:8080";
+    private final static String MO_URL="http://192.168.31.114:8080";
     final static public String MODEL="106.14.162.13  192.168.40.116";
     final static public String REGISTER_URL = MO_URL+"/Secondhand/register";
     final static public String LOGIN_URL=MO_URL+"/Secondhand/getUser";
@@ -20,7 +20,7 @@ public class GlobalVariables {
     final static public String SELECT_PRODUCTORD=MO_URL+"/OrderForm/myorder";
     final static public String UPDATE_PRODUCT=MO_URL+"/ProductController/updateProductstatus";
     final static public String FIND_SELLER_ORDER=MO_URL+"/OrderForm/sellorder";
-    final static public String UPDATE_ORDER=MO_URL+"/ProductOrdController/updateorder";
+    final static public String UPDATE_ORDER=MO_URL+"/OrderForm/update";
     final static  public String UPDATE_USER=MO_URL+"/Secondhand/update";
     final static  public String FIND_TOKEN=MO_URL+"/Token/find";
     final static public String QUERRY_HOME_PRO=MO_URL+"/HomeController/querryhomepro";

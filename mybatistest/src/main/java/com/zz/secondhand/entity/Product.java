@@ -116,7 +116,6 @@ public class Product implements Serializable {
                 ", user=" + user +
                 ", createtime=" + createtime +
                 ", title='" + title + '\'' +
-                ", image=" + Arrays.toString(image) +
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", style='" + style + '\'' +

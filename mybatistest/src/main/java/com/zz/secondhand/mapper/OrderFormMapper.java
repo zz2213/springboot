@@ -16,14 +16,9 @@ import java.util.ArrayList;
  */
 public interface OrderFormMapper {
     int createOrdder(OrderForm orderForm);
-    int updateOrderBynumber(String ordnumber,String status );
+    int updateOrderBynumber(@Param("ordnumber")String ordnumber,@Param("status")String status );
 
     ArrayList<OrderForm> queryOrderFormByUserId(int user_id);
     ArrayList<OrderForm> queryOrderFormByBusinessId(int business_id);
 
-
-    int updateBuyerOrd(SellerOrdVo sellerOrdVo);
-    ArrayList<ProductOrd> querySellerOrd(@Param("page") int page, @Param("limit") int limit, @Param("ordernember") String ordernember);
-    int queryAllCount();
-    int deletebuyerord(Integer id);
 }

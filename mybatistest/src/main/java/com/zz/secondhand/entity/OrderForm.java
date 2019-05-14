@@ -111,4 +111,20 @@ public class OrderForm implements Serializable {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    @Override
+    public String toString() {
+        return "OrderForm{" +
+                "id=" + id +
+                ", user=" + user +
+                ", business=" + business +
+                ", product=" + product +
+                ", createtime=" + createtime +
+                ", status='" + status + '\'' +
+                ", ordernember='" + ordernember + '\'' +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
+                '}';
+    }
 }

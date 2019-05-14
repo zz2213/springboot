@@ -2,6 +2,7 @@ package com.zz.secondhand.service;
 
 import com.zz.secondhand.entity.OrderForm;
 import com.zz.secondhand.entity.ProductOrd;
+import com.zz.secondhand.entity.User;
 import com.zz.secondhand.mapper.OrderFormMapper;
 import com.zz.secondhand.mapper.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class OrderFormService {
 
     @Transactional(rollbackOn = Exception.class)
     public String createOrderForm(OrderForm orderForm){
-       orderForm.getBusiness().setId(orderForm.getProduct().getUser().getId());
+       orderForm.setBusiness(orderForm.getProduct().getUser());
         orderFormMapper.createOrdder(orderForm);
         productMapper.updateProductstatus("已售",orderForm.getProduct().getId());
         return "ok";
@@ -36,5 +37,9 @@ public class OrderFormService {
     }
     public ArrayList<OrderForm> queryOrderFormByBusiness(int business_id){
         return orderFormMapper.queryOrderFormByBusinessId(business_id);
+    }
+    public String update(String ordernumber, String status){
+        orderFormMapper.updateOrderBynumber(ordernumber,status);
+        return "ok";
     }
 }

@@ -100,7 +100,7 @@ public class SellerOederAdapter extends BaseAdapter {
                     RequestBody requestBody = new FormBody.Builder()
                             .add("status", "已发货")
                             .add("token",tokenResult)
-                            .add("number",list.get(position).getProduct().getId().toString())
+                            .add("number",list.get(position).getOrdernember())
                             .build();
                     final Request request = new Request.Builder()
                             .url(UPDATE_ORDER)
@@ -140,7 +140,7 @@ public class SellerOederAdapter extends BaseAdapter {
                     OkHttpClient okHttpClient1 = new OkHttpClient();
                     RequestBody requestBody1 = new FormBody.Builder()
                             .add("status", "完成")
-                            .add("number", list.get(position).getProduct().getId().toString())
+                            .add("number", list.get(position).getOrdernember())
                             .build();
                     final Request request1 = new Request.Builder()
                             .url(UPDATE_ORDER)

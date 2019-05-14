@@ -107,7 +107,7 @@ public class OrderAdapter  extends BaseAdapter {
                                 RequestBody requestBody = new FormBody.Builder()
                                         .add("status", "已付款")
                                         .add("token",tokenResult)
-                                        .add("number", list.get(position).getProduct().getId().toString())
+                                        .add("number", list.get(position).getOrdernember())
                                         .build();
                                 final Request request = new Request.Builder()
                                         .url(UPDATE_ORDER)
@@ -156,7 +156,7 @@ public class OrderAdapter  extends BaseAdapter {
                     RequestBody requestBody = new FormBody.Builder()
                             .add("status", "已收货")
                             .add("token", JSON.toJSONString(token))
-                            .add("number", list.get(position).getProduct().getId().toString())
+                            .add("number", list.get(position).getOrdernember())
                             .build();
                     final Request request = new Request.Builder()
                             .url(UPDATE_ORDER)

@@ -87,7 +87,7 @@ public class ProductViewActivity extends Activity {
                 orderForm.setPhone("18156316797");
                 OkHttpClient okHttpClient = new OkHttpClient();
                 RequestBody requestBody = new FormBody.Builder()
-                        .add("productOrd", JSON.toJSONString(orderForm))
+                        .add("orderForm", JSON.toJSONString(orderForm))
                         .add("token",tokenResult)
                         .build();
                 final Request request = new Request.Builder()

@@ -22,7 +22,7 @@
     </insert>
 
     <update id="updateOrderBynumber" >
-        update order_form set status=#{status} where ordernember=#{ordernember}
+        update order_form set status=#{status} where ordernember=#{ordnumber}
     </update>
 
     <select id="queryOrderFormByUserId" resultMap="BaseResultMap">
@@ -36,37 +36,6 @@
 
 
 
-    <update id="updateBuyerOrd" parameterType="com.zz.secondhand.vo.SellerOrdVo"  >
-        update product_ord set user_id=#{user_id},product_id=#{product_id},createtime=#{createtime},status=#{status},address=#{address} where id=#{id}
-    </update>
-    <select id="querySellerOrd" resultMap="TwoResultMap">
-        select product_ord.id,user.realname, product_ord.user_id,product.title,product_id,product.price,product_ord.createtime,product_ord.status,ordernember,address
-        from product_ord  LEFT JOIN product on product_id =product.id left join user on product_ord.user_id =user.id
-        <where>
-            <if test="ordernember!=null and ordernember !=''">
-                ordernember LIKE CONCAT(#{ordernember},'%')
-            </if>
-        </where>
-        limit #{page},#{limit}
-    </select>
-    <select id="queryAllCount" resultType="java.lang.Integer">
-        select count(*) from product_ord
-    </select>
-    <delete id="deletebuyerord" parameterType="java.lang.Integer">
-        DELETE FROM product_ord where id=#{id}
-    </delete>
 
-    <resultMap id="TwoResultMap" type="com.zz.secondhand.entity.ProductOrd">
-        <result column="id" jdbcType="INTEGER" property="id" />
-        <result column="realname" jdbcType="VARCHAR" property="user.realname" />
-        <result column="user_id" jdbcType="INTEGER" property="user.id" />
-        <result column="title" jdbcType="VARCHAR" property="product.title" />
-        <result column="price" jdbcType="VARCHAR" property="product.price" />
-        <result column="product_id" jdbcType="INTEGER" property="product.id" />
-        <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
-        <result column="status" jdbcType="VARCHAR" property="status" />
-        <result column="ordernember" jdbcType="VARCHAR" property="ordernember" />
-        <result column="address" jdbcType="VARCHAR" property="address" />
-    </resultMap>
 
 </mapper>

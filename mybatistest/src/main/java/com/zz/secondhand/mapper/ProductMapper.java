@@ -16,11 +16,12 @@ import java.util.ArrayList;
  */
 public interface ProductMapper {
     int createProduct(Product product);
-    ArrayList<Product> findProductByType(String type ,Integer user_id);
-    ArrayList<Product> findProductByStyle(String style ,String status);
+    ArrayList<Product> findProductByType(@Param("type")String type ,@Param("user_id")Integer user_id);
+    ArrayList<Product> findProductByStyle(@Param("style")String style , @Param("status")String status);
+    int updateProductOrdBynumber(@Param("ordnumber") String ordnumber,@Param("status")String status );
     ArrayList<ProductVo> queryProductByStyle(@Param("page") int page, @Param("limit") int limit, @Param("style") String style,@Param("id") Integer id);
     int queryAllCount(String style);
-    int updateProductstatus(String status,Integer id);
+    int updateProductstatus(@Param("status")String status,@Param("id")Integer id);
     int updateProduct(Product product);
     int deleteProduct(Integer id);
 }

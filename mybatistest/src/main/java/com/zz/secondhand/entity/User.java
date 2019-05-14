@@ -95,7 +95,6 @@ public class User implements Serializable {
                 ", password='" + password + '\'' +
                 ", number=" + number +
                 ", school='" + school + '\'' +
-                ", image=" + Arrays.toString(image) +
                 ", qq='" + qq + '\'' +
                 '}';
     }

@@ -3,8 +3,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zz.secondhand.mapper.AdminMapper">
 
-
-
     <insert id="insert" parameterType="com.zz.secondhand.entity.Admin">
         insert into admin(name,password) values(#{name},#{password})
     </insert>

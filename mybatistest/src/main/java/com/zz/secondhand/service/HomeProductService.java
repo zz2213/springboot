@@ -111,9 +111,6 @@ public class HomeProductService {
      */
     public String querryHomeproduct(){
         ArrayList<Product> list =homeProductMapper.queryHomeProduct2();
-      for(Product s:list){
-          System.out.println(s.toString());
-      }
         return JSON.toJSONString(list);
     }
 }
