@@ -123,7 +123,6 @@ public class FragmentList extends Fragment implements IndexViewPager.OnPageChang
     public void onAttach(Context context) {
         super.onAttach(context);
         user = ((MainActivity) context).getSelf();
-        System.out.println("userID"+user.getId());
     }
 
     private void initBtnListener(){

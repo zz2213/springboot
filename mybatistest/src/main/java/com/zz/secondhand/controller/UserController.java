@@ -84,7 +84,7 @@ public class UserController {
         }
 
         else {
-           returnMessage.setMess("用户名重复");
+           returnMessage.setMess("用户名或密码错误");
         }
 
         return JSON.toJSONString(returnMessage);

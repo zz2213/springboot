@@ -18,10 +18,7 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.zz.secondhand.Login;
 import com.zz.secondhand.R;
-import com.zz.secondhand.entity.Product;
-import com.zz.secondhand.entity.ProductOrd;
-import com.zz.secondhand.entity.Token;
-import com.zz.secondhand.entity.User;
+import com.zz.secondhand.entity.*;
 import com.zz.secondhand.utils.ImageUtil;
 import com.zz.secondhand.utils.Myapplication;
 import okhttp3.*;
@@ -80,13 +77,17 @@ public class ProductViewActivity extends Activity {
                 Token token = myapplication.getToken();
                 SharedPreferences userToken=getSharedPreferences("userToken",0);
                 String tokenResult=userToken.getString("token","");
-                ProductOrd productOrd = new ProductOrd();
-                productOrd.setUser(user);
-                productOrd.setProduct(product);
-                productOrd.setCreatetime(new Date());
+                OrderForm orderForm =new OrderForm();
+                orderForm.setUser(user);
+                orderForm.setProduct(product);
+                orderForm.setCreatetime(new Date());
+                orderForm.setStatus("未付款");
+                orderForm.setAddress("安工大");
+                orderForm.setName("赵张");
+                orderForm.setPhone("18156316797");
                 OkHttpClient okHttpClient = new OkHttpClient();
                 RequestBody requestBody = new FormBody.Builder()
-                        .add("productOrd", JSON.toJSONString(productOrd))
+                        .add("productOrd", JSON.toJSONString(orderForm))
                         .add("token",tokenResult)
                         .build();
                 final Request request = new Request.Builder()

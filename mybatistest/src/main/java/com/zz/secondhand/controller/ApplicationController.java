@@ -61,6 +61,11 @@ public class ApplicationController {
         return  jsonObject.toJSONString();
     }
 
+    /**
+     * 更新产品信息
+     * @param productDto
+     * @return
+     */
     @RequestMapping(value = "/test1",produces = {"application/json;charset=UTF-8"})
     public String test(@RequestBody ProductDto productDto){
         Product product = ProductUtils.dtoToProduct(productDto);
@@ -68,100 +73,49 @@ public class ApplicationController {
         return "product";
     }
 
+    /**
+     * 删除产品
+     * @param productDto
+     * @return
+     */
     @RequestMapping(value = "/test2",produces = {"application/json;charset=UTF-8"})
     public String test2(@RequestBody ProductDto productDto){
         productServive.deleteProduct(productDto.getId());
         return "product";
     }
 
-    @RequestMapping(value = "/adminupdate",produces = {"application/json;charset=UTF-8"})
-    public String adminupdate(){
-        return "adminupdate";
-    }
 
-    @RequestMapping(value = "/adminadd",produces = {"application/json;charset=UTF-8"})
-    public String adminadd(){
-        return "adminadd";
-    }
 
     @RequestMapping(value = "/userdelete",produces = {"application/json;charset=UTF-8"})
     public String userdelete(@RequestBody User user){
         userService.deleteUser(user.getId());
-        return "product";
+        return "user";
     }
 
-    @ResponseBody
     @RequestMapping(value = "/updateadmin",produces = {"application/json;charset=UTF-8"})
     public String updateadmin(@RequestBody Admin admin){
         adminService.Update(admin);
-        return "ok";
+        return "admin";
     }
 
-    @ResponseBody
     @RequestMapping(value = "/addadmin",produces = {"application/json;charset=UTF-8"})
     public String addadmin(@RequestBody Admin admin){
         adminService.insert(admin);
-        return "ok";
+        return "admin";
     }
 
     @RequestMapping(value = "/updateuser",produces = {"application/json;charset=UTF-8"})
     public String updateuser(@RequestBody User user){
         userService.Update(user);
-        return "product";
-    }
-
-
-    @RequestMapping(value = "/product",produces = {"application/json;charset=UTF-8"})
-    public String index(){
-        return "product";
-    }
-
-    @RequestMapping(value = "/buyerord",produces = {"application/json;charset=UTF-8"})
-    public String buyerord(){
-        return "buyerord";
-    }
-
-    @RequestMapping(value = "/sellerord",produces = {"application/json;charset=UTF-8"})
-    public String sellerord(){
-        return "seller";
-    }
-
-    @RequestMapping(value = "/sellerupdate",produces = {"application/json;charset=UTF-8"})
-    public String sellerupdate(){
-
-        return "sellerupdate";
-    }
-
-    @RequestMapping(value = "/buyerupdate",produces = {"application/json;charset=UTF-8"})
-    public String buyerupdate(){
-
-        return "buyerupdate";
-    }
-
-    @RequestMapping(value = "/studyproduct",produces = {"application/json;charset=UTF-8"})
-    public String study(){
-
-        return "studyproduct";
-    }
-
-    @RequestMapping(value = "/productupdate",produces = {"application/json;charset=UTF-8"})
-    public String productup(){
-
-        return "productupdate";
-    }
-    @RequestMapping(value = "/userupdate",produces = {"application/json;charset=UTF-8"})
-    public String userup(){
-
-        return "userupdate";
-    }
-    @RequestMapping(value = "/user",produces = {"application/json;charset=UTF-8"})
-    public String userrounter(){
         return "user";
     }
-    @RequestMapping(value = "/admin",produces = {"application/json;charset=UTF-8"})
-    public String adminrounter(){
-        return "admin";
-    }
+
+
+
+
+
+
+
 
     @ResponseBody
     @RequestMapping(value = "/showDataStudy",produces = {"application/json;charset=UTF-8"})
@@ -360,9 +314,6 @@ public class ApplicationController {
     public String cancelRecommend(@RequestBody ProductDto productDto){
         return homeProductService.deleteProduct(productDto.getId());
     }
-    @RequestMapping("/homeProduct")
-    public String homeproductrounter(){
-        return "homeproduct";
-    }
+
 
 }

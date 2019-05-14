@@ -11,15 +11,15 @@
 <body>
 <div class="layui-form layui-form-pane"  id="product" action="" lay-filter="product">
     <div class="layui-form-item">
-        <label class="layui-form-label">订单ID</label>
+        <label class="layui-form-label">商品ID</label>
         <div class="layui-input-inline">
-            <input type="text" name="id" id="id" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+            <input type="text" name="id" id="id" lay-verify="required" readonly="readonly" placeholder="请输入" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">用户ID</label>
+        <label class="layui-form-label">卖家ID</label>
         <div class="layui-input-inline">
-            <input type="text" name="user_id" id="user_id" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+            <input type="text" name="user_id" id="user_id" readonly="readonly" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -57,7 +57,6 @@
         <div class="layui-input-block">
             <select name="type" id="type" lay-filter="aihao">
                 <option value="商品">商品</option>
-                <option value="求购" selected="">求购</option>
             </select>
         </div>
     </div>
@@ -130,8 +129,8 @@ layui.use(['form', 'layedit', 'laydate'], function(){
       type:"post",
       contentType:"application/json;charset=UTF-8",
       data:JSON.stringify(data.field),
-      success: function (result){
-     parent.layer.close(parent.layer.index);
+      success: function (res){
+       parent.layer.close(parent.layer.index);
   }
     });
   });

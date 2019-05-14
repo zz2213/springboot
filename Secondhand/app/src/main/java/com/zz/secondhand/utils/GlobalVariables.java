@@ -16,7 +16,7 @@ public class GlobalVariables {
     final static public String CREATE_PRODUCT_URL=MO_URL+"/ProductController/index";
     final static public String FIND_PRODUCT_TYPE =MO_URL+"/ProductController/findproductype";
     final static public String FIND_PRODUCT_STYLE=MO_URL+"/ProductController/findproductstyle";
-    final static public String CREATE_PRODUCTORD=MO_URL+"/ProductOrdController/index";
+    final static public String CREATE_PRODUCTORD=MO_URL+"/OrderForm/create";
     final static public String SELECT_PRODUCTORD=MO_URL+"/ProductOrdController/myorder";
     final static public String UPDATE_PRODUCT=MO_URL+"/ProductController/updateProductstatus";
     final static public String FIND_SELLER_ORDER=MO_URL+"/SellerOrdController/findsellordbyid";
