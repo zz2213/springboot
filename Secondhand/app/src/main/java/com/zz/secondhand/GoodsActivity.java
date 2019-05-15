@@ -49,7 +49,7 @@ public class GoodsActivity extends Activity {
         EditText price = findViewById(R.id.price);
         EditText qq = findViewById(R.id.qq);
         RadioGroup radioGroup=findViewById(R.id.rg);
-        product_type.setText(intent.getStringExtra("product_type"));
+        product_type.setText(intent.getStringExtra("productType"));
          select_image = findViewById(R.id.select_image);
         select_image.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -24,6 +24,7 @@ public class ProductController {
     ProductServive productServive;
     @RequestMapping(value = "/index",produces = {"application/json;charset=UTF-8"})
     public String index(@RequestParam("product") String product){
+        System.out.println(product);
         Product product1=JSON.parseObject(product, Product.class);
         productServive.createProduct(product1);
         return  "xx";

@@ -24,9 +24,9 @@
     <select id="queryAllCount" resultType="java.lang.Integer">
         select count(*) from seller_ord
     </select>
-    <update id="updateSellerOrd" parameterType="com.zz.secondhand.vo.SellerOrdVo"  >
+   <!-- <update id="updateSellerOrd" parameterType="com.zz.secondhand.vo.SellerOrdVo"  >
         update seller_ord set user_id=#{user_id},product_id=#{product_id},createtime=#{createtime},status=#{status},address=#{address} where id=#{id}
-    </update>
+    </update>-->
     <update id="updateSellerOrdBynumber">
         update seller_ord set status=#{status} where product_id=#{ordnumber}
     </update>

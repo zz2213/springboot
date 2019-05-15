@@ -35,11 +35,6 @@ public class RounterController {
     public String adminrounter(){
         return "admin";
     }
-    @RequestMapping(value = "/sellerupdate",produces = {"application/json;charset=UTF-8"})
-    public String sellerupdate(){
-
-        return "sellerupdate";
-    }
 
     @RequestMapping(value = "/buyerupdate",produces = {"application/json;charset=UTF-8"})
     public String buyerupdate(){
@@ -62,10 +57,7 @@ public class RounterController {
         return "buyerord";
     }
 
-    @RequestMapping(value = "/sellerord",produces = {"application/json;charset=UTF-8"})
-    public String sellerord(){
-        return "seller";
-    }
+
     @RequestMapping(value = "/adminupdate",produces = {"application/json;charset=UTF-8"})
     public String adminupdate(){
         return "adminupdate";

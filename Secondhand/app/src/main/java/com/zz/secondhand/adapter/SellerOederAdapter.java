@@ -14,7 +14,6 @@ import com.zz.secondhand.Login;
 import com.zz.secondhand.R;
 import com.zz.secondhand.activity.SellerOrdDetailed;
 import com.zz.secondhand.entity.OrderForm;
-import com.zz.secondhand.entity.SellerOrd;
 import com.zz.secondhand.entity.Token;
 import com.zz.secondhand.utils.Myapplication;
 import okhttp3.*;
@@ -74,18 +73,29 @@ public class SellerOederAdapter extends BaseAdapter {
         if(convertView == null) {
             convertView = inflater.inflate(resource, null);
             viewHolderOrder=new SellerOederAdapter.ViewHolderOrder();
-            viewHolderOrder.image= convertView.findViewById(R.id.sell_order_image);
             viewHolderOrder.textView= convertView.findViewById(R.id.sell_order_title);
-            viewHolderOrder.textViewst= convertView.findViewById(R.id.sellerorder_status);
+            viewHolderOrder.textViewst= convertView.findViewById(R.id.sell_order_status);
             viewHolderOrder.button= convertView.findViewById(R.id.sell_order_status_btn);
             viewHolderOrder.buttonDetailed = convertView.findViewById(R.id.sell_order_detailed);
             convertView.setTag(viewHolderOrder);
         }else{
             viewHolderOrder=(SellerOederAdapter.ViewHolderOrder) convertView.getTag();
         }
+        viewHolderOrder.textViewst.setText(list.get(position).getStatus());
         viewHolderOrder.textView.setText(list.get(position).getProduct().getTitle());
         final  Button button1= convertView.findViewById(R.id.sell_order_status_btn);
-        viewHolderOrder.button.setText(list.get(position).getStatus());
+        if ("未付款".equals(list.get(position).getStatus())){
+            viewHolderOrder.button.setText("等待付款");
+        }else if ("已付款".equals(list.get(position).getStatus())){
+            viewHolderOrder.button.setText("发货");
+        }else if ("已发货".equals(list.get(position).getStatus())){
+            viewHolderOrder.button.setText("等待收货");
+        }else if ("已收货".equals(list.get(position).getStatus())){
+            viewHolderOrder.button.setText("确认完成");
+        }
+        else if ("已完成".equals(list.get(position).getStatus())){
+            viewHolderOrder.button.setText("已完成");
+        }
         viewHolderOrder.button.setOnClickListener(v -> {
             switch (list.get(position).getStatus()){
                 case "已付款":
@@ -139,7 +149,7 @@ public class SellerOederAdapter extends BaseAdapter {
                     toast1.show();
                     OkHttpClient okHttpClient1 = new OkHttpClient();
                     RequestBody requestBody1 = new FormBody.Builder()
-                            .add("status", "完成")
+                            .add("status", "已完成")
                             .add("number", list.get(position).getOrdernember())
                             .build();
                     final Request request1 = new Request.Builder()
@@ -167,7 +177,7 @@ public class SellerOederAdapter extends BaseAdapter {
                                 Intent intent = new Intent(context,Login.class);
                                 context.startActivity(intent);
                             }else {
-                                button1.setText("完成");
+                                button1.setText("已完成");
                             }
 
                         }
@@ -186,7 +196,6 @@ public class SellerOederAdapter extends BaseAdapter {
         return convertView;
     }
     public static class ViewHolderOrder{
-        ImageView image;
         TextView textView;
         TextView textViewst;
         Button button;

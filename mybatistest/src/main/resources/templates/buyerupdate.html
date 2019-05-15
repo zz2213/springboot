@@ -13,45 +13,57 @@
     <div class="layui-form-item">
         <label class="layui-form-label">订单ID</label>
         <div class="layui-input-inline">
-            <input type="text" name="id" id="id" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+            <input type="text" name="id" id="id" lay-verify="required" readonly="readonly" placeholder="请输入" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">买家ID</label>
         <div class="layui-input-inline">
-            <input type="text" name="user_id" id="user_id" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+            <input type="text" name="user_id" id="user_id" lay-verify="required"  readonly="readonly" placeholder="请输入" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">买家姓名</label>
         <div class="layui-input-inline">
-            <input type="text" name="user_name" id="user_name" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+            <input type="text" name="user_name" id="user_name" lay-verify="required" readonly="readonly" placeholder="请输入" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">商家家ID</label>
+        <div class="layui-input-inline">
+            <input type="text" name="business_id" id="business_id" readonly="readonly"  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">商家姓名</label>
+        <div class="layui-input-inline">
+            <input type="text" name="business_name" id="business_name" readonly="readonly" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">商品ID</label>
         <div class="layui-input-inline">
-            <input type="text" name="product_id" id="product_id" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+            <input type="text" name="product_id" id="product_id" readonly="readonly" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">商品名称</label>
         <div class="layui-input-inline">
-            <input type="text" name="product_title" id="product_title" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+            <input type="text" name="product_title" id="product_title"  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <div class="layui-inline">
             <label class="layui-form-label">日期时间选择器</label>
             <div class="layui-input-inline">
-                <input type="text" class="layui-input" name="createtime" id="createtime" placeholder="yyyy-MM-dd HH:mm:ss">
+                <input type="text" class="layui-input" name="createtime" id="createtime" placeholder="yyyy-MM-dd HH:mm:ss" lay-key="1">
             </div>
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">价格</label>
         <div class="layui-input-inline">
-            <input type="text" name="product_price" id="product_price" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+            <input type="text" name="product_price" id="product_price"   lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -61,9 +73,21 @@
         </div>
     </div>
     <div class="layui-form-item">
+        <label class="layui-form-label">联系人</label>
+        <div class="layui-input-inline">
+            <input type="text" name="name" id="name" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">电话</label>
+        <div class="layui-input-inline">
+            <input type="text" name="phone" id="phone" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
         <label class="layui-form-label">订单号</label>
         <div class="layui-input-inline">
-            <input type="text" name="ordernember" id="ordernember" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+            <input type="text" name="ordernember" id="ordernember" lay-verify="required" readonly="readonly"  placeholder="请输入" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -97,12 +121,11 @@ layui.use(['form', 'layedit', 'laydate'], function(){
   ,layedit = layui.layedit
   ,laydate = layui.laydate;
 
-  //日期
   laydate.render({
     elem: '#date'
   });
   laydate.render({
-    elem: '#date1'
+    elem: '#createtime'
     ,type: 'datetime'
   });
 
@@ -128,7 +151,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
   //监听提交
   form.on('submit(demo1)', function(data){
     $.ajax({
-      url:"/ProductOrdController/updatebuyer",
+      url:"/OrderForm/updatebuyer",
       type:"post",
       contentType:"application/json;charset=UTF-8",
       data:JSON.stringify(data.field),

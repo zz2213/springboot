@@ -1,26 +1,60 @@
-package com.zz.secondhand.vo;
-
-import java.io.Serializable;
+package com.zz.secondhand.vo.dto;
 
 /**
  * @author Administrator
- * @title: SellerOrdVo
+ * @title: OrderFormDTO
  * @projectName mybatistest
  * @description: TODO
- * @date 2019/4/25 10:08
+ * @date 2019/5/159:10
  */
-public class SellerOrdVo implements Serializable {
+public class OrderFormDTO {
     private static final long serialVersionUID = 1L;
     Integer id;
     Integer user_id;
     String user_name;
+    Integer business_id;
+    String business_name;
     Integer product_id;
     String product_title;
     long  product_price;
     String createtime;
     String ordernember;
+    String name;
+    String phone;
     String address;
     String status;
+
+    public Integer getBusiness_id() {
+        return business_id;
+    }
+
+    public void setBusiness_id(Integer business_id) {
+        this.business_id = business_id;
+    }
+
+    public String getBusiness_name() {
+        return business_name;
+    }
+
+    public void setBusiness_name(String business_name) {
+        this.business_name = business_name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
     public Integer getId() {
         return id;
@@ -104,15 +138,19 @@ public class SellerOrdVo implements Serializable {
 
     @Override
     public String toString() {
-        return "SellerOrdVo{" +
+        return "OrderFormDTO{" +
                 "id=" + id +
                 ", user_id=" + user_id +
                 ", user_name='" + user_name + '\'' +
+                ", business_id=" + business_id +
+                ", business_name='" + business_name + '\'' +
                 ", product_id=" + product_id +
                 ", product_title='" + product_title + '\'' +
                 ", product_price=" + product_price +
                 ", createtime='" + createtime + '\'' +
                 ", ordernember='" + ordernember + '\'' +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
                 ", address='" + address + '\'' +
                 ", status='" + status + '\'' +
                 '}';

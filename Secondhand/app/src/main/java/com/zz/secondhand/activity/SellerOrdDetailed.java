@@ -9,13 +9,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import com.zz.secondhand.R;
 import com.zz.secondhand.entity.OrderForm;
-import com.zz.secondhand.entity.SellerOrd;
 
 import java.text.SimpleDateFormat;
 
 /**
  * @author Administrator
- * @date 2019/4/189:56
+ * @date 2019/4/18 9:56
  */
 public class SellerOrdDetailed extends Activity {
     @SuppressLint("SetTextI18n")

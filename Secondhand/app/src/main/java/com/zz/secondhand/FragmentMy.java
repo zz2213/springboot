@@ -104,11 +104,6 @@ public class FragmentMy extends Fragment {
             intent.putExtra("user",self);
             startActivity(intent);
         });
-        mywant.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), MyWantActivity.class);
-            intent.putExtra("user",self);
-            startActivity(intent);
-        });
         mygoods.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), MyGoodsActivity.class);
             intent.putExtra("user",self);

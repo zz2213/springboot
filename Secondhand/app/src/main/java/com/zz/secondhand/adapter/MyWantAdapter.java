@@ -60,7 +60,6 @@ public class MyWantAdapter extends BaseAdapter {
         if(convertView == null) {
             convertView = inflater.inflate(resource, null);
             viewHolderOrder=new ViewHolderOrder();
-            viewHolderOrder.image= convertView.findViewById(R.id.order_goods_image);
             viewHolderOrder.textView= convertView.findViewById(R.id.order_goods_title);
             viewHolderOrder.textView1= convertView.findViewById(R.id.order_goods_status);
             viewHolderOrder.button= convertView.findViewById(R.id.order_btn_status);

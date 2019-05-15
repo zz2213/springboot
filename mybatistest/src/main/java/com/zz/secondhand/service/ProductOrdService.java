@@ -6,7 +6,6 @@ import com.zz.secondhand.entity.SellerOrd;
 import com.zz.secondhand.mapper.ProductMapper;
 import com.zz.secondhand.mapper.ProductOrdMapper;
 import com.zz.secondhand.mapper.SellerOrdMapper;
-import com.zz.secondhand.vo.SellerOrdVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -61,7 +60,7 @@ public class ProductOrdService {
     public int queryAllCount(){
         return productOrdMapper.queryAllCount();
     }
-   public void updateBuyerOrd(SellerOrdVo sellerOrdVo, Product product){
+   /*public void updateBuyerOrd(SellerOrdVo sellerOrdVo, Product product){
        productServive.updateProduct(product);
        productOrdMapper.updateBuyerOrd(sellerOrdVo);
    }
@@ -71,5 +70,5 @@ public class ProductOrdService {
     sellerOrdMapper.updateSellerOrdBynumber(sellerOrd.getOrdernember(),"已取消");
        productMapper.updateProductstatus("在售",sellerOrdVo.getProduct_id());
        productOrdMapper.deletebuyerord(sellerOrdVo.getId());
-   }
+   }*/
 }

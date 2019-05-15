@@ -1,20 +1,13 @@
 package com.zz.secondhand.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.zz.secondhand.entity.*;
 import com.zz.secondhand.service.SellerOrdService;
-import com.zz.secondhand.vo.SellerOrdVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Administrator
@@ -33,7 +26,7 @@ public class OrderSellerController {
     public String findByid(@RequestParam("user_id") String user_id){
         return JSON.toJSONString(sellerOrdService.findSellerOrdByUserId(user_id));
     }
-    @RequestMapping(value = "/getseller",produces = {"application/json;charset=UTF-8"})
+   /* @RequestMapping(value = "/getseller",produces = {"application/json;charset=UTF-8"})
     public String querrysellerord(@RequestParam(required = false,defaultValue ="1" ) int page,
                                   @RequestParam(required = false,defaultValue ="15") int limit,
                                   @RequestParam(required = false) String ordernember){
@@ -61,8 +54,8 @@ public class OrderSellerController {
         jsonObject.put("count",countx);
         jsonObject.put("data",sellerOrdVos);
         return  jsonObject.toJSONString();
-    }
-    @RequestMapping(value = "/updateseller",produces = {"application/json;charset=UTF-8"})
+    }*/
+   /* @RequestMapping(value = "/updateseller",produces = {"application/json;charset=UTF-8"})
     public String updateserller(@RequestBody SellerOrdVo sellerOrdVo){
         Product product =new Product();
         product.setId(sellerOrdVo.getProduct_id());
@@ -76,5 +69,5 @@ public class OrderSellerController {
     public String deletesellerord(@RequestBody SellerOrdVo sellerOrdVo){
         sellerOrdService.deletesellerord(sellerOrdVo);
         return "ok";
-    }
+    }*/
 }

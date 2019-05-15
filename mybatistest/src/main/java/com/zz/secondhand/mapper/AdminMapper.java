@@ -14,6 +14,7 @@ import java.util.List;
  * @date 2019/4/2310:14
  */
 public interface AdminMapper {
+
     int insert(Admin admin);
     Admin findByName(String name);
    List<Admin> queeryalladmin(@Param("page") int page, @Param("limit") int limit, @Param("name") String name);

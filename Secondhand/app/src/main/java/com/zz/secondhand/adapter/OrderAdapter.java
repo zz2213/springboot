@@ -72,15 +72,28 @@ public class OrderAdapter  extends BaseAdapter {
         if(convertView == null) {
             convertView = inflater.inflate(resource, null);
             viewHolderOrder=new ViewHolderOrder();
-            viewHolderOrder.image= convertView.findViewById(R.id.order_goods_image);
             viewHolderOrder.textView= convertView.findViewById(R.id.order_goods_title);
+            viewHolderOrder.Orderstatus=convertView.findViewById(R.id.order_goods_status);
             viewHolderOrder.button= convertView.findViewById(R.id.order_btn_status);
             viewHolderOrder.buttonDetailed = convertView.findViewById(R.id.order_btn_detailed);
             convertView.setTag(viewHolderOrder);
         }else{
             viewHolderOrder=(ViewHolderOrder) convertView.getTag();
         }
-        viewHolderOrder.button.setText(list.get(position).getStatus());
+        viewHolderOrder.Orderstatus.setText(list.get(position).getStatus());
+        if ("未付款".equals(list.get(position).getStatus())){
+            viewHolderOrder.button.setText("付款");
+        }else if ("已付款".equals(list.get(position).getStatus())){
+            viewHolderOrder.button.setText("等待发货");
+        }else if ("已发货".equals(list.get(position).getStatus())){
+            viewHolderOrder.button.setText("确认收货");
+        }else if ("已收货".equals(list.get(position).getStatus())){
+            viewHolderOrder.button.setText("已完成");
+        }
+        else if ("已完成".equals(list.get(position).getStatus())){
+            viewHolderOrder.button.setText("已完成");
+        }
+
         viewHolderOrder.textView.setText(list.get(position).getProduct().getTitle());
         viewHolderOrder.button.setOnClickListener(v -> {
             switch (list.get(position).getStatus()){
@@ -134,7 +147,7 @@ public class OrderAdapter  extends BaseAdapter {
                                             Intent intent = new Intent(context,Login.class);
                                             context.startActivity(intent);
                                         }else {
-                                            viewHolderOrder.button.setText("已付款");
+                                            viewHolderOrder.button.setText("等待发货");
                                         }
 
                                     }
@@ -205,6 +218,7 @@ public class OrderAdapter  extends BaseAdapter {
     public static class ViewHolderOrder{
         ImageView image;
         TextView textView;
+        TextView Orderstatus;
         Button button;
         Button buttonDetailed;
 

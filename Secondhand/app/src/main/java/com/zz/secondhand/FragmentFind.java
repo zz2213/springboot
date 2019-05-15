@@ -32,16 +32,8 @@ public class FragmentFind extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
 
         super.onActivityCreated(savedInstanceState);
-        Button button = Objects.requireNonNull(getActivity()).findViewById(R.id.buy_want);
         Button button1 = getActivity().findViewById(R.id.goods);
         self =((MainActivity)getActivity()).getSelf();
-        button.setOnClickListener(v -> {
-            Toast.makeText(getContext(),"暂不支持",Toast.LENGTH_SHORT).show();
-            /*Intent intent = new Intent(getActivity(),GoodsActivity.class);
-            intent.putExtra("productType","求购");
-            intent.putExtra("user",self);
-            startActivity(intent);*/
-        });
         button1.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(),GoodsActivity.class);
             intent.putExtra("productType","商品");

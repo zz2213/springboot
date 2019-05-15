@@ -13,7 +13,6 @@ import com.zz.secondhand.Login;
 import com.zz.secondhand.R;
 import com.zz.secondhand.adapter.SellerOederAdapter;
 import com.zz.secondhand.entity.OrderForm;
-import com.zz.secondhand.entity.SellerOrd;
 import com.zz.secondhand.entity.Token;
 import com.zz.secondhand.entity.User;
 import com.zz.secondhand.utils.Myapplication;

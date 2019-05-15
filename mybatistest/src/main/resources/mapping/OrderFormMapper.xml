@@ -33,7 +33,86 @@
         select order_form.id,order_form.user_id,product_id,product.title,order_form.createtime,order_form.status,ordernember,name,phone,address from order_form join product on product_id= product.id where order_form.business_id=#{business_id}
     </select>
 
+    <select id="querySellerOrd" resultMap="TwoResultMap">
+        select
+        order_form.id,
+        user.realname,
+        order_form.user_id,
+        business_id,
+        business.realname as businessname,
+        product.title,product_id,
+        product.price,
+        order_form.createtime ,
+        order_form.status,
+        ordernember,
+        order_form.name,
+        phone,
+        address
+        from order_form
+        LEFT JOIN product on product_id =product.id
+        left join user on order_form.user_id =user.id
+        left join user as business on order_form.business_id =business .id
+        <where>
+            <if test="ordernember!=null and ordernember !=''">
+                ordernember LIKE CONCAT(#{ordernember},'%')
+            </if>
+        </where>
+        limit #{page},#{limit}
+    </select>
+    <select id="queryAllCount" resultType="java.lang.Integer">
+        select count(*) from order_form
+    </select>
+    <update id="updateOrder" parameterType="com.zz.secondhand.vo.dto.OrderFormDTO">
+        update order_form
+        <trim prefix="set" suffixOverrides=",">
+            <if test="user_id!=null and user_id!='' ">
+                user_id=#{user_id},
+            </if>
+            <if test="product_id!=null and product_id!='' ">
+                product_id=#{product_id},
+            </if>
+            <if test="createtime!=null">
+                createtime=#{createtime},
+            </if>
+            <if test="status!=null and status!=''">
+                status=#{status},
+            </if>
+            <if test="ordernember!=null and ordernember!=''">
+                ordernember=#{ordernember},
+            </if>
+            <if test="address!=null and address!=''">
+                address=#{address},
+            </if>
+            <if test="name!=null and name!=''">
+                name=#{name},
+            </if>
+            <if test="phone!=null and phone!=''">
+                phone=#{phone},
+            </if>
 
+        </trim>
+        where id=#{id};
+    </update>
+    <delete id="deleteorder" parameterType="java.lang.Integer">
+        DELETE FROM order_form where id=#{id}
+    </delete>
+
+    <resultMap id="TwoResultMap" type="com.zz.secondhand.entity.OrderForm">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="realname" jdbcType="VARCHAR" property="user.realname" />
+        <result column="user_id" jdbcType="INTEGER" property="user.id" />
+        <result column="business_id" jdbcType="INTEGER" property="business.id" />
+        <result column="businessname" jdbcType="VARCHAR" property="business.realname" />
+        <result column="title" jdbcType="VARCHAR" property="product.title" />
+        <result column="price" jdbcType="VARCHAR" property="product.price" />
+        <result column="product_id" jdbcType="INTEGER" property="product.id" />
+        <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+        <result column="status" jdbcType="VARCHAR" property="status" />
+        <result column="ordernember" jdbcType="VARCHAR" property="ordernember" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="phone" jdbcType="VARCHAR" property="phone" />
+        <result column="address" jdbcType="VARCHAR" property="address" />
+    </resultMap>
 
 
 

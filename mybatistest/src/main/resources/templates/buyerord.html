@@ -33,17 +33,21 @@ layui.use('table', function(){
 
   table.render({
     elem: '#test'
-    ,url:'/ProductOrdController/getbuyer'
-    ,title: '买家订单'
+    ,url:'/OrderForm/getbuyer'
+    ,title: '订单'
     ,cols: [
     [
        {field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
       ,{field:'user_id', title:'买家ID', width:120, edit: 'text'}
        ,{field:'user_name', title:'买家姓名', width:120, edit: 'text'}
+        ,{field:'business_id', title:'商家ID', width:120, edit: 'text'}
+       ,{field:'business_name', title:'商家姓名', width:120, edit: 'text'}
         ,{field:'product_id', title:'商品ID', width:120, edit: 'text'}
        ,{field:'product_title', title:'商品名', width:120, edit: 'text'}
         ,{field:'product_price', title:'商品价格', width:120, edit: 'text'}
       ,{field:'createtime', title:'创建时间', width:150, edit: 'text',}
+       ,{field:'name',title:'联系人', width:100, sort: true}
+        ,{field:'phone',title:'电话', width:100, sort: true}
       ,{field:'address',title:'地址', width:100, sort: true}
       ,{field:'ordernember', title:'订单号', width:120}
       ,{field:'status',title:'状态', width:120}
@@ -95,7 +99,7 @@ layui.use('table', function(){
       var index = layui.layer.open({
         type: 2
         ,value: data.user_id
-        ,area:['600px','600px']
+        ,area:['800px','800px']
         ,content:'buyerupdate',
         success: function(layero,index){
         var div = layero.find('iframe').contents().find('#product');
@@ -103,6 +107,8 @@ layui.use('table', function(){
         if(obj){
          div.find("#id").val(obj.data.id);
         div.find("#user_id").val(obj.data.user_id);
+         div.find("#business_id").val(obj.data.business_id);
+          div.find("#business_name").val(obj.data.business_name);
         div.find("#createtime").val(obj.data.createtime);
         div.find("#product_title").val(obj.data.product_title);
          div.find("#product_id").val(obj.data.product_id);
@@ -111,6 +117,8 @@ layui.use('table', function(){
           div.find("#status").val(obj.data.status);
            div.find("#product_price").val(obj.data.product_price);
            div.find("#address").val(obj.data.address);
+            div.find("#name").val(obj.data.name);
+            div.find("#phone").val(obj.data.phone);
         }
            },
            end: function() {

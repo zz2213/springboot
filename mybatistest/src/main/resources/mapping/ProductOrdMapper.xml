@@ -15,9 +15,9 @@
     <update id="updateProductOrdBynumber" >
         update product_ord set status=#{status} where product_id=#{ordnumber}
     </update>
-    <update id="updateBuyerOrd" parameterType="com.zz.secondhand.vo.SellerOrdVo"  >
+   <!-- <update id="updateBuyerOrd" parameterType="com.zz.secondhand.vo.SellerOrdVo"  >
         update product_ord set user_id=#{user_id},product_id=#{product_id},createtime=#{createtime},status=#{status},address=#{address} where id=#{id}
-    </update>
+    </update>-->
     <select id="querySellerOrd" resultMap="TwoResultMap">
         select product_ord.id,user.realname, product_ord.user_id,product.title,product_id,product.price,product_ord.createtime,product_ord.status,ordernember,address
         from product_ord  LEFT JOIN product on product_id =product.id left join user on product_ord.user_id =user.id
