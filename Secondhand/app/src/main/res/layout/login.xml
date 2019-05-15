@@ -19,7 +19,6 @@ android:id="@+id/aaa">
             android:layout_height="wrap_content"
             android:text="注册"
             android:id="@+id/login_btn_register"
-            android:onClick="resetpwd"
             android:textColor="#ffffff"
             android:background="#e52525"
             android:textSize="20dp"
@@ -33,7 +32,6 @@ android:id="@+id/aaa">
             android:layout_height="wrap_content"
             android:text="登录"
             android:id="@+id/login_btn_login"
-            android:onClick="finish_login"
             android:background="#545bcb"
             android:textSize="20dp"
             android:textColor="#ffffff"
@@ -78,20 +76,7 @@ android:id="@+id/aaa">
             android:layout_alignParentStart="true"
             android:layout_marginTop="20dp" />
 
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="注销"
-            android:id="@+id/login_btn_cancle"
-            android:textSize="20dp"
-            android:layout_below="@+id/login_btn_register"
-            android:layout_marginTop="10dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:textColor="#ffffff"
-            android:background="#3a1313" />
+
 
         <CheckBox
             android:layout_width="100dp"
@@ -104,15 +89,6 @@ android:id="@+id/aaa">
             android:checked="false"
             android:textSize="15dp" />
 
-        <TextView
-            android:layout_width="60dp"
-            android:layout_height="20dp"
-            android:text="修改密码"
-            android:id="@+id/login_text_change_pwd"
-            android:layout_below="@+id/login_edit_pwd"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:textSize="15dp" />
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/login_success_view"
