@@ -30,6 +30,7 @@ public class ProductServive {
         return productMapper.findProductByType(type,user_id);
    }
    public  ArrayList<Product> findProductByStyle(String style, String status){
+
         return productMapper.findProductByStyle(style,status);
    }
     public String updateProductstatus(String status,Integer id){

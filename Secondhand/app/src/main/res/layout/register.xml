@@ -40,10 +40,11 @@
         android:id="@+id/user_password"
         android:hint="请输入您的密码"/>
     <ImageView
-            android:layout_width="match_parent" android:layout_height="60dp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
             android:id="@+id/head_image"
-
-            android:contentDescription="TODO" android:src="@mipmap/ic_launcher"/>
+            android:contentDescription="TODO"
+            android:src="@drawable/p2"/>
     <EditText
             android:drawableLeft="@android:drawable/ic_lock_idle_lock"
             android:layout_width="match_parent" android:inputType="" 
