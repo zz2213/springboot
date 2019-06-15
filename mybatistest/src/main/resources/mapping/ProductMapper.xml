@@ -31,7 +31,7 @@
                 style=#{style}
             </if>
             <if test=" id != null">
-               and id=#{id}
+               and  title LIKE CONCAT(#{id},'%')
             </if>
         </where>
          limit #{page},#{limit}

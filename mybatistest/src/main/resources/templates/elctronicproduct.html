@@ -10,7 +10,7 @@
 </head>
 <body>
 <div class="demoTable">
-    搜索ID：
+    搜索商品：
     <div class="layui-inline">
         <input class="layui-input" name="id" id="demoReload" autocomplete="off">
     </div>
@@ -40,7 +40,7 @@ var $=layui.jquery,
       {field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
       ,{field:'user_id', title:'卖家ID', width:120, edit: 'text'}
       ,{field:'createtime', title:'创建时间', width:150, edit: 'text',}
-      ,{field:'title',title:'商品标题', width:80, edit: 'text'}
+      // ,{field:'title',title:'商品标题', width:80, edit: 'text'}
       ,{field:'image',title:'图片', templet:'<div><img src="data:image/png;base64,{{d.image}}"></div>'}
       ,{field:'description',title:'描述'}
       ,{field:'price',title:'价格', width:120}
@@ -52,70 +52,7 @@ var $=layui.jquery,
      ,id: 'testReload'
     ,page: true
   });
- var active = {
-    reload: function(){
-      var demoReload = $('#demoReload');
-       console.log(demoReload.val());
-      //执行重载
-      table.reload('testReload', {
-        page: {
-          curr: 1 //重新从第 1 页开始
-        }
-        ,where: {
-           id: demoReload.val()
-        }
-      });
-    }
-  };
-
-  $('.demoTable .layui-btn').on('click', function(){
-    var type = $(this).data('type');
-    active[type] ? active[type].call(this) : '';
-  });
-
-  //监听行工具事件
-  table.on('tool(test)', function(obj){
-    var data = obj.data;
-    if(obj.event === 'del'){
-      layer.confirm('真的删除行么', function(index){
-        $.ajax({
-      url:"/test2",
-      type:"post",
-      contentType:"application/json;charset=UTF-8",
-      data:JSON.stringify(obj.data),
-      success: function (result){
-      location.reload();
-  }
-    });
-        layer.close(index);
-      });
-    } else if(obj.event === 'edit'){
-      var index = layui.layer.open({
-        type: 2
-        ,value: data.user_id
-        ,area:['600px','600px']
-        ,content:'productupdate',
-        success: function(layero,index){
-        var div = layero.find('iframe').contents().find('#product');
-        var iframeWin = window[layero.find('iframe')[0]['name']];
-        if(obj){
-        div.find("#user_id").val(obj.data.user_id);
-        div.find("#createtime").val(obj.data.createtime);
-        div.find("#title").val(obj.data.title);
-         div.find("#style").val(obj.data.style);
-          div.find("#type").val(obj.data.type);
-           div.find("#description").val(obj.data.description);
-          div.find("#status").val(obj.data.status);
-           div.find("#price").val(obj.data.price);
-           div.find("#id").val(obj.data.id);
-        }
-           },
-           end: function() {
-        //刷新页面,
-		location.reload();
-	}
-
-      });
+ var active = {3
     }
     else{
      layer.confirm('推荐该商品', function(index){

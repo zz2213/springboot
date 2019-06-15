@@ -87,6 +87,7 @@ public class HomeAdapter extends BaseAdapter {
     public  static class ViewHolder{
         ImageView image;
         TextView textView;
+
         TextView textPrice;
         TextView textStatus;
     }

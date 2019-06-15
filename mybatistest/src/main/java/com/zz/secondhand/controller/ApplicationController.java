@@ -122,7 +122,7 @@ public class ApplicationController {
     public String studyshow(
             @RequestParam(required = false,defaultValue ="1" ) int page,
             @RequestParam(required = false,defaultValue ="15") int limit,
-            @RequestParam(required = false) Integer id
+            @RequestParam(required = false) String id
     ){
         List<ProductVo> datas=productServive.queryProductByStyle(page,limit,"学习",id);
         ArrayList<ProductDto> list= new ArrayList<ProductDto>();
@@ -161,7 +161,7 @@ public class ApplicationController {
     public String elctronicshow(
             @RequestParam(required = false,defaultValue ="1" ) int page,
             @RequestParam(required = false,defaultValue ="15") int limit,
-              @RequestParam(required = false) Integer id
+              @RequestParam(required = false) String id
     ){
         List<ProductVo> datas=productServive.queryProductByStyle(page,limit,"电子",id);
         ArrayList<ProductDto> list= new ArrayList<ProductDto>();
@@ -196,7 +196,7 @@ public class ApplicationController {
     public String methodshow(
             @RequestParam(required = false,defaultValue ="1" ) int page,
             @RequestParam(required = false,defaultValue ="15") int limit,
-            @RequestParam(required = false) Integer id
+            @RequestParam(required = false) String id
     ){
         List<ProductVo> datas=productServive.queryProductByStyle(page,limit,"生活",id);
         ArrayList<ProductDto> list= new ArrayList<ProductDto>();

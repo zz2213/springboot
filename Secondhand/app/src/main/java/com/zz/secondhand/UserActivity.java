@@ -83,6 +83,10 @@ public class UserActivity extends Activity {
         button.setOnClickListener(v -> {
             User newUser = new User();
             newUser.setId(self.getId());
+            if(imageUPdate==true){
+                Bitmap bitmap=((BitmapDrawable)imageView.getDrawable()).getBitmap();
+                newUser.setImage(ImageUtil.bitmap2bytes(bitmap));
+            }
 
             if(!"".equals(textrealName.getText().toString())){
                 newUser.setRealname(textrealName.getText().toString());
@@ -100,9 +104,9 @@ public class UserActivity extends Activity {
             if (!"".equals(textUsersschool.getText().toString())){
                 newUser.setSchool(textUsersschool.getText().toString());
             }
-            if(null == newUser.getRealname() && null == newUser.getPassword() && null == newUser.getNumber() && null == newUser.getQq() && null == newUser.getSchool())
+            if(null == newUser.getRealname() && null == newUser.getPassword() && null == newUser.getNumber() && null == newUser.getQq() && null == newUser.getSchool()&&imageUPdate==false)
             {
-              Toast toast=  Toast.makeText(UserActivity.this,"请输入修改内容null==newUser.getQq()",Toast.LENGTH_SHORT);
+              Toast toast=  Toast.makeText(UserActivity.this,"请输入修改内容",Toast.LENGTH_SHORT);
               toast.show();
             }else{
                 OkHttpClient okHttpClient = new OkHttpClient();
@@ -129,12 +133,10 @@ public class UserActivity extends Activity {
                             finish();
                         }
                         else{
-
                             Intent intent1 =new Intent();
                             intent1.putExtra("userresult",JSON.parseObject(result,User.class));
                            setResult(RESULT_OK,intent1);
                            finish();
-
                         }
                     }
                 });

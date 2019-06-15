@@ -45,6 +45,8 @@ public class FragmentMy extends Fragment {
     }
     private User self;
     private Myapplication myapplication;
+    Bitmap head;
+    ImageView headPhoto;
 
 
     @Nullable
@@ -67,11 +69,11 @@ public class FragmentMy extends Fragment {
         TextView btnSellerOrd = getActivity().findViewById(R.id.btn_seller_ord);
         TextView name= getActivity().findViewById(R.id.name);
         Button buttonCan = getActivity().findViewById(R.id.my_cancel_btn);
-        ImageView headPhoto = getActivity().findViewById(R.id.myhead);
+         headPhoto = getActivity().findViewById(R.id.myhead);
         self =((MainActivity)getActivity()).getSelf();
         name.setText(self.getName());
 
-        Bitmap head = ImageUtil.bytes2bitmap(self.getImage());
+        head = ImageUtil.bytes2bitmap(self.getImage());
         if (head !=null){
             Drawable drawable = new BitmapDrawable(getResources(), head);
             headPhoto.setImageDrawable(drawable);
@@ -85,8 +87,6 @@ public class FragmentMy extends Fragment {
             editor.apply();
             Intent intent = new Intent(getActivity(), Login.class);
             startActivity(intent);
-
-
         });
         btnSellerOrd .setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), SellerOrdActivity.class);
@@ -94,7 +94,6 @@ public class FragmentMy extends Fragment {
             startActivity(intent);
         });
         home.setOnClickListener(v -> {
-
             Intent intent = new Intent(getActivity(),UserActivity.class);
             intent.putExtra("user",self);
             startActivityForResult(intent,1);
@@ -116,8 +115,14 @@ public class FragmentMy extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode==RESULT_OK){
             self= (User) data.getSerializableExtra("userresult");
+            head = ImageUtil.bytes2bitmap(self.getImage());
+            if (head !=null){
+                Drawable drawable = new BitmapDrawable(getResources(), head);
+                headPhoto.setImageDrawable(drawable);
+            }else {
+                Toast.makeText(getContext(), "头像为空", Toast.LENGTH_SHORT).show();
+            }
         }
-
 
     }
 }

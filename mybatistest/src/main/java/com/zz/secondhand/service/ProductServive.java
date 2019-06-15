@@ -41,7 +41,7 @@ public class ProductServive {
             return "failure";
         }
     }
-    public  ArrayList<ProductVo> queryProductByStyle( int page, int limit,  String style,Integer id){
+    public  ArrayList<ProductVo> queryProductByStyle( int page, int limit,  String style,String id){
         page=(page-1)*limit;
         return productMapper.queryProductByStyle(page,limit,style,id);
     }

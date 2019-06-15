@@ -18,7 +18,7 @@ public interface ProductMapper {
     int createProduct(Product product);
     ArrayList<Product> findProductByType(@Param("type")String type ,@Param("user_id")Integer user_id);
     ArrayList<Product> findProductByStyle(@Param("style")String style , @Param("status")String status);
-    ArrayList<ProductVo> queryProductByStyle(@Param("page") int page, @Param("limit") int limit, @Param("style") String style,@Param("id") Integer id);
+    ArrayList<ProductVo> queryProductByStyle(@Param("page") int page, @Param("limit") int limit, @Param("style") String style,@Param("id") String id);
     int queryAllCount(String style);
     int updateProductstatus(@Param("status")String status,@Param("id")Integer id);
     int updateProduct(Product product);
